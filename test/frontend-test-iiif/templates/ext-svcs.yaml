@@ -23,7 +23,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: external-hauth
-  namespace: test-frontend-iiif
+  namespace: frontend-test-iiif
 spec:
   type: ExternalName
   externalName: test-hauth.test-hauth.svc.cluster.local
