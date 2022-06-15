@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-services-firehose
+  name: test-hauth
+  namespace: prod-argocd
+spec:
+  destination:
+    namespace: test-hauth
+    server: https://rancher.library.ucla.edu/k8s/clusters/c-t8h8s
+  project: iiif
+  source:
+    path: test/test-hauth
+    repoURL: https://github.com/UCLALibrary/gitops_kubernetes
+    targetRevision: main
+  syncPolicy:
+    automated: {}
