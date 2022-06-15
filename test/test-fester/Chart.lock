@@ -1,0 +1,6 @@
+dependencies:
+- name: fester
+  repository: https://uclalibrary.github.io/fester-helm/
+  version: 1.1.0
+digest: sha256:0f9cd741992ce0a62a913d851d2873bb13475c77588767d8ed7b4f4e812d1871
+generated: "2022-05-12T17:29:07.367622106-07:00"
