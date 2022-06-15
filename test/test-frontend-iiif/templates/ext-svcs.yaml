@@ -1,0 +1,29 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: external-fester
+  namespace: frontend-test-iiif
+spec:
+  type: ExternalName
+  externalName: test-fester.test-fester.svc.cluster.local
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: external-cantaloupe
+  namespace: frontend-test-iiif
+spec:
+  type: ExternalName
+  externalName: test-cantaloupe.test-cantaloupe.svc.cluster.local
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: external-hauth
+  namespace: test-frontend-iiif
+spec:
+  type: ExternalName
+  externalName: test-hauth.test-hauth.svc.cluster.local
