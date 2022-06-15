@@ -1,0 +1,42 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: {{ include "test-hauth.fullname" . }}
+spec:
+  refreshInterval: 10m
+  secretStoreRef:
+    name: services-ss
+    kind: SecretStore
+  target:
+    name: {{ include "test-hauth.fullname" . }}-secrets
+  data:
+  - secretKey: API_KEY
+    remoteRef:
+      key: /services/prodeks/test-hauth/api_key
+  - secretKey: CAMPUS_NETWORK_SUBNETS
+    remoteRef:
+      key: 	/services/prodeks/test-hauth/campus_network_subnets
+  - secretKey: DB_HOST
+    remoteRef:
+      key: 	/services/prodeks/test-hauth/db_host
+  - secretKey: DB_NAME
+    remoteRef:
+      key: 	/services/prodeks/test-hauth/db_name
+  - secretKey: DB_PASSWORD
+    remoteRef:
+      key: 	/services/prodeks/test-hauth/db_password
+  - secretKey: DB_USER
+    remoteRef:
+      key: 	/services/prodeks/test-hauth/db_user
+  - secretKey: SECRET_KEY_PASSWORD
+    remoteRef:
+      key: 	/services/prodeks/test-hauth/secret_key_generation_password
+  - secretKey: SECRET_KEY_SALT
+    remoteRef:
+      key: /services/prodeks/test-hauth/secret_key_generation_salt
+  - secretKey: SINAI_COOKIE_SECRET_KEY_PASSWORD
+    remoteRef:
+      key: /services/prodeks/test-hauth/sinai_cookie_secret_key_generation_password
+  - secretKey: SINAI_COOKIE_VALID_PREFIX
+    remoteRef:
+      key: /services/prodeks/test-hauth/sinai_cookie_valid_prefix

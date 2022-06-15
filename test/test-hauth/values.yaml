@@ -1,0 +1,95 @@
+hauth:
+  # Default values for cantaloupe.
+  # This is a YAML-formatted file.
+  # Declare variables to be passed into your templates.
+
+  replicaCount: 1
+
+  #image:
+    #tag: ""
+  imagePullSecrets:
+    - name: services-dockerhub
+  nameOverride: ""
+  fullnameOverride: ""
+
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: true
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ""
+
+  podAnnotations: {}
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    port: 80
+
+  ingress:
+    enabled: false
+    className: ""
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    hosts:
+      - host: chart-example.local
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 2Gi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+  hauth:
+    env:
+      HAUTH_VERSION: "0.0.7"
+      ACCESS_COOKIE_DOMAIN: "iiif.library.ucla.edu"
+    envSecrets:
+      API_KEY: "test-hauth-secrets"
+      CAMPUS_NETWORK_SUBNETS: "test-hauth-secrets"
+      DB_HOST: "test-hauth-secrets"
+      DB_NAME: "test-hauth-secrets"
+      DB_PASSWORD: "test-hauth-secrets"
+      DB_USER: "test-hauth-secrets"
+      SECRET_KEY_PASSWORD: "test-hauth-secrets"
+      SECRET_KEY_SALT: "test-hauth-secrets"
+      SINAI_COOKIE_SECRET_KEY_PASSWORD: "test-hauth-secrets"
+      SINAI_COOKIE_VALID_PREFIX: "test-hauth-secrets"
