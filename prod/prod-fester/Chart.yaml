@@ -1,6 +1,6 @@
 apiVersion: v2
-name: test-fester
-description: Parent chart that pulls in Cantaloupe and Fester for Image and Manifest services
+name: prod-fester
+description: Umbrella helm chart to deploy fester into production
 type: application
 
 # This is the chart version. This version number should be incremented each time you make changes
