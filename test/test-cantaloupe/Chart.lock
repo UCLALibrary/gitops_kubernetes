@@ -1,0 +1,6 @@
+dependencies:
+- name: cantaloupe
+  repository: https://chartmuseum.library.ucla.edu
+  version: 5.0.5
+digest: sha256:7e558e21689f08cfdb216a98e1c027ce2584c6d077f832e4371dfa40f9ffaeb9
+generated: "2022-06-02T17:46:36.878265684-07:00"
