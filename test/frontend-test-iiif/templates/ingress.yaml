@@ -62,7 +62,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: external-test-hauth
+            name: external-hauth
             port:
               number: 80
   tls:
