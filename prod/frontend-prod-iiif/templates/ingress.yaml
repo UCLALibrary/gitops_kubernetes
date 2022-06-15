@@ -1,0 +1,91 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend-iiif-ingress
+  namespace: frontend-prod-iiif
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: "sectigo-acme-clusterissuer"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+        set $upstreamHost $host;
+        if ($uri ~ "/.*viewers.*") {
+          set $upstreamHost "dlp-viewers.s3-website-us-west-2.amazonaws.com";
+        }
+    nginx.ingress.kubernetes.io/upstream-vhost: $upstreamHost
+spec:
+  rules:
+  - host: iiif.library.ucla.edu
+    http:
+      paths:
+      - path: /.*/manifest
+        pathType: Prefix
+        backend:
+          service:
+            name: external-fester
+            port:
+              number: 80
+      - path: /fester.*
+        pathType: Prefix
+        backend:
+          service:
+            name: external-fester
+            port:
+              number: 80
+      - path: /collections/*
+        pathType: Prefix
+        backend:
+          service:
+            name: external-fester
+            port:
+              number: 80
+      - path: /.*viewers/mirador.*
+        pathType: Prefix
+        backend:
+          service:
+            name: external-mirador
+            port:
+              number: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: external-cantaloupe
+            port:
+              number: 80
+  tls:
+    - hosts:
+      - iiif.library.ucla.edu
+      secretName: frontend-prod-iiif-tls
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend-auth-ingress
+  namespace: frontend-prod-iiif
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: "sectigo-acme-clusterissuer"
+spec:
+  rules:
+  - host: auth.iiif.library.ucla.edu
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: external-hauth
+            port:
+              number: 80
+  tls:
+    - hosts:
+      - auth.iiif.library.ucla.edu
+      secretName: frontend-prod-hauth-tls
