@@ -1,0 +1,6 @@
+dependencies:
+- name: hauth
+  repository: https://chartmuseum.library.ucla.edu
+  version: 0.0.7
+digest: sha256:e7ac9c0d8e470961e0d71b3826246280f53e4622579b18f3446631dc2f5dde19
+generated: "2022-06-10T13:26:16.650866101-07:00"
