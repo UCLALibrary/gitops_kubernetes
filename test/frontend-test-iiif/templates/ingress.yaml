@@ -10,6 +10,12 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: "true"
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: "sectigo-acme-clusterissuer"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+        set $upstreamHost $host;
+        if ($uri ~ "/.*viewers.*") {
+          set $upstreamHost "dlp-viewers.s3-website-us-west-2.amazonaws.com";
+        }
+    nginx.ingress.kubernetes.io/upstream-vhost: $upstreamHost
 spec:
   rules:
   - host: test.iiif.library.ucla.edu
@@ -27,6 +33,13 @@ spec:
         backend:
           service:
             name: external-fester
+            port:
+              number: 80
+      - path: /.*viewers/mirador.*
+        pathType: Prefix
+        backend:
+          service:
+            name: external-mirador
             port:
               number: 80
       - path: /
