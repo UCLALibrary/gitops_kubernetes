@@ -13,7 +13,7 @@ metadata:
     nginx.ingress.kubernetes.io/configuration-snippet: |
         set $upstreamHost $host;
         if ($uri ~ "/.*viewers.*") {
-          set $upstreamHost "dlp-viewers.s3-website-us-west-2.amazonaws.com";
+          set $upstreamHost "test-dlp-viewers.s3-website-us-west-2.amazonaws.com";
         }
     nginx.ingress.kubernetes.io/upstream-vhost: $upstreamHost
 spec:
