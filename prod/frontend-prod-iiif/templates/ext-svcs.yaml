@@ -32,6 +32,16 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
+  name: external-libcalproxy
+  namespace: frontend-prod-iiif
+spec:
+  type: ExternalName
+  externalName: prod-libcalproxy.prod-libcalproxy.svc.cluster.local
+
+---
+kind: Service
+apiVersion: v1
+metadata:
   name: external-mirador
   namespace: frontend-prod-iiif
 spec:

@@ -89,3 +89,32 @@ spec:
     - hosts:
       - auth.iiif.library.ucla.edu
       secretName: frontend-prod-hauth-tls
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend-libcalproxy-ingress
+  namespace: frontend-prod-iiif
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: "sectigo-acme-clusterissuer"
+spec:
+  rules:
+  - host: proxy.calendar.library.ucla.edu
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: external-libcalproxy
+            port:
+              number: 80
+  tls:
+    - hosts:
+      - proxy.calendar.library.ucla.edu
+      secretName: frontend-prod-libcalproxy-tls
