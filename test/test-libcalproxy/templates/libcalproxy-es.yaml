@@ -1,0 +1,28 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: test-libcalproxy
+  namespace: test-libcalproxy
+spec:
+  refreshInterval: 10m
+  secretStoreRef:
+    name: services-clustersecretstore
+    kind: ClusterSecretStore
+  target:
+    name: test-libcalproxy-secrets
+  data:
+  - secretKey: LIBCAL_CLIENT1_ID
+    remoteRef:
+      key: /services/prodeks/test-libcalproxy/libcal_client1_id
+  - secretKey: LIBCAL_CLIENT1_SECRET
+    remoteRef:
+      key: /services/prodeks/test-libcalproxy/libcal_client1_secret
+  - secretKey: LIBCAL_CLIENT2_ID
+    remoteRef:
+      key: /services/prodeks/test-libcalproxy/libcal_client2_id
+  - secretKey: LIBCAL_CLIENT2_SECRET
+    remoteRef:
+      key: /services/prodeks/test-libcalproxy/libcal_client2_secret
+  - secretKey: LIBCAL_ALLOWED_IPS
+    remoteRef:
+      key: /services/prodeks/test-libcalproxy/libcal_allowed_ips
