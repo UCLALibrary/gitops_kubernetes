@@ -5,8 +5,8 @@ libcalproxy:
 
   replicaCount: 1
 
-  #image:
-    #tag: ""
+  image:
+    tag: "0.2.0"
   imagePullSecrets:
     - name: services-dockerhub
   nameOverride: ""
