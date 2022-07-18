@@ -42,6 +42,13 @@ spec:
             name: external-mirador
             port:
               number: 80
+      - path: /collections/*
+        pathType: Prefix
+        backend:
+          service:
+            name: external-fester
+            port:
+              number: 80
       - path: /
         pathType: Prefix
         backend:
