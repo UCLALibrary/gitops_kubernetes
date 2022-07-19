@@ -1,0 +1,27 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: prod-argocd-external
+spec:
+  refreshInterval: 10m
+  secretStoreRef:
+    name: prod-argocd-ss
+    kind: SecretStore
+  target:
+    name: argocd-secret
+  data:
+  - secretKey: ldap.binddn
+    remoteRef:
+      key: /devsupport/prodsoftwaredev/prod-argocd/uclalibrary_bind_dn
+  - secretKey: ldap.bindpw
+    remoteRef:
+      key: /devsupport/prodsoftwaredev/prod-argocd/uclalibrary_bind_pw
+  - secretKey: ldap.cacrt
+    remoteRef:
+      key: /devsupport/prodsoftwaredev/prod-argocd/uclalibrary_ad_ca_crt
+  - secretKey: server.secretkey
+    remoteRef:
+      key: /devsupport/prodsoftwaredev/prod-argocd/uclalibrary_server_secretkey
+  - secretKey: slack.token
+    remoteRef:
+      key: /devsupport/prodsoftwaredev/prod-argocd/uclalibrary_slack_token
