@@ -22,6 +22,20 @@ spec:
   - secretKey: server.secretkey
     remoteRef:
       key: /devsupport/prodsoftwaredev/prod-argocd/uclalibrary_server_secretkey
-  - secretKey: slack.token
+
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: prod-argocd-external
+spec:
+  refreshInterval: 10m
+  secretStoreRef:
+    name: prod-argocd-ss
+    kind: SecretStore
+  target:
+    name: argocd-notifications-secret
+  data:
+  - secretKey: slack-token
     remoteRef:
       key: /devsupport/prodsoftwaredev/prod-argocd/uclalibrary_slack_token
