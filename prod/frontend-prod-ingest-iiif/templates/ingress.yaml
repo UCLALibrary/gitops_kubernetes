@@ -28,5 +28,5 @@ spec:
               number: 80
   tls:
     - hosts:
-      - ingest-iiif.library.ucla.edu
+      - ingest.iiif.library.ucla.edu
       secretName: frontend-prod-ingest-iiif-tls
