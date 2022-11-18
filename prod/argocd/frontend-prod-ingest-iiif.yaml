@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-services-firehose
+  name: frontend-prod-ingest-iiif
+  namespace: prod-argocd
+spec:
+  destination:
+    namespace: frontend-prod-ingest-iiif
+    server: https://rancher.library.ucla.edu/k8s/clusters/c-jmtdz
+  project: iiif
+  source:
+    path: prod/frontend-prod-ingest-iiif
+    repoURL: https://github.com/UCLALibrary/gitops_kubernetes
+    targetRevision: main
+  syncPolicy:
+    automated: {}
