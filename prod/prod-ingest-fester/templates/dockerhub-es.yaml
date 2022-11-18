@@ -6,7 +6,7 @@ spec:
   refreshInterval: 10m
   secretStoreRef:
     name: services-clustersecretstore
-    kind: SecretStore
+    kind: ClusterSecretStore
   target:
     name: services-dockerhub
     template:
