@@ -5,8 +5,8 @@ hauth:
 
   replicaCount: 1
 
-  #image:
-    #tag: ""
+  image:
+    tag: "0.0.8"
   imagePullSecrets:
     - name: services-dockerhub
   nameOverride: ""
