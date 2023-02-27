@@ -1,5 +1,5 @@
 hauth:
-  # Default values for cantaloupe.
+  # Default values for Hauth - Chart.yml must also be updated.
   # This is a YAML-formatted file.
   # Declare variables to be passed into your templates.
 
