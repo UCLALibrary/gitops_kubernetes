@@ -1,5 +1,5 @@
 hauth:
-  # Default values for Hauth - Chart.yml must also be updated.
+  # Default values for Hauth.
   # This is a YAML-formatted file.
   # Declare variables to be passed into your templates.
 
