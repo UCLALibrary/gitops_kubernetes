@@ -3,8 +3,9 @@ traefikconfig:
     - 164.67.40.0/24
     - 164.67.48.0/24
 
-certmanager:
-  enabled: true
+cert-manager:
+  enable: true
+  installCRDs: true
 
 external_secrets:
   refresh_interval: 10m
