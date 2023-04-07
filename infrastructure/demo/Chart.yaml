@@ -4,8 +4,8 @@ description: A controller chart that deploys secrets + versions of ArgoCD
 type: application
 version: 1.0.0
 # ArgoCD Helm chart Version
-appVersion: "5.19.14"
+appVersion: "5.28.1"
 dependencies:
   - name: argo-cd
-    version: 5.19.14
+    version: 5.28.1
     repository: https://argoproj.github.io/argo-helm
