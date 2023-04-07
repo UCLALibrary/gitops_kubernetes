@@ -1,0 +1,9 @@
+{{- if .Values.traefikconfig }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: argocd-whitelist-ipranges
+spec:
+  ipWhiteList:
+    sourceRange: {{ .Values.traefikconfig.ipranges }}
+{{- end }}

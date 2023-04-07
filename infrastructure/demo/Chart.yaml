@@ -1,11 +1,15 @@
 apiVersion: v2
-name: demo
+name: argocd-ucla
 description: A controller chart that deploys secrets + versions of ArgoCD
 type: application
 version: 1.0.0
 # ArgoCD Helm chart Version
 appVersion: "5.28.1"
 dependencies:
+  - name: cert-manager
+    version: 1.11.1
+    repository: https://charts.jetstack.io
+    condition: certmanager.enabled
   - name: argo-cd
     version: 5.28.1
     repository: https://argoproj.github.io/argo-helm
