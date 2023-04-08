@@ -1,5 +1,16 @@
 dev_mode : false
 
+argocd_applications:
+  argocd_namespace: argocd
+  entries:
+    - name: argocd
+      deployment_namespace: argocd
+      project: default
+      destination: https://kubernetes.default.svc
+      sources:
+        - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
+          path: infrastructure/argocd.library.ucla.edu
+          revision: main
 traefik_config:
   middleware:
     ipranges:

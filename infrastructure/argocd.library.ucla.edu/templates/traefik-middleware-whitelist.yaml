@@ -5,5 +5,5 @@ metadata:
   name: argocd-whitelist-ipranges
 spec:
   ipWhiteList:
-    sourceRange: {{ .Values.traefik_config.ipranges }}
+    sourceRange: {{ .Values.traefik_config.middleware.ipranges }}
 {{- end }}
