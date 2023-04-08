@@ -5,12 +5,12 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: {{ $v.name }}
-  namespace: {{ $v.deployment_namespace }}
+  namespace: {{ $.Values.argocd_applications.argocd_namespace }}
 spec:
   project: {{ $v.project }}
   destination:
     server: {{ $v.destination }}
-    namespace: {{ $.Values.argocd_namespace }}
+    namespace: {{ $v.deployment_namespace }}
   {{- if $v.sources }}
   {{- range $w := $v.sources }}
   sources:
