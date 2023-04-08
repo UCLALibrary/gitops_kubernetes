@@ -1,33 +1,12 @@
-traefikconfig:
-  ipranges:
-    - 164.67.40.0/24
-    - 164.67.48.0/24
-
-selfsigned_issuer:
-  enabled: true
+dev:
+  env: true
 
 external_secrets:
-  refresh_interval: 10m
-  enabled: true
-  secretstoreref_name: argocd-clustersecretstore
-  secretstoreref_type: ClusterSecretStore
-  server:
-    secretkey: /devsupport/argocd/server/server_secretkey
-  clusters:
-    - base: /devsupport/argocd/cluster
-      name: prodsoftwaredev
-    - base: /devsupport/argocd/cluster
-      name: prodeks
-    - base: /devsupport/argocd/cluster
-      name: testsoftwaredev
+  enabled: false
   ldap:
-    enabled: true
-    bind_dn_key: /devsupport/argocd/ldap/uclalibrary_bind_dn
-    bind_dn_pw: /devsupport/argocd/ldap/uclalibrary_bind_pw
-    ca_crt: /devsupport/argocd/ldap/uclalibrary_ad_ca_crt
+    enabled: false
   slack:
-    enabled: true
-    token: /devsupport/argocd/slack/token
+    enabled: false
 
 argo-cd:
   ## Argo CD configuration
@@ -1443,11 +1422,9 @@ argo-cd:
 
     ingress:
       # -- Enable an ingress resource for the Argo CD server
-      enabled: true
+      enabled: false
       # -- Additional ingress annotations
-      annotations:
-        cert-manager.io/cluster-issuer: selfsigned-cluster-issuer
-        traefik.ingress.kubernetes.io/router.middlewares: argocd-whitelist-ipranges@kubernetescrd
+      annotations: {}
       # -- Additional ingress labels
       labels: {}
       # -- Defines which ingress controller will implement the resource
@@ -1457,9 +1434,8 @@ argo-cd:
       ## Argo Ingress.
       ## Hostnames must be provided if Ingress is enabled.
       ## Secrets must be manually created in the namespace
-
       hosts:
-        - argocd.library.ucla.edu
+        []
         # - argocd.example.com
 
       # -- List of ingress paths
@@ -1485,9 +1461,7 @@ argo-cd:
 
       # -- Ingress TLS configuration
       tls:
-        - secretName: argocd-tls-certificate
-          hosts:
-            - argocd.library.ucla.edu
+        []
         # - secretName: argocd-tls-certificate
         #   hosts:
         #     - argocd.example.com
@@ -1599,7 +1573,7 @@ argo-cd:
 
       # admin.enabled indicates whether the admin user is enabled. It is enabled by default.
       # https://argo-cd.readthedocs.io/en/latest/faq/#how-to-disable-admin-user
-      admin.enabled: "false"
+      admin.enabled: "true"
 
       # Application reconciliation timeout is the max amount of time required to discover if a new manifests version got
       # published to the repository. Reconciliation by timeout is disabled if timeout is set to 0. Three minutes by default.
@@ -1608,24 +1582,6 @@ argo-cd:
       # Timeout to refresh application data as well as target manifests cache
       timeout.hard.reconciliation: "0"
 
-      dex.config: |
-        connectors:
-          - type: ldap
-            name: UCLA Library AD
-            id: ad
-            config:
-              host: lit01.ad.library.ucla.edu:636
-              bindDN: $ldap.binddn
-              bindPW: $ldap.bindpw
-              rootCAData: $ldap.cacrt
-              userSearch:
-                baseDN: "dc=ad,dc=library,dc=ucla,dc=edu"
-                filter: "(objectClass=person)"
-                username: sAMAccountName
-                idAttr: distinguishedName
-                emailAttr: mail
-                nameAttr: displayName
-   
       # Dex configuration
       # dex.config: |
       #   connectors:
@@ -1659,14 +1615,7 @@ argo-cd:
     # -- Argo CD rbac config ([Argo CD RBAC policy])
     ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/rbac.md
     rbacConfig:
-      policy.default: role:none
-      scopes: '[groups, email]'
-      policy.csv: |
-        p, role:none, *, *, */*, deny
-        g, avuong@library.ucla.edu, role:admin
-        g, sgurnick@library.ucla.edu, role:admin
-        g, jhriv@library.ucla.edu, role:admin
-   
+      {}
       # policy.csv is a file containing user-defined RBAC policies and role definitions (optional).
       # Policy rules are in the form:
       #   p, subject, resource, action, object, effect
@@ -2453,9 +2402,9 @@ argo-cd:
     # -- Configures notification services such as slack, email or custom webhook
     # @default -- See [values.yaml]
     ## For more information: https://argocd-notifications.readthedocs.io/en/stable/services/overview/
-    notifiers:
-      service.slack: |
-        token: $slack-token
+    notifiers: {}
+      # service.slack: |
+      #   token: $slack-token
 
     # -- Annotations to be applied to the controller Pods
     podAnnotations: {}

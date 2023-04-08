@@ -1,4 +1,4 @@
-{{- if .Values.traefikconfig }}
+{{- if .Values.traefik_config.middleware }}
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
