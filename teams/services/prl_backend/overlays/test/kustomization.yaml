@@ -13,3 +13,5 @@ configMapGenerator:
 - name: prlbackend-cm
   envs:
   - .env
+generatorOptions:
+  disableNameSuffixHash: true
