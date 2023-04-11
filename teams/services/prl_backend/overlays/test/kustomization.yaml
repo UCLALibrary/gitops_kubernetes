@@ -1,0 +1,15 @@
+#namePrefix: test-
+commonLabels: {}
+resources:
+- ../../base
+- postgres-external-secrets.yaml
+patchesStrategicMerge: []
+
+images:
+  - name: uclalibrary/prl-harvester
+    newTag: 0.1.2
+
+configMapGenerator:
+- name: prlbackend-env
+  files:
+  - test.env
