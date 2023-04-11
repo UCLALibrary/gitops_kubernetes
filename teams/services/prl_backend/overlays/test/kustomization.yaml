@@ -3,7 +3,13 @@ commonLabels: {}
 resources:
 - ../../base
 - postgres-external-secrets.yaml
-patchesStrategicMerge: []
+#patchesStrategicMerge: []
+
+patches:
+- target:
+    kind: Ingress
+    name: prlbackend
+  path: ingress-patch.json
 
 images:
   - name: uclalibrary/prl-harvester
@@ -15,3 +21,5 @@ configMapGenerator:
   - .env
 generatorOptions:
   disableNameSuffixHash: true
+
+
