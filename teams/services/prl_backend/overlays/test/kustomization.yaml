@@ -3,6 +3,7 @@ commonLabels: {}
 resources:
 - ../../base
 - postgres-external-secrets.yaml
+- prlbackend-basic-auth-external-secrets.yaml
 #patchesStrategicMerge: []
 
 patches:
