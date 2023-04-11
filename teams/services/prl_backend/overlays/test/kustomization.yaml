@@ -11,5 +11,5 @@ images:
 
 configMapGenerator:
 - name: prlbackend-cm
-  files:
+  envs:
   - .env
