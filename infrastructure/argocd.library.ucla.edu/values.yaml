@@ -27,7 +27,7 @@ argocd_applications:
         notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-services-firehose
       sources:
         - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
-          path: teams/services/prl_backend/test
+          path: teams/services/prl_backend/overlays/test
           revision: main
 
 traefik_config:
