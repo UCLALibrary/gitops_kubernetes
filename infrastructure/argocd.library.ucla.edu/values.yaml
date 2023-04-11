@@ -2,6 +2,14 @@ dev_mode : false
 
 argocd_applications:
   argocd_namespace: argocd
+  default_sync_policy:
+    syncPolicy:
+      automated:
+        selfHeal: true
+        allowEmpty: false
+      syncOptions:
+        - CreateNamespace=true
+        - PruneLast=true
   entries:
     - name: argocd
       deployment_namespace: argocd
@@ -11,6 +19,17 @@ argocd_applications:
         - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
           path: infrastructure/argocd.library.ucla.edu
           revision: main
+    - name: test-prlbackend
+      deployment_namespace: test-prlbackend
+      project: default
+      destination: testsoftwaredev
+      annotations:
+        notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-services-firehose
+      sources:
+        - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
+          path: teams/services/prl_backend/test
+          revision: main
+
 traefik_config:
   middleware:
     ipranges:
