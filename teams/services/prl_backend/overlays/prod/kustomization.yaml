@@ -1,0 +1,26 @@
+#namePrefix: test-
+commonLabels: {}
+resources:
+- ../../base
+- postgres-external-secrets.yaml
+- prlbackend-basic-auth-external-secrets.yaml
+#patchesStrategicMerge: []
+
+patches:
+- target:
+    kind: Ingress
+    name: prlbackend
+  path: ingress-patch.json
+
+images:
+  - name: uclalibrary/prl-harvester
+    newTag: 0.1.2
+
+configMapGenerator:
+- name: prlbackend-cm
+  envs:
+  - .env
+generatorOptions:
+  disableNameSuffixHash: true
+
+
