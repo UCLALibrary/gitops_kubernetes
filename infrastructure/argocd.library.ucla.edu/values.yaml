@@ -14,7 +14,7 @@ argocd_applications:
     - name: argocd
       deployment_namespace: argocd
       project: default
-      destination: https://kubernetes.default.svc
+      destination: in-cluster
       sources:
         - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
           path: infrastructure/argocd.library.ucla.edu
