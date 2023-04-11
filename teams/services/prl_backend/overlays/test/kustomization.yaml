@@ -10,6 +10,6 @@ images:
     newTag: 0.1.2
 
 configMapGenerator:
-- name: prlbackend-env
+- name: prlbackend-cm
   files:
   - test.env
