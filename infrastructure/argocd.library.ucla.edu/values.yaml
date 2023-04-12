@@ -20,25 +20,25 @@ argocd_applications:
         - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
           path: infrastructure/argocd.library.ucla.edu
           revision: main
-    - name: test-prlbackend
-      deployment_namespace: test-prlbackend
+    - name: test-prl-harvester
+      deployment_namespace: test-prl-harvester
       project: default
       destination: testsoftwaredev
       annotations:
         notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-services-firehose
       sources:
         - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
-          path: teams/services/prl_backend/overlays/test
+          path: teams/services/prl_harvester/overlays/test
           revision: main
-    - name: prod-prlbackend
-      deployment_namespace: prod-prlbackend
+    - name: prod-prl-harvester
+      deployment_namespace: prod-prl-harvester
       project: default
       destination: prodsoftwaredev
       annotations:
         notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-services-firehose
       sources:
         - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
-          path: teams/services/prl_backend/overlays/prod
+          path: teams/services/prl_harvester/overlays/prod
           revision: main
 
 traefik_config:
