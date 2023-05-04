@@ -613,9 +613,9 @@ extraTemplates:
           {{- else }}
           chart: {{ $w.chart }}
           {{- end }}
-          {{- if $w.valueFilePaths }}
+          {{- if $w.valueFiles }}
           helm:
-            valuesFile: {{ $w.valueFilePaths }}
+            valueFiles: {{ $w.valueFiles }}
           {{- end }}
       {{- end }}
       {{- end }}
