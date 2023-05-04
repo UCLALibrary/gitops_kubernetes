@@ -21,7 +21,7 @@ argocd_applications:
         - repourl: https://chartmuseum.library.ucla.edu
           chart: argo-cd
           revision: 5.31.0
-          valueFilePaths:
+          valueFiles:
             - $values/infrastructure/argocd.library.ucla.edu/values.yaml
             - $values/infrastructure/argocd.library.ucla.edu/values-ucla.yaml
     - name: test-prl-harvester
