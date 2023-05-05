@@ -246,7 +246,7 @@ configs:
 
     ## Server properties
     # -- Run server without TLS
-    server.insecure: false
+    server.insecure: true
     # -- Value for base href in index.html. Used if Argo CD is running behind reverse proxy under subpath different from /
     server.basehref: /
     # -- Used if Argo CD is running behind reverse proxy under subpath different from /
@@ -2049,7 +2049,7 @@ server:
     # -- Additional ingress annotations
     annotations:
       cert-manager.io/cluster-issuer: selfsigned-cluster-issuer
-      traefik.ingress.kubernetes.io/router.middlewares: argocd-whitelist-ipranges@kubernetescrd
+      traefik.ingress.kubernetes.io/router.middlewares: argocd-whitelist-ipranges
  
     # -- Additional ingress labels
     labels: {}
