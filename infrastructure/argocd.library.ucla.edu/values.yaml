@@ -615,8 +615,7 @@ extraTemplates:
           {{- end }}
           {{- if $w.valueFiles }}
           helm:
-            valueFiles:
-              {{ $w.valueFiles }}
+            valueFiles: {{ $w.valueFiles }}
           {{- end }}
       {{- end }}
       {{- end }}

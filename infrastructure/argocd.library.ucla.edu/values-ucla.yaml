@@ -22,8 +22,8 @@ argocd_applications:
           chart: argo-cd
           revision: 5.31.0
           valueFiles:
-          - $values/infrastructure/argocd.library.ucla.edu/values.yaml
-          - $values/infrastructure/argocd.library.ucla.edu/values-ucla.yaml
+            - $values/infrastructure/argocd.library.ucla.edu/values.yaml
+            - $values/infrastructure/argocd.library.ucla.edu/values-ucla.yaml
     - name: test-prl-harvester
       deployment_namespace: test-prl-harvester
       project: default
