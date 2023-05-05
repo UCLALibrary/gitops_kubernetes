@@ -1,0 +1,22 @@
+# Field to add ArgoCD applications to ArgoCD itself. This will automatically be applied by ArgoCD upon commits made to the main branch
+argocd_applications:
+  argocd_namespace: argocd
+  default_sync_policy:
+    syncPolicy:
+      automated:
+        selfHeal: true
+        allowEmpty: false
+      syncOptions:
+        - CreateNamespace=true
+        - PruneLast=true
+  entries:
+    - name: test-prl-harvester
+      deployment_namespace: test-prl-harvester
+      project: default
+      destination: testsoftwaredev
+      annotations:
+        notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-services-firehose
+      sources:
+        - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
+          path: teams/services/prl_harvester/overlays/test
+          revision: main

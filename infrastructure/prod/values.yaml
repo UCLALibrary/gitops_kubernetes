@@ -1,0 +1,24 @@
+argocd_applications:
+  argocd_namespace: argocd
+  default_sync_policy:
+    syncPolicy:
+      automated:
+        selfHeal: true
+        allowEmpty: false
+      syncOptions:
+        - CreateNamespace=true
+        - PruneLast=true
+  entries:
+    - name: argocd
+      deployment_namespace: argocd
+      project: default
+      destination: in-cluster
+      sources:
+        - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
+          revision: main
+          ref: values
+        - repourl: https://chartmuseum.library.ucla.edu
+          chart: argo-cd
+          revision: 5.31.0
+          valueFiles:
+            - $values/infrastructure/deployment/argocd.library.ucla.edu-values.yaml
