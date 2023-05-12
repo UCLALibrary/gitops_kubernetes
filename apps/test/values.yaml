@@ -30,3 +30,43 @@ argocd_applications:
         - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
           path: test/test-hauth
           revision: main
+    - name: test-cantaloupe
+      deployment_namespace: test-cantaloupe
+      project: default
+      destination: prodeks
+      annotations:
+        notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-services-firehose
+      sources:
+        - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
+          path: test/test-cantaloupe
+          revision: main
+    - name: test-fester
+      deployment_namespace: test-fester
+      project: default
+      destination: prodeks
+      annotations:
+        notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-services-firehose
+      sources:
+        - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
+          path: test/test-fester
+          revision: main
+    - name: test-libcalproxy
+      deployment_namespace: test-libcalproxy
+      project: default
+      destination: prodeks
+      annotations:
+        notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-services-firehose
+      sources:
+        - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
+          path: test/test-libcalproxy
+          revision: main
+    - name: frontend-test-iiif
+      deployment_namespace: frontend-test-iiif
+      project: default
+      destination: prodeks
+      annotations:
+        notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-services-firehose
+      sources:
+        - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
+          path: test/frontend-test-iiif
+          revision: main
