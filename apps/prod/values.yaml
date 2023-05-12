@@ -90,3 +90,43 @@ argocd_applications:
         - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
           path: prod/frontend-prod-ingest-iiif
           revision: main
+    - name: oral-history-staff-ui
+      deployment_namespace: oh-staffprod
+      project: default
+      destination: prodsoftwaredev
+      sources:
+        - repourl: https://github.com/UCLALibrary/oral-history-staff-ui
+          path: charts
+          revision: HEAD
+          valueFiles:
+            - prod-ohstaff-values.yaml
+    - name: voyager-archive-ethno
+      deployment_namespace: voyager-archiveprod
+      project: default
+      destination: prodsoftwaredev
+      sources:
+        - repourl: https://github.com/UCLALibrary/voyager-archive
+          path: charts
+          revision: HEAD
+          valueFiles:
+            - prod-ethnovoyagerarchive-values.yaml
+    - name: voyager-archive-ftva
+      deployment_namespace: voyager-archiveprod
+      project: default
+      destination: prodsoftwaredev
+      sources:
+        - repourl: https://github.com/UCLALibrary/voyager-archive
+          path: charts
+          revision: HEAD
+          valueFiles:
+            - prod-ftvavoyagerarchive-values.yaml
+    - name: voyager-archive-ucla
+      deployment_namespace: voyager-archiveprod
+      project: default
+      destination: prodsoftwaredev
+      sources:
+        - repourl: https://github.com/UCLALibrary/voyager-archive
+          path: charts
+          revision: HEAD
+          valueFiles:
+            - prod-uclavoyagerarchive-values.yaml
