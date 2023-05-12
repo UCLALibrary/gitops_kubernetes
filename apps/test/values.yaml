@@ -80,3 +80,23 @@ argocd_applications:
           revision: HEAD
           valueFiles:
             - test-catalogingstatistics-values.yaml
+    - name: dlcs-staff-uitest
+      deployment_namespace: dlcs-staff-uitest
+      project: default
+      destination: testsoftwaredev
+      sources:
+        - repourl: https://github.com/UCLALibrary/dlcs-staff-ui
+          path: charts
+          revision: HEAD
+          valueFiles:
+            - test-dlcsstaffui-values.yaml
+    - name: lbstest
+      deployment_namespace: lbstest
+      project: default
+      destination: testsoftwaredev
+      sources:
+        - repourl: https://github.com/UCLALibrary/LBS
+          path: charts
+          revision: HEAD
+          valueFiles:
+            - test-lbs-values.yaml
