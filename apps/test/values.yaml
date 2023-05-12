@@ -70,3 +70,13 @@ argocd_applications:
         - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
           path: test/frontend-test-iiif
           revision: main
+    - name: cataloging-statisticstest
+      deployment_namespace: cataloging-statisticstest
+      project: default
+      destination: testsoftwaredev
+      sources:
+        - repourl: https://github.com/UCLALibrary/cataloging-statistics
+          path: charts
+          revision: HEAD
+          valueFiles:
+            - test-catalogingstatistics-values.yaml
