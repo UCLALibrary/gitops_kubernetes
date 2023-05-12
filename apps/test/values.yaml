@@ -20,3 +20,13 @@ argocd_applications:
         - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
           path: teams/services/prl_harvester/overlays/test
           revision: main
+    - name: test-hauth
+      deployment_namespace: test-hauth
+      project: default
+      destination: prodeks
+      annotations:
+        notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-services-firehose
+      sources:
+        - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
+          path: test/test-hauth
+          revision: main
