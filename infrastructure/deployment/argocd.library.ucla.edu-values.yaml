@@ -18,8 +18,7 @@ argocd_applications:
           # 2.7.3
           revision: 5.34.6
           chart: argo-cd
-          valueFiles:
-            - $values/infrastructure/deployment/argocd.library.ucla.edu-values.yaml
+          valueFiles: $values/infrastructure/deployment/argocd.library.ucla.edu-values.yaml
         - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
           revision: main
           ref: values
