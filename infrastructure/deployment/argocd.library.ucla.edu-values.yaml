@@ -14,9 +14,15 @@ argocd_applications:
       project: default
       destination: in-cluster
       sources:
+        - repourl: https://argoproj.github.io/argo-helm
+          # 2.7.3
+          revision: 5.34.6
+          chart: argo-cd
+          valueFiles:
+            - $values/infrastructure/deployment/argocd.library.ucla.edu-values.yaml
         - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
           revision: main
-          path: infrastructure/prod
+          ref: values
     - name: prod-apps
       deployment_namespace: argocd
       project: default
@@ -43,7 +49,7 @@ traefik_config:
     domain: argocd.library.ucla.edu
 
 selfsigned_issuer:
-  enabled: true
+  enabled: false
 
 external_secrets:
   refresh_interval: 10m
@@ -621,36 +627,45 @@ configs:
 
 # -- Array of extra K8s manifests to deploy
 ## Note: Supports use of custom Helm templates
-extraObjects: []
-  # - apiVersion: secrets-store.csi.x-k8s.io/v1
-  #   kind: SecretProviderClass
-  #   metadata:
-  #     name: argocd-secrets-store
-  #   spec:
-  #     provider: aws
-  #     parameters:
-  #       objects: |
-  #         - objectName: "argocd"
-  #           objectType: "secretsmanager"
-  #           jmesPath:
-  #               - path: "client_id"
-  #                 objectAlias: "client_id"
-  #               - path: "client_secret"
-  #                 objectAlias: "client_secret"
-  #     secretObjects:
-  #     - data:
-  #       - key: client_id
-  #         objectName: client_id
-  #       - key: client_secret
-  #         objectName: client_secret
-  #       secretName: argocd-secrets-store
-  #       type: Opaque
-  #       labels:
-  #         app.kubernetes.io/part-of: argocd
-
-# -- Array of extra K8s templates to deploy
-## Note: Use extraTemplates when templating syntax is needed
-extraTemplates:
+extraObjects:
+  # Create Sectigo ACME credentials for cert manager
+  - |
+    ---
+    apiVersion: external-secrets.io/v1beta1
+    kind: ExternalSecret
+    metadata:
+      name: sectigo-acme-issueraccount-rsa-pem
+    spec:
+      refreshInterval: {{ $.Values.external_secrets.refresh_interval }}
+      secretStoreRef:
+        name: {{ $.Values.external_secrets.secretstoreref_name }}
+        kind: {{ $.Values.external_secrets.secretstoreref_type }}
+      target:
+        name: sectigo-acme-issueraccount-rsa-pem
+      data:
+      - secretKey: tls.key
+        remoteRef:
+          key: /devsupport/argocd/sectigo/tls/cert
+  # Create Sectigo Cluster Issuer
+  - |
+    ---
+    apiVersion: cert-manager.io/v1
+    kind: ClusterIssuer
+    metadata:
+      name: sectigo-acme-clusterissuer
+      namespace: cert-manager
+    spec:
+      acme:
+        disableAccountKeyGeneration: true
+        email: {{ .Values.secrets.cert_manager.external.sectigo_acme.email }}
+        preferredChain: ""
+        privateKeySecretRef:
+          name: sectigo-acme-issueraccount-rsa-pem
+        server: https://acme.sectigo.com/v2/InCommonRSAOV
+        solvers:
+        - http01:
+            ingress:
+              class: traefik
   # Used for adding and maintaining ArgoCD Application CRDs
   - |
     {{- if .Values.argocd_applications.entries }}
@@ -818,37 +833,32 @@ extraTemplates:
         remoteRef:
           key: {{ .Values.external_secrets.server.secretkey }}
     {{- end }}
-  # Example usage of extraTemplates
-  # extraTemplates:
-  # - |
-  #   {{- if .Values.external_secrets.clusters }}
-  #   {{- range $v := .Values.external_secrets.clusters }}
-  #   ---
-  #   apiVersion: external-secrets.io/v1beta1
-  #   kind: ExternalSecret
+ 
+  # - apiVersion: secrets-store.csi.x-k8s.io/v1
+  #   kind: SecretProviderClass
   #   metadata:
-  #     name: argocd-cluster-{{ $v.name }}
-  #     labels:
-  #       argocd.argoproj.io/secret-type: cluster
+  #     name: argocd-secrets-store
   #   spec:
-  #     refreshInterval: {{ $.Values.external_secrets.refresh_interval }}
-  #     secretStoreRef:
-  #       name: {{ $.Values.external_secrets.secretstoreref_name }}
-  #       kind: {{ $.Values.external_secrets.secretstoreref_type }}
-  #     target:
-  #       name: argocd-cluster-{{ $v.name }}
-  #     data:
-  #     - secretKey: config
-  #       remoteRef:
-  #         key: {{ $v.base }}/{{ $v.name }}/token
-  #     - secretKey: server
-  #       remoteRef:
-  #         key: {{ $v.base }}/{{ $v.name }}/url
-  #     - secretKey: name
-  #       remoteRef:
-  #         key: {{ $v.base }}/{{ $v.name }}/name
-  #   {{- end }}
-  #   {{- end }}
+  #     provider: aws
+  #     parameters:
+  #       objects: |
+  #         - objectName: "argocd"
+  #           objectType: "secretsmanager"
+  #           jmesPath:
+  #               - path: "client_id"
+  #                 objectAlias: "client_id"
+  #               - path: "client_secret"
+  #                 objectAlias: "client_secret"
+  #     secretObjects:
+  #     - data:
+  #       - key: client_id
+  #         objectName: client_id
+  #       - key: client_secret
+  #         objectName: client_secret
+  #       secretName: argocd-secrets-store
+  #       type: Opaque
+  #       labels:
+  #         app.kubernetes.io/part-of: argocd
 
 ## Application controller
 controller:
@@ -2116,7 +2126,7 @@ server:
     enabled: true
     # -- Additional ingress annotations
     annotations:
-      cert-manager.io/cluster-issuer: selfsigned-cluster-issuer
+      cert-manager.io/cluster-issuer: sectigo-acme-clusterissuer
       traefik.ingress.kubernetes.io/router.middlewares: argocd-whitelist-ipranges
  
     # -- Additional ingress labels
