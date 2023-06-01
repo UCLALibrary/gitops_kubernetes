@@ -19,7 +19,7 @@ argocd_applications:
           revision: 5.34.6
           chart: argo-cd
           valueFiles:
-          - $values/infrastructure/deployment/argocd.library.ucla.edu-values.yaml
+            - $values/infrastructure/deployment/argocd.library.ucla.edu-values.yaml
         - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
           revision: main
           ref: values
@@ -657,7 +657,7 @@ extraObjects:
     spec:
       acme:
         disableAccountKeyGeneration: true
-        email: {{ .Values.secrets.cert_manager.external.sectigo_acme.email }}
+        email: devsupport@library.ucla.edu
         preferredChain: ""
         privateKeySecretRef:
           name: sectigo-acme-issueraccount-rsa-pem
