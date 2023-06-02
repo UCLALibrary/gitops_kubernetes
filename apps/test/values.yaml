@@ -12,8 +12,9 @@ argocd_applications:
   entries:
     - name: test-prl-harvester
       deployment_namespace: test-prl-harvester
+      namespace_team: services
       project: default
-      destination: testsoftwaredev
+      destination: testrke01
       annotations:
         notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-services-firehose
       sources:
