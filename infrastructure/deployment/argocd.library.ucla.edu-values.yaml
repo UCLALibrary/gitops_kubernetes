@@ -680,6 +680,11 @@ extraObjects:
     {{ $v.annotations | default dict | toYaml| indent 4 }}
     spec:
       syncPolicy:
+    {{- if $v.namespace_team }}
+        managedNamespaceMetadata:
+          labels:
+            namespace_team: {{ $v.namespace_team }}
+    {{- end }}
     {{ $v.syncPolicy | default $.Values.argocd_applications.default_sync_policy.syncPolicy | toYaml | indent 4 }}
       project: {{ $v.project }}
       destination:
