@@ -25,5 +25,5 @@ appVersion: "0.0.9"
 
 dependencies:
   - name: hauth
-    version: 0.0.9
+    version: 0.0.7
     repository: https://chartmuseum.library.ucla.edu
