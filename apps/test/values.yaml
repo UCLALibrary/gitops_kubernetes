@@ -73,14 +73,18 @@ argocd_applications:
           revision: main
     - name: cataloging-statisticstest
       deployment_namespace: cataloging-statisticstest
+      namespace_team: systems
       project: default
-      destination: testsoftwaredev
+      destination: testrke01
       sources:
-        - repourl: https://github.com/UCLALibrary/cataloging-statistics
-          path: charts
-          revision: HEAD
+        - repourl: https://chartmuseum.library.ucla.edu
+          chart: cataloging-statistics
+          revision: 0.0.3
           valueFiles:
-            - test-catalogingstatistics-values.yaml
+            - $values/charts/test-catalogingstatistics-values.yaml
+        - repourl: https://github.com/UCLALibrary/cataloging-statistics
+          revision: main
+          ref: values
     - name: dlcs-staff-uitest
       deployment_namespace: dlcs-staff-uitest
       project: default
