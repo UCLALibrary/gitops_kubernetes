@@ -79,7 +79,7 @@ argocd_applications:
       sources:
         - repourl: https://chartmuseum.library.ucla.edu
           chart: cataloging-statistics
-          revision: 0.0.4
+          revision: 0.0.5
           valueFiles:
             - $values/charts/test-catalogingstatistics-values.yaml
         - repourl: https://github.com/UCLALibrary/cataloging-statistics
