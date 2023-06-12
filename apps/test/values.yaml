@@ -97,11 +97,15 @@ argocd_applications:
             - test-dlcsstaffui-values.yaml
     - name: lbstest
       deployment_namespace: lbstest
+      namespace_team: systems
       project: default
-      destination: testsoftwaredev
+      destination: testrke01
       sources:
-        - repourl: https://github.com/UCLALibrary/LBS
-          path: charts
-          revision: HEAD
+        - repourl: https://chartmuseum.library.ucla.edu
+          chart: lbs
+          revision: 0.3.0
           valueFiles:
-            - test-lbs-values.yaml
+            - $values/charts/test-lbs-values.yaml
+        - repourl: https://github.com/UCLALibrary/LBS
+          revision: main
+          ref: values
