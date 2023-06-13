@@ -9,7 +9,7 @@ argocd_applications:
         - CreateNamespace=true
         - PruneLast=true
   entries:
-    - name: prod-infrastructure
+    - name: argocd
       deployment_namespace: argocd
       project: default
       destination: in-cluster
