@@ -5,8 +5,8 @@ hauth:
 
   replicaCount: 1
 
-  #image:
-    #tag: ""
+  image:
+    tag: "0.0.9"
   imagePullSecrets:
     - name: services-dockerhub
   nameOverride: ""
@@ -80,7 +80,7 @@ hauth:
 
   hauth:
     env:
-      HAUTH_VERSION: "0.0.7"
+      HAUTH_VERSION: "0.0.9"
       ACCESS_COOKIE_DOMAIN: "iiif.library.ucla.edu"
       ACCESS_COOKIE_WINDOW_CLOSE_DELAY: 0
     envSecrets:
