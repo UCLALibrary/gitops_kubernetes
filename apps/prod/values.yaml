@@ -130,3 +130,17 @@ argocd_applications:
           revision: HEAD
           valueFiles:
             - prod-uclavoyagerarchive-values.yaml
+    - name: terra
+      deployment_namespace: terraprod
+      namespace_team: systems
+      project: default
+      destination: prodrke01
+      sources:
+        - repourl: https://chartmuseum.library.ucla.edu
+          chart: terra
+          revision: 0.3.0
+          valueFiles:
+            - $values/charts/prod-terra-values.yaml
+        - repourl: https://github.com/UCLALibrary/terra
+          revision: main
+          ref: values
