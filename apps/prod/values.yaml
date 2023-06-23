@@ -138,7 +138,7 @@ argocd_applications:
       sources:
         - repourl: https://chartmuseum.library.ucla.edu
           chart: terra
-          revision: 0.3.1
+          revision: 0.3.2
           valueFiles:
             - $values/charts/prod-terra-values.yaml
         - repourl: https://github.com/UCLALibrary/terra
