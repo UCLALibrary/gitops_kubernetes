@@ -85,20 +85,6 @@ argocd_applications:
         - repourl: https://github.com/UCLALibrary/cataloging-statistics
           revision: main
           ref: values
-    - name: dlcs-staff-uitest
-      deployment_namespace: dlcs-staff-uitest
-      namespace_team: systems
-      project: default
-      destination: testrke01
-      sources:
-        - repourl: https://chartmuseum.library.ucla.edu
-          chart: dlcs-staff-ui
-          revision: 0.8.0
-          valueFiles:
-            - $values/charts/test-dlcsstaffui-values.yaml
-        - repourl: https://github.com/UCLALibrary/dlcs-staff-ui
-          revision: main
-          ref: values
     - name: lbstest
       deployment_namespace: lbstest
       namespace_team: systems
