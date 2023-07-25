@@ -14,7 +14,7 @@ applications:
         path: teams/services/prl_harvester/overlays/test
         revision: main
     destination:
-      server: testrke01
+      name: testrke01
       namespace: test-prl-harvester
     syncPolicy:
       automated:
