@@ -39,7 +39,7 @@ argocd_applications:
         - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
           path: apps/test
           revision: main
-    - name: test_apps
+    - name: apps-test
       deployment_namespace: argocd
       project: default
       destination: in-cluster
@@ -48,7 +48,7 @@ argocd_applications:
           revision: 1.2.0
           chart: argocd-apps
           valueFiles:
-            - $values/infrastructure/deployment/test_apps-values.yaml
+            - $values/infrastructure/deployment/apps-test-values.yaml
         - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
           revision: main
           ref: values
