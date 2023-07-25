@@ -10,17 +10,6 @@ argocd_applications:
         - CreateNamespace=true
         - PruneLast=true
   entries:
-    - name: test-prl-harvester
-      deployment_namespace: test-prl-harvester
-      namespace_team: services
-      project: default
-      destination: testrke01
-      annotations:
-        notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-services-firehose
-      sources:
-        - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
-          path: teams/services/prl_harvester/overlays/test
-          revision: main
     - name: test-hauth
       deployment_namespace: test-hauth
       project: default
