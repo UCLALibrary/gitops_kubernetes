@@ -2,6 +2,35 @@
 # @default -- `[]` (See [values.yaml])
 ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/
 applications:
+  - name: apps-test
+    namespace: argocd
+    finalizers:
+    - resources-finalizer.argocd.argoproj.io
+    additionalLabels: {}
+    additionalAnnotations: {}
+    project: default
+    sources:
+     - chart: apps-test
+       repoURL: https://argoproj.github.io/argo-helm
+       targetRevision: 1.2.0
+       helm:
+         valueFiles:
+           - $values/argocd/apps-test-values.yaml
+     - repoURL: https://github.com/UCLALibrary/gitops_kubernetes.git
+       targetRevision: HEAD
+       ref: values
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: argocd
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+        - Validate=true
+        - CreateNamespace=true
+        - RespectIgnoreDifferences=true
+    revisionHistoryLimit: 20
   - name: test-prl-harvester
     namespace: argocd
     finalizers:
