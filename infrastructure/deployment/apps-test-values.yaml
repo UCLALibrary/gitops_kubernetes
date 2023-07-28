@@ -41,7 +41,7 @@ applications:
     sources:
       - repoURL: https://github.com/UCLALibrary/gitops_kubernetes.git
         path: teams/services/prl_harvester/overlays/test
-        revision: main
+        revision: HEAD
     destination:
       name: testrke01
       namespace: test-prl-harvester
