@@ -10,16 +10,6 @@ argocd_applications:
         - CreateNamespace=true
         - PruneLast=true
   entries:
-    - name: test-hauth
-      deployment_namespace: test-hauth
-      project: default
-      destination: prodeks
-      annotations:
-        notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-services-firehose
-      sources:
-        - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
-          path: test/test-hauth
-          revision: main
     - name: test-cantaloupe
       deployment_namespace: test-cantaloupe
       project: default

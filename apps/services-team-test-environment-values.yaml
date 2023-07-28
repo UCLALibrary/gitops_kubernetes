@@ -28,6 +28,33 @@ applications:
         - CreateNamespace=true
         - PruneLast=true
     revisionHistoryLimit: 20
+# HAuth Application
+  - name: test-hauth
+    namespace: argocd
+    finalizers:
+    - resources-finalizer.argocd.argoproj.io
+    additionalLabels: {}
+    additionalAnnotations: {}
+    project: default
+    sources:
+      - repoURL: https://github.com/UCLALibrary/gitops_kubernetes.git
+        path: test/test-hauth
+        targetRevision: main
+    destination:
+      name: prodeks
+      namespace: test-hauth
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          namespace_team: services
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+        - CreateNamespace=true
+        - PruneLast=true
+    revisionHistoryLimit: 20
+#
 #
 # -- Deploy Argo CD Projects within this helm release
 # @default -- `[]` (See [values.yaml])
