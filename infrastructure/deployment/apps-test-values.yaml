@@ -10,7 +10,7 @@ applications:
     additionalAnnotations: {}
     project: default
     sources:
-     - chart: apps-test
+     - chart: argocd-apps
        repoURL: https://argoproj.github.io/argo-helm
        targetRevision: 1.2.0
        helm:
