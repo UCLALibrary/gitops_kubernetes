@@ -31,14 +31,6 @@ argocd_applications:
         - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
           path: apps/prod
           revision: main
-    - name: test-apps
-      deployment_namespace: argocd
-      project: default
-      destination: in-cluster
-      sources:
-        - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
-          path: apps/test
-          revision: main
     - name: services-test-environment
       deployment_namespace: argocd
       project: default
@@ -49,6 +41,19 @@ argocd_applications:
           chart: argocd-apps
           valueFiles:
             - $values/apps/services-team-test-environment-values.yaml
+        - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
+          revision: main
+          ref: values
+    - name: systems-test-environment
+      deployment_namespace: argocd
+      project: default
+      destination: in-cluster
+      sources:
+        - repourl: https://argoproj.github.io/argo-helm
+          revision: 1.2.0
+          chart: argocd-apps
+          valueFiles:
+            - $values/apps/systems-team-test-environment-values.yaml
         - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
           revision: main
           ref: values
