@@ -17,7 +17,7 @@ applications:
          valueFiles:
            - $values/infrastructure/deployment/apps-test-values.yaml
      - repoURL: https://github.com/UCLALibrary/gitops_kubernetes.git
-       targetRevision: HEAD
+       targetRevision: main
        ref: values
     destination:
       server: https://kubernetes.default.svc
@@ -41,7 +41,7 @@ applications:
     sources:
       - repoURL: https://github.com/UCLALibrary/gitops_kubernetes.git
         path: teams/services/prl_harvester/overlays/test
-        revision: HEAD
+        targetRevision: main
     destination:
       name: testrke01
       namespace: test-prl-harvester
