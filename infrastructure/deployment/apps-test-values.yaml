@@ -15,7 +15,7 @@ applications:
        targetRevision: 1.2.0
        helm:
          valueFiles:
-           - $values/deployment/apps-test-values.yaml
+           - $values/infrastructure/deployment/apps-test-values.yaml
      - repoURL: https://github.com/UCLALibrary/gitops_kubernetes.git
        targetRevision: HEAD
        ref: values
