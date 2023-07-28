@@ -48,7 +48,7 @@ argocd_applications:
           revision: 1.2.0
           chart: argocd-apps
           valueFiles:
-            - $values/infrastructure/deployment/services-team-test-environment-values.yaml
+            - $values/apps/services-team-test-environment-values.yaml
         - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
           revision: main
           ref: values
