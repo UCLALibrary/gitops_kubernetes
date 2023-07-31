@@ -13,7 +13,7 @@ applications:
     project: default
     sources:
       - repoURL: https://github.com/UCLALibrary/gitops_kubernetes.git
-        path: teams/services/prl_harvester/overlays/test
+        path: teams/services/prl_harvester/overlays/prod
         targetRevision: main
     destination:
       name: prodrke01
