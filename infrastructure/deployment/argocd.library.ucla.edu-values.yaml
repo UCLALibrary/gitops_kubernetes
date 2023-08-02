@@ -23,14 +23,6 @@ argocd_applications:
         - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
           revision: main
           ref: values
-    - name: prod-apps
-      deployment_namespace: argocd
-      project: default
-      destination: in-cluster
-      sources:
-        - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
-          path: apps/prod
-          revision: main
     - name: services-test-environment
       deployment_namespace: argocd
       project: default
