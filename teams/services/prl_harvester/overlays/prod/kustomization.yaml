@@ -14,7 +14,7 @@ patches:
 
 images:
   - name: uclalibrary/prl-harvester
-    newTag: 0.5.0
+    newTag: 0.5.1
 
 configMapGenerator:
 - name: prlbackend-cm
