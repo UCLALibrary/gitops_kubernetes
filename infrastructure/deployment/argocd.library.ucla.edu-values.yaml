@@ -62,6 +62,20 @@ argocd_applications:
         - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
           revision: main
           ref: values
+    - name: systems-prod-environment
+      deployment_namespace: argocd
+      project: default
+      destination: in-cluster
+      sources:
+        - repourl: https://argoproj.github.io/argo-helm
+          revision: 1.2.0
+          chart: argocd-apps
+          valueFiles:
+            - $values/apps/systems-team-prod-environment-values.yaml
+        - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
+          revision: main
+          ref: values
+
 
 traefik_config:
   middleware:
