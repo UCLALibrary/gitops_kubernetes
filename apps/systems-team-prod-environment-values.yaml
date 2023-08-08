@@ -139,14 +139,17 @@ applications:
     additionalAnnotations: {}
     project: default
     sources:
-    - helm:
+    - chart: oh-staff
+      repoURL: https://chartmuseum.library.ucla.edu
+      targetRevision: 0.2.0
+      helm:
         valueFiles:
-          - prod-ohstaff-values.yaml
-      path: charts
+        - $values/charts/prod-ohstaff-values.yaml
+    - ref: values
       repoURL: https://github.com/UCLALibrary/oral-history-staff-ui
-      targetRevision: HEAD
+      targetRevision: main
     destination:
-      name: prodsoftwaredev
+      name: prodrke01
       namespace: oh-staffprod
     syncPolicy:
       managedNamespaceMetadata:
