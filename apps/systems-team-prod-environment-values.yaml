@@ -11,14 +11,17 @@ applications:
     additionalAnnotations: {}
     project: default
     sources:
-    - helm:
+    - chart: voyager-archive
+      repoURL: https://chartmuseum.library.ucla.edu
+      targetRevision: 1.0.16
+      helm:
         valueFiles:
-          - prod-ethnovoyagerarchive-values.yaml
-      path: charts
+        - $values/charts/prod-ethnovoyagerarchive-values.yaml
+    - ref: values
       repoURL: https://github.com/UCLALibrary/voyager-archive
-      targetRevision: HEAD
+      targetRevision: main
     destination:
-      name: prodsoftwaredev
+      name: prodrke01
       namespace: voyager-archiveprod
     syncPolicy:
       managedNamespaceMetadata:
