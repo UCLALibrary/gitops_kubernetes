@@ -715,6 +715,8 @@ extraObjects:
       name: {{ $v.name }}
       namespace: {{ $.Values.argocd_applications.argocd_namespace }}
       annotations:
+      finalizers:
+         - resources-finalizer.argocd.argoproj.io
     {{ $v.annotations | default dict | toYaml| indent 4 }}
     spec:
       syncPolicy:
