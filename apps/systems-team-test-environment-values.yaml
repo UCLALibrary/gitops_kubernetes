@@ -1,71 +1,7 @@
 # -- Deploy Argo CD Applications within this helm release
 # @default -- `[]` (See [values.yaml])
 ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/
-applications:
-# Cataloging Statistics Application
-  - name: cataloging-statisticstest
-    namespace: argocd
-    finalizers:
-    - resources-finalizer.argocd.argoproj.io
-    additionalLabels: {}
-    additionalAnnotations: {}
-    project: default
-    sources:
-    - chart: cataloging-statistics
-      helm:
-        valueFiles:
-        - $values/charts/test-catalogingstatistics-values.yaml
-      repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 0.0.5
-    - ref: values
-      repoURL: https://github.com/UCLALibrary/cataloging-statistics
-      targetRevision: main
-    destination:
-      name: testrke01
-      namespace: cataloging-statisticstest
-    syncPolicy:
-      managedNamespaceMetadata:
-        labels:
-          namespace_team: systems
-      automated:
-        prune: true
-        selfHeal: true
-      syncOptions:
-        - CreateNamespace=true
-        - PruneLast=true
-    revisionHistoryLimit: 20
-# LBS Application
-  - name: lbstest
-    namespace: argocd
-    finalizers:
-    - resources-finalizer.argocd.argoproj.io
-    additionalLabels: {}
-    additionalAnnotations: {}
-    project: default
-    sources:
-    - chart: lbs
-      helm:
-        valueFiles:
-        - $values/charts/test-lbs-values.yaml
-      repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 0.3.0
-    - ref: values
-      repoURL: https://github.com/UCLALibrary/LBS
-      targetRevision: main
-    destination:
-      name: testrke01
-      namespace: lbstest
-    syncPolicy:
-      managedNamespaceMetadata:
-        labels:
-          namespace_team: systems
-      automated:
-        prune: true
-        selfHeal: true
-      syncOptions:
-        - CreateNamespace=true
-        - PruneLast=true
-    revisionHistoryLimit: 20
+applications: []
 
 #
 #
