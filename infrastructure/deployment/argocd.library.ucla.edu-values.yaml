@@ -403,6 +403,8 @@ configs:
       g, avuong@library.ucla.edu, role:admin
       g, sgurnick@library.ucla.edu, role:admin
       g, jhriv@library.ucla.edu, role:admin
+      g, mmatney@library.ucla.edu, role:readonly
+      g, ksclarke@library.ucla.edu, role:readonly
  
     # Policy rules are in the form:
     #  p, subject, resource, action, object, effect
