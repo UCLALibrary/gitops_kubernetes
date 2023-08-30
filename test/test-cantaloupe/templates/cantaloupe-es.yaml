@@ -6,8 +6,8 @@ metadata:
 spec:
   refreshInterval: 10m
   secretStoreRef:
-    name: services-ss
-    kind: SecretStore
+    name: services-clustersecretstore
+    kind: ClusterSecretStore
   target:
     name: test-cantaloupe-secrets
   data:
