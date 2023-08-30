@@ -97,7 +97,7 @@ applications:
         path: test/test-fester
         targetRevision: main
     destination:
-      name: prodeks
+      name: prod-eks-services-team
       namespace: test-fester
     syncPolicy:
       managedNamespaceMetadata:
@@ -124,7 +124,7 @@ applications:
         path: test/test-cantaloupe
         targetRevision: main
     destination:
-      name: prodeks
+      name: prod-eks-services-team
       namespace: test-cantaloupe
     syncPolicy:
       managedNamespaceMetadata:
@@ -151,7 +151,7 @@ applications:
         path: test/frontend-test-iiif
         targetRevision: main
     destination:
-      name: prodeks
+      name: prod-eks-services-team
       namespace: frontend-test-iiif
     syncPolicy:
       managedNamespaceMetadata:
