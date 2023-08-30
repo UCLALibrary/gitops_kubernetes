@@ -43,7 +43,7 @@ applications:
         path: test/test-hauth
         targetRevision: main
     destination:
-      name: prodeks
+      name: prod-eks-services-team
       namespace: test-hauth
     syncPolicy:
       managedNamespaceMetadata:
@@ -70,7 +70,7 @@ applications:
         path: test/test-libcalproxy
         targetRevision: main
     destination:
-      name: prodeks
+      name: prod-eks-services-team
       namespace: test-libcalproxy
     syncPolicy:
       managedNamespaceMetadata:
