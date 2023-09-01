@@ -154,6 +154,7 @@ extraObjects:
       name: frontend-prod-iiif
       annotations:
         kubernetes.io/ingress.class: "nginx"
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
         nginx.ingress.kubernetes.io/enable-cors: "true"
         nginx.ingress.kubernetes.io/use-regex: "true"
         kubernetes.io/tls-acme: "true"
