@@ -116,7 +116,6 @@ ingress:
   enabled: true
   className: "nginx"
   annotations:
-    kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
     nginx.ingress.kubernetes.io/enable-cors: "true"
     cert-manager.io/cluster-issuer: "sectigo-acme-clusterissuer"
@@ -143,10 +142,10 @@ configmap:
   additionaLabels: {}
   annotations: {}
   data:
-    HARVEST_TIMEOUT: 86400000
-    OAIPMH_CLIENT_HTTP_TIMEOUT: 300000
-    PGHOSTADDR: t-d-postgres01.library.ucla.edu
-    SOLR_CORE_URL: https://t-u-prlsolr01.library.ucla.edu/solr/prl
+    HARVEST_TIMEOUT: "86400000"
+    OAIPMH_CLIENT_HTTP_TIMEOUT: "300000"
+    PGHOSTADDR: "t-d-postgres01.library.ucla.edu"
+    SOLR_CORE_URL: "https://t-u-prlsolr01.library.ucla.edu/solr/prl"
 #---------------------------------------------
 
 
