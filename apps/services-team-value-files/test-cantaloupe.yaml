@@ -59,7 +59,12 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
-resources: {}
+resources:
+  limits:
+    memory: 2Gi
+  requests:
+    memory: 2Gi
+
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -147,7 +152,7 @@ configmap:
     CANTALOUPE_SOURCE_STATIC: "S3Source"
     CANTALOUPE_CACHE_SERVER_RESOLVE_FIRST: "true"
     CANTALOUPE_ENDPOINT_API_ENABLED: "true"
-    HEAP_SIZE: "4g"
+    HEAP_SIZE: "2g"
     CANTALOUPE_MAX_PIXELS: "350000000"
     CANTALOUPE_S3SOURCE_CHUNKING_ENABLED: "false"
     CANTALOUPE_S3SOURCE_CHUNKING_CACHE_ENABLED: "false"
