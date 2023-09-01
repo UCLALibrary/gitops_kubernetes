@@ -144,14 +144,8 @@ applications:
       notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-services-firehose
     project: default
     sources:
-      - chart: uclalib-helm-generic
-        repoURL: https://chartmuseum.library.ucla.edu
-        targetRevision: 1.0.1
-        helm:
-          valueFiles:
-          - $values/apps/services-team-value-files/test-cantaloupe.yaml
-      - ref: values
-        repoURL: https://github.com/UCLALibrary/gitops_kubernetes
+      - repoURL: https://github.com/UCLALibrary/gitops_kubernetes.git
+        path: prod/prod-cantaloupe
         targetRevision: main
     destination:
       name: prod-eks-services-team
