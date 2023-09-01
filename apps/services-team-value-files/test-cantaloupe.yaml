@@ -152,7 +152,7 @@ configmap:
     CANTALOUPE_S3SOURCE_CHUNKING_ENABLED: "false"
     CANTALOUPE_S3SOURCE_CHUNKING_CACHE_ENABLED: "false"
     JAVA_OPTS: "-XX:ActiveProcessorCount=2"
-    CANTALOUPE_DELEGATE_SCRIPT_ENABLED: "true"
+    CANTALOUPE_DELEGATE_SCRIPT_ENABLED: "false"
     CANTALOUPE_DELEGATE_SCRIPT_PATHNAME: "/usr/local/cantaloupe/delegate.jar"
     DELEGATE_URL: "http://build-artifacts.library.ucla.edu/cantaloupe-delegate/cantaloupe-auth-delegate-0.0.4.jar"
     AUTH_ACCESS_SERVICE: "https://test.auth.iiif.library.ucla.edu/access"
