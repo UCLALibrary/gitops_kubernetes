@@ -145,7 +145,7 @@ applications:
     project: default
     sources:
       - repoURL: https://github.com/UCLALibrary/gitops_kubernetes.git
-        path: prod/prod-cantaloupe
+        path: test/test-cantaloupe
         targetRevision: main
     destination:
       name: prod-eks-services-team
