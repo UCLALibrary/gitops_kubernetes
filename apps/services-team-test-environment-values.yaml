@@ -177,8 +177,14 @@ applications:
       notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-services-firehose
     project: default
     sources:
-      - repoURL: https://github.com/UCLALibrary/gitops_kubernetes.git
-        path: test/frontend-test-iiif
+      - chart: uclalib-helm-generic
+        repoURL: https://chartmuseum.library.ucla.edu
+        targetRevision: 1.0.1
+        helm:
+          valueFiles:
+          - $values/apps/services-team-value-files/frontend-test-iiif.yaml
+      - ref: values
+        repoURL: https://github.com/UCLALibrary/gitops_kubernetes
         targetRevision: main
     destination:
       name: prod-eks-services-team
@@ -194,7 +200,6 @@ applications:
         - CreateNamespace=true
         - PruneLast=true
     revisionHistoryLimit: 20
-
 
 #
 #
