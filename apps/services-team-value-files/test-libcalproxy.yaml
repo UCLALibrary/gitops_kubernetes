@@ -1,0 +1,190 @@
+#---------------------------------------------
+# Global Configuration
+#
+#
+nameOverride: "test-libcalproxy"
+fullnameOverride: "test-libcalproxy"
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+#---------------------------------------------
+
+#---------------------------------------------
+# Deployment Configuration
+#
+#
+deployment:
+  enabled: true
+
+ports:
+  - name: http
+    containerPort: 8888
+    protocol: TCP
+
+livenessProbe:
+  httpGet:
+    path: /status
+    port: http
+
+readinessProbe:
+  httpGet:
+    path: /status
+    port: http
+
+replicaCount: 1
+imagePullSecrets:
+  - name: test-libcalproxy-dockerhub-secret
+image:
+  repository: uclalibrary/libcal-proxy
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "0.4.2"
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources:
+  limits:
+    memory: 1Gi
+  requests:
+    memory: 1Gi
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+#---------------------------------------------
+
+#---------------------------------------------
+# Service Configuration
+#
+#
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+#---------------------------------------------
+
+#---------------------------------------------
+# External Service Configuration
+#
+#
+externalservice:
+  enabled: false
+  extsvc: []
+#---------------------------------------------
+
+#---------------------------------------------
+# Ingress Configuration
+#
+#
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    cert-manager.io/cluster-issuer: "sectigo-acme-clusterissuer"
+  hosts:
+    - host: test.proxy.calendar.library.ucla.edu
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - secretName: prod-ingest-iiif-tls
+      hosts:
+        - test.proxy.calendar.library.ucla.edu
+#---------------------------------------------
+
+#---------------------------------------------
+# ConfigMap Configuration
+# Use this field to set any non-sensitive values to be supplied as Environment Variables to your deployment
+#
+configmap:
+  enabled: true
+  additionaLabels: {}
+  annotations: {}
+  data:
+    LIBCAL_AUTH_RETRY_COUNT: "3"
+    LIBCAL_AUTH_RETRY_DELAY: "10"
+    LIBCAL_AUTH_EXPIRES_IN_PADDING: "300"
+    LIBCAL_BASE_URL: "https://calendar.library.ucla.edu"
+    LIBCAL_TOKEN_ENDPOINT: "https://calendar.library.ucla.edu/1.1/oauth/token"
+#---------------------------------------------
+
+
+#---------------------------------------------
+# ExternalSecrets Configuration
+# Use this field to set any sensitive values to be supplied as Environment Variables to your deployment
+#
+externalsecrets:
+  enabled: true
+  # Reference to ClusterSecretStore name
+  ref: services-clustersecretstore
+  secrets:
+    application:
+      data:
+        - secretKey: LIBCAL_CLIENT1_ID
+          remoteRef:
+            key: /services/prodeks/test-libcalproxy/libcal_client1_id
+        - secretKey: LIBCAL_CLIENT1_SECRET
+          remoteRef:
+            key: /services/prodeks/test-libcalproxy/libcal_client1_secret
+        - secretKey: LIBCAL_CLIENT2_ID
+          remoteRef:
+            key: /services/prodeks/test-libcalproxy/libcal_client2_id
+        - secretKey: LIBCAL_CLIENT2_SECRET
+          remoteRef:
+            key: /services/prodeks/test-libcalproxy/libcal_client2_secret
+        - secretKey: LIBCAL_ALLOWED_IPS
+          remoteRef:
+            key: /services/prodeks/test-libcalproxy/libcal_allowed_ips
+    dockerhub:
+      data:
+        - secretKey: creds
+          remoteRef:
+            key: /services/prodeks/services-dockerhub-creds
+
+#---------------------------------------------
+
+#---------------------------------------------
+# Extra Objects Configuration
+# Use this field to create any manifests and/or templates that are not embedded into the bundled Helm Chart
+#
+extraObjects: {}
+#---------------------------------------------

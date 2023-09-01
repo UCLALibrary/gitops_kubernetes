@@ -1,0 +1,183 @@
+#---------------------------------------------
+# Global Configuration
+#
+#
+nameOverride: "prod-fester"
+fullnameOverride: "prod-fester"
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+#---------------------------------------------
+
+#---------------------------------------------
+# Deployment Configuration
+#
+#
+deployment:
+  enabled: true
+
+ports:
+  - name: http
+    containerPort: 8888
+    protocol: TCP
+
+livenessProbe:
+  httpGet:
+    path: /fester/status
+    port: http
+
+readinessProbe:
+  httpGet:
+    path: /fester/status
+    port: http
+
+replicaCount: 1
+imagePullSecrets:
+  - name: prod-fester-dockerhub-secret
+image:
+  repository: uclalibrary/fester
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "1.2.2"
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources:
+  limits:
+    memory: 512Mi
+  requests:
+    memory: 512Mi
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+#---------------------------------------------
+
+#---------------------------------------------
+# Service Configuration
+#
+#
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+#---------------------------------------------
+
+#---------------------------------------------
+# External Service Configuration
+#
+#
+externalservice:
+  enabled: false
+  extsvc: []
+#---------------------------------------------
+
+#---------------------------------------------
+# Ingress Configuration
+#
+#
+ingress:
+  enabled: false
+  className: "nginx"
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+#---------------------------------------------
+
+#---------------------------------------------
+# ConfigMap Configuration
+# Use this field to set any non-sensitive values to be supplied as Environment Variables to your deployment
+#
+configmap:
+  enabled: true
+  additionaLabels: {}
+  annotations: {}
+  data:
+    FESTER_URL: "https://iiif.library.ucla.edu"
+    FESTER_S3_BUCKET: "prod-iiif-fester-source"
+    FESTER_S3_REGION: "us-west-2"
+    IIIF_BASE_URL: "https://iiif.library.ucla.edu/iiif/2"
+    AV_DEFAULT_AUDIO_THUMBNAIL_URL: "https://static.library.ucla.edu/audio_icon.svg"
+    AV_DEFAULT_VIDEO_THUMBNAIL_URL: "https://static.library.ucla.edu/video_icon.svg"
+    AV_DEFAULT_VIDEO_THUMBNAIL_URL: "https://static.library.ucla.edu/video_icon.svg"
+    FESTERIZE_VERSION: "0.4.2"
+#---------------------------------------------
+
+
+#---------------------------------------------
+# ExternalSecrets Configuration
+# Use this field to set any sensitive values to be supplied as Environment Variables to your deployment
+#
+externalsecrets:
+  enabled: true
+  # Reference to ClusterSecretStore name
+  ref: services-clustersecretstore
+  secrets:
+    application:
+      data:
+        - secretKey: FESTER_S3_ACCESS_KEY
+          remoteRef:
+            key: /services/prodeks/prod-fester/fester_s3_access_key
+        - secretKey: FESTER_S3_SECRET_KEY
+          remoteRef:
+            key: /services/prodeks/prod-fester/fester_s3_secret_key
+    dockerhub:
+      data:
+        - secretKey: creds
+          remoteRef:
+            key: /services/prodeks/services-dockerhub-creds
+
+#---------------------------------------------
+
+#---------------------------------------------
+# Extra Objects Configuration
+# Use this field to create any manifests and/or templates that are not embedded into the bundled Helm Chart
+#
+extraObjects: {}
+#---------------------------------------------

@@ -1,0 +1,202 @@
+#---------------------------------------------
+# Global Configuration
+#
+#
+nameOverride: "test-hauth"
+fullnameOverride: "test-hauth"
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+#---------------------------------------------
+
+#---------------------------------------------
+# Deployment Configuration
+#
+#
+deployment:
+  enabled: true
+
+ports:
+  - name: http
+    containerPort: 8888
+    protocol: TCP
+
+livenessProbe:
+  httpGet:
+    path: /status
+    port: http
+
+readinessProbe:
+  httpGet:
+    path: /status
+    port: http
+
+replicaCount: 1
+imagePullSecrets:
+  - name: test-hauth-dockerhub-secret
+image:
+  repository: uclalibrary/hauth
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "0.0.9"
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources:
+  limits:
+    memory: 512Mi
+  requests:
+    memory: 512Mi
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+#---------------------------------------------
+
+#---------------------------------------------
+# Service Configuration
+#
+#
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+#---------------------------------------------
+
+#---------------------------------------------
+# External Service Configuration
+#
+#
+externalservice:
+  enabled: false
+  extsvc: []
+#---------------------------------------------
+
+#---------------------------------------------
+# Ingress Configuration
+#
+#
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    cert-manager.io/cluster-issuer: "sectigo-acme-clusterissuer"
+  hosts:
+    - host: test.auth.iiif.library.ucla.edu
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - secretName: test-hauth-tls
+      hosts:
+        - test.auth.iiif.library.ucla.edu
+#---------------------------------------------
+
+#---------------------------------------------
+# ConfigMap Configuration
+# Use this field to set any non-sensitive values to be supplied as Environment Variables to your deployment
+#
+configmap:
+  enabled: true
+  additionaLabels: {}
+  annotations: {}
+  data:
+    HAUTH_VERSION: "0.0.9"
+    ACCESS_COOKIE_DOMAIN: "iiif.library.ucla.edu"
+#---------------------------------------------
+
+
+#---------------------------------------------
+# ExternalSecrets Configuration
+# Use this field to set any sensitive values to be supplied as Environment Variables to your deployment
+#
+externalsecrets:
+  enabled: true
+  # Reference to ClusterSecretStore name
+  ref: services-clustersecretstore
+  secrets:
+    application:
+      data:
+        - secretKey: API_KEY
+          remoteRef:
+            key: /services/prodeks/test-hauth/api_key
+        - secretKey: CAMPUS_NETWORK_SUBNETS
+          remoteRef:
+            key: 	/services/prodeks/test-hauth/campus_network_subnets
+        - secretKey: DB_HOST
+          remoteRef:
+            key: 	/services/prodeks/test-hauth/db_host
+        - secretKey: DB_NAME
+          remoteRef:
+            key: 	/services/prodeks/test-hauth/db_name
+        - secretKey: DB_PASSWORD
+          remoteRef:
+            key: 	/services/prodeks/test-hauth/db_password
+        - secretKey: DB_USER
+          remoteRef:
+            key: 	/services/prodeks/test-hauth/db_user
+        - secretKey: SECRET_KEY_PASSWORD
+          remoteRef:
+            key: 	/services/prodeks/test-hauth/secret_key_generation_password
+        - secretKey: SECRET_KEY_SALT
+          remoteRef:
+            key: /services/prodeks/test-hauth/secret_key_generation_salt
+        - secretKey: SINAI_COOKIE_SECRET_KEY_PASSWORD
+          remoteRef:
+            key: /services/prodeks/test-hauth/sinai_cookie_secret_key_generation_password
+        - secretKey: SINAI_COOKIE_VALID_PREFIX
+          remoteRef:
+            key: /services/prodeks/test-hauth/sinai_cookie_valid_prefix
+    dockerhub:
+      data:
+        - secretKey: creds
+          remoteRef:
+            key: /services/prodeks/services-dockerhub-creds
+
+#---------------------------------------------
+
+#---------------------------------------------
+# Extra Objects Configuration
+# Use this field to create any manifests and/or templates that are not embedded into the bundled Helm Chart
+#
+extraObjects: {}
+#---------------------------------------------
