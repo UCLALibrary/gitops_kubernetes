@@ -149,7 +149,7 @@ applications:
         targetRevision: 1.0.1
         helm:
           valueFiles:
-          - $values/apps/services-team-value-files/test-fester.yaml
+          - $values/apps/services-team-value-files/test-cantaloupe.yaml
       - ref: values
         repoURL: https://github.com/UCLALibrary/gitops_kubernetes
         targetRevision: main
