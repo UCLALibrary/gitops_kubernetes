@@ -14,7 +14,7 @@ applications:
     sources:
       - chart: uclalib-helm-generic
         repoURL: https://chartmuseum.library.ucla.edu
-        targetRevision: 1.0.0
+        targetRevision: 1.0.1
         helm:
           valueFiles:
           - $values/apps/services-team-value-files/test-prl-harvester.yaml
