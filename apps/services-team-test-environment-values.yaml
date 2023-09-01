@@ -135,32 +135,6 @@ applications:
         - PruneLast=true
     revisionHistoryLimit: 20
 # Cantaloupe Application
-  - name: test-cantaloupe
-    namespace: argocd
-    finalizers:
-    - resources-finalizer.argocd.argoproj.io
-    additionalLabels: {}
-    additionalAnnotations:
-      notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-services-firehose
-    project: default
-    sources:
-      - repoURL: https://github.com/UCLALibrary/gitops_kubernetes.git
-        path: test/test-cantaloupe
-        targetRevision: main
-    destination:
-      name: prod-eks-services-team
-      namespace: test-cantaloupe
-    syncPolicy:
-      managedNamespaceMetadata:
-        labels:
-          namespace_team: services
-      automated:
-        prune: true
-        selfHeal: true
-      syncOptions:
-        - CreateNamespace=true
-        - PruneLast=true
-    revisionHistoryLimit: 20
 # test.iiif.library.ucla.edu ingress
   - name: frontend-test-iiif
     namespace: argocd
