@@ -94,9 +94,7 @@ external_secrets:
   secretstoreref_type: ClusterSecretStore
   server:
     secretkey: /devsupport/argocd/server/server_secretkey
-  clusters:
-    - base: /devsupport/argocd/cluster
-      name: prodeks
+  clusters: []
   ldap:
     enabled: true
     bind_dn_key: /devsupport/argocd/ldap/uclalibrary_bind_dn
