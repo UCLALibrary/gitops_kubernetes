@@ -124,14 +124,14 @@ ingress:
     nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - Restricted'
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
   hosts:
-    - host: prod-prl-harvester.library.ucla.edu
+    - host: prl-harvester.library.ucla.edu
       paths:
         - path: /
           pathType: ImplementationSpecific
   tls:
     - secretName: prod-prl-harvester-tls
       hosts:
-        - prod-prl-harvester.library.ucla.edu
+        - prl-harvester.library.ucla.edu
 #---------------------------------------------
 
 #---------------------------------------------
