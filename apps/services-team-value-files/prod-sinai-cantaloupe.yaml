@@ -209,7 +209,7 @@ externalsecrets:
             key: /services/prodeks/prod-sinai-cantaloupe/cipher_key
         - secretKey: CIPHER_TEXT
           remoteRef:
-            key: /services/prodeks/prod-sinai-cantaloupe/cipher_key
+            key: /services/prodeks/prod-sinai-cantaloupe/cipher_text
     dockerhub:
       data:
         - secretKey: creds
