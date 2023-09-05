@@ -152,11 +152,13 @@ configmap:
     CANTALOUPE_CACHE_SERVER_RESOLVE_FIRST: "true"
     CANTALOUPE_MAX_PIXELS: "350000000"
     CANTALOUPE_ENDPOINT_API_ENABLED: "true"
-    HEAP_SIZE: "8g"
+    # Deprecated in favor of RAM Percentage
+    #HEAP_SIZE: "8g"
     CANTALOUPE_MAX_PIXELS: "350000000"
     CANTALOUPE_S3SOURCE_CHUNKING_ENABLED: "false"
     CANTALOUPE_S3SOURCE_CHUNKING_CACHE_ENABLED: "false"
-    JAVA_OPTS: "-XX:ActiveProcessorCount=4"
+    # Not sure if this is still causes an error
+    #JAVA_OPTS: "-XX:ActiveProcessorCount=4"
     CANTALOUPE_DELEGATE_SCRIPT_ENABLED: "true"
     CANTALOUPE_DELEGATE_SCRIPT_PATHNAME: "/usr/local/cantaloupe/delegate.jar"
     DELEGATE_URL: "http://build-artifacts.library.ucla.edu/cantaloupe-delegate/cantaloupe-auth-delegate-0.0.4.jar"
