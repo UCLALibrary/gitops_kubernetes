@@ -394,7 +394,7 @@ configs:
     # @default -- `''` (See [values.yaml])
     policy.csv: |
       p, role:none, *, *, */*, deny
-      p, role:servicesdev, applications, action/extensions/Deployment/restart, dev/*, allow
+      p, role:servicesdev, applications, action/extensions/Deployment/restart, */*, allow
       g, avuong@library.ucla.edu, role:admin
       g, sgurnick@library.ucla.edu, role:admin
       g, jhriv@library.ucla.edu, role:admin
