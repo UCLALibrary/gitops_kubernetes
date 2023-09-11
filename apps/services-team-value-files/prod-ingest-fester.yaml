@@ -120,6 +120,10 @@ ingress:
     nginx.ingress.kubernetes.io/enable-cors: "true"
     cert-manager.io/cluster-issuer: "sectigo-acme-clusterissuer"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-body-size: "16m"
   hosts:
     - host: ingest.iiif.library.ucla.edu
       paths:
