@@ -395,6 +395,7 @@ configs:
     policy.csv: |
       p, role:none, *, *, */*, deny
       p, role:services-dev, applications, action/extensions/Deployment/restart, *, allow
+      p, role:services-dev, applications, action/apps/Deployment/restart, *, allow
       p, role:services-dev, applications, get, *, allow
       p, role:services-dev, logs, get, *, allow
       p, role:services-dev, projects, get, *, allow
