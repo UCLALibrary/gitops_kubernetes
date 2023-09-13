@@ -144,7 +144,6 @@ configmap:
     HAUTH_VERSION: "0.0.9"
     ACCESS_COOKIE_DOMAIN: "iiif.library.ucla.edu"
     ACCESS_COOKIE_WINDOW_CLOSE_DELAY: "0"
-    AVUONGTEST: "ignore"
 #---------------------------------------------
 
 
