@@ -46,8 +46,7 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "0.0.9"
 
-podAnnotations:
-  checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+podAnnotations: {}
 
 podSecurityContext: {}
   # fsGroup: 2000
