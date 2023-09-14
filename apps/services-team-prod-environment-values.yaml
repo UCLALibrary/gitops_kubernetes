@@ -146,7 +146,7 @@ applications:
     sources:
       - chart: uclalib-helm-generic
         repoURL: https://chartmuseum.library.ucla.edu
-        targetRevision: 1.0.1
+        targetRevision: 1.0.4
         helm:
           valueFiles:
           - $values/apps/services-team-value-files/prod-cantaloupe.yaml
