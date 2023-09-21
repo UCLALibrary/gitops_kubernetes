@@ -8,7 +8,8 @@ applications:
     finalizers:
     - resources-finalizer.argocd.argoproj.io
     additionalLabels: {}
-    additionalAnnotations: {}
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-systems-firehose
     project: default
     sources:
     - chart: cataloging-statistics
@@ -40,7 +41,8 @@ applications:
     finalizers:
     - resources-finalizer.argocd.argoproj.io
     additionalLabels: {}
-    additionalAnnotations: {}
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-systems-firehose
     project: default
     sources:
     - chart: lbs
@@ -72,7 +74,8 @@ applications:
     finalizers:
     - resources-finalizer.argocd.argoproj.io
     additionalLabels: {}
-    additionalAnnotations: {}
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-systems-firehose
     project: default
     sources:
     - chart: voyager-archive
@@ -104,7 +107,8 @@ applications:
     finalizers:
     - resources-finalizer.argocd.argoproj.io
     additionalLabels: {}
-    additionalAnnotations: {}
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-systems-firehose
     project: default
     sources:
     - chart: voyager-archive
@@ -136,7 +140,8 @@ applications:
     finalizers:
     - resources-finalizer.argocd.argoproj.io
     additionalLabels: {}
-    additionalAnnotations: {}
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-systems-firehose
     project: default
     sources:
     - chart: voyager-archive
@@ -168,7 +173,8 @@ applications:
     finalizers:
     - resources-finalizer.argocd.argoproj.io
     additionalLabels: {}
-    additionalAnnotations: {}
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-systems-firehose
     project: default
     sources:
     - chart: terra
@@ -200,7 +206,8 @@ applications:
     finalizers:
     - resources-finalizer.argocd.argoproj.io
     additionalLabels: {}
-    additionalAnnotations: {}
+    additionalAnnotations:
+      notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-systems-firehose
     project: default
     sources:
     - chart: oh-staff
