@@ -47,7 +47,7 @@ applications:
     sources:
     - chart: lbs
       repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 0.3.1
+      targetRevision: 0.3.2
       helm:
         valueFiles:
         - $values/charts/prod-lbs-values.yaml
