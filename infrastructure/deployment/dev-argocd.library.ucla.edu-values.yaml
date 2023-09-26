@@ -1,14 +1,14 @@
-#argocd_applications:
-#  argocd_namespace: argocd
-#  default_sync_policy:
-#    syncPolicy:
-#      automated:
-#        selfHeal: true
-#        allowEmpty: false
-#      syncOptions:
-#        - CreateNamespace=true
-#        - PruneLast=true
-#  entries:
+argocd_applications:
+  argocd_namespace: argocd
+  default_sync_policy:
+    syncPolicy:
+      automated:
+        selfHeal: true
+        allowEmpty: false
+      syncOptions:
+        - CreateNamespace=true
+        - PruneLast=true
+  entries: []
 #    - name: argocd
 #      deployment_namespace: argocd
 #      project: default
