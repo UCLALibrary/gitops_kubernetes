@@ -624,24 +624,6 @@ configs:
 # -- Array of extra K8s manifests to deploy
 ## Note: Supports use of custom Helm templates
 extraObjects:
-  # Create Sectigo ACME credentials for cert manager
-  - |
-    ---
-    apiVersion: external-secrets.io/v1beta1
-    kind: ExternalSecret
-    metadata:
-      name: sectigo-acme-issueraccount-rsa-pem
-    spec:
-      refreshInterval: {{ $.Values.external_secrets.refresh_interval }}
-      secretStoreRef:
-        name: {{ $.Values.external_secrets.secretstoreref_name }}
-        kind: {{ $.Values.external_secrets.secretstoreref_type }}
-      target:
-        name: sectigo-acme-issueraccount-rsa-pem
-      data:
-      - secretKey: tls.key
-        remoteRef:
-          key: /devsupport/argocd/sectigo/tls/cert
   # Create Sectigo Cluster Issuer
   - |
     ---
