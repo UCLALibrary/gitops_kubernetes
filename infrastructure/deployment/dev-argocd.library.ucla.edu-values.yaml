@@ -624,33 +624,6 @@ configs:
 # -- Array of extra K8s manifests to deploy
 ## Note: Supports use of custom Helm templates
 extraObjects:
-  # Create External Secrets ClusterSecretStore
-  - |
-    --- 
-    apiVersion: external-secrets.io/v1beta1
-    kind: ClusterSecretStore
-    metadata:
-      name: argocd-clustersecretstore
-      namespace: external-secrets
-    spec:
-      provider:
-        aws:
-          auth:
-            secretRef:
-              accessKeyIDSecretRef:
-                key: access-key
-                name: argocd-awsaccess-secret
-                namespace: external-secrets
-              secretAccessKeySecretRef:
-                key: secret-access-key
-                name: argocd-awsaccess-secret
-                namespace: external-secrets
-          region: us-west-2
-          service: ParameterStore
-      conditions:
-        - namespaceSelector:
-            matchLabels:
-              namespace_team: argocd
   # Create Sectigo ACME credentials for cert manager
   - |
     ---
