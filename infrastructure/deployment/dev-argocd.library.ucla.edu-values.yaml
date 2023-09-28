@@ -8,34 +8,34 @@ argocd_applications:
       syncOptions:
         - CreateNamespace=true
         - PruneLast=true
-  entries: []
-#    - name: argocd
-#      deployment_namespace: argocd
-#      project: default
-#      destination: in-cluster
-#      sources:
-#        - repourl: https://argoproj.github.io/argo-helm
-#          # 2.7.3
-#          revision: 5.34.6
-#          chart: argo-cd
-#          valueFiles:
-#            - $values/infrastructure/deployment/dev-argocd.library.ucla.edu-values.yaml
-#        - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
-#          revision: main
-#          ref: values
-#    - name: devsupport-environment
-#      deployment_namespace: argocd
-#      project: default
-#      destination: in-cluster
-#      sources:
-#        - repourl: https://argoproj.github.io/argo-helm
-#          revision: 1.2.0
-#          chart: argocd-apps
-#          valueFiles:
-#            - $values/apps/devsupport-environment-values.yaml
-#        - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
-#          revision: main
-#          ref: values
+  entries:
+    - name: argocd
+      deployment_namespace: argocd
+      project: default
+      destination: in-cluster
+      sources:
+        - repourl: https://argoproj.github.io/argo-helm
+          # 2.7.3
+          revision: 5.34.6
+          chart: argo-cd
+          valueFiles:
+            - $values/infrastructure/deployment/dev-argocd.library.ucla.edu-values.yaml
+        - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
+          revision: main
+          ref: values
+    - name: devsupport-environment
+      deployment_namespace: argocd
+      project: default
+      destination: in-cluster
+      sources:
+        - repourl: https://argoproj.github.io/argo-helm
+          revision: 1.2.0
+          chart: argocd-apps
+          valueFiles:
+            - $values/apps/devsupport-environment-values.yaml
+        - repourl: https://github.com/UCLALibrary/gitops_kubernetes.git
+          revision: main
+          ref: values
 
 traefik_config:
   middleware:
