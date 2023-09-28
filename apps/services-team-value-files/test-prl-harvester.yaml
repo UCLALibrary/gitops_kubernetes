@@ -44,7 +44,7 @@ image:
   repository: uclalibrary/prl-harvester
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.5.1"
+  tag: "1.0.0"
 
 podAnnotations: {}
 
