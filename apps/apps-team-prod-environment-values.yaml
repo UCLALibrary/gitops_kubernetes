@@ -2,230 +2,32 @@
 # @default -- `[]` (See [values.yaml])
 ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/
 applications:
-# Cataloging Statistics Application
-  - name: cataloging-statistics
+
+# Oral History Public Web
+  - name: oral-history-public-web
     namespace: argocd
     finalizers:
     - resources-finalizer.argocd.argoproj.io
-    additionalLabels:
-      team: systems
+    additionalLabels: {}
     additionalAnnotations: {}
     project: default
     sources:
-    - chart: cataloging-statistics
+    - chart: oralhistory
       repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 0.0.5
+      targetRevision: 0.0.4
       helm:
         valueFiles:
-        - $values/charts/prod-catalogingstatistics-values.yaml
+        - $values/charts/prod-oralhistory-values.yaml
     - ref: values
-      repoURL: https://github.com/UCLALibrary/cataloging-statistics
+      repoURL: https://github.com/UCLALibrary/oral-history
       targetRevision: main
     destination:
       name: prodrke01
-      namespace: cataloging-statisticsprod
+      namespace: oralhistory
     syncPolicy:
       managedNamespaceMetadata:
         labels:
-          namespace_team: systems
-      automated:
-        prune: true
-        selfHeal: true
-      syncOptions:
-        - CreateNamespace=true
-        - PruneLast=true
-    revisionHistoryLimit: 20
-# LBS Application
-  - name: lbs
-    namespace: argocd
-    finalizers:
-    - resources-finalizer.argocd.argoproj.io
-    additionalLabels:
-      team: systems
-    additionalAnnotations: {}
-    project: default
-    sources:
-    - chart: lbs
-      repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 0.3.2
-      helm:
-        valueFiles:
-        - $values/charts/prod-lbs-values.yaml
-    - ref: values
-      repoURL: https://github.com/UCLALibrary/LBS
-      targetRevision: main
-    destination:
-      name: prodrke01
-      namespace: lbsprod
-    syncPolicy:
-      managedNamespaceMetadata:
-        labels:
-          namespace_team: systems
-      automated:
-        prune: true
-        selfHeal: true
-      syncOptions:
-        - CreateNamespace=true
-        - PruneLast=true
-    revisionHistoryLimit: 20
-# Voyager Archive Ethno
-  - name: voyager-archive-ethno
-    namespace: argocd
-    finalizers:
-    - resources-finalizer.argocd.argoproj.io
-    additionalLabels:
-      team: systems
-    additionalAnnotations: {}
-    project: default
-    sources:
-    - chart: voyager-archive
-      repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 1.0.16
-      helm:
-        valueFiles:
-        - $values/charts/prod-ethnovoyagerarchive-values.yaml
-    - ref: values
-      repoURL: https://github.com/UCLALibrary/voyager-archive
-      targetRevision: main
-    destination:
-      name: prodrke01
-      namespace: voyager-archiveprod
-    syncPolicy:
-      managedNamespaceMetadata:
-        labels:
-          namespace_team: systems
-      automated:
-        prune: true
-        selfHeal: true
-      syncOptions:
-        - CreateNamespace=true
-        - PruneLast=true
-    revisionHistoryLimit: 20
-# Voyager Archive FTVA
-  - name: voyager-archive-ftva
-    namespace: argocd
-    finalizers:
-    - resources-finalizer.argocd.argoproj.io
-    additionalLabels:
-      team: systems
-    additionalAnnotations: {}
-    project: default
-    sources:
-    - chart: voyager-archive
-      repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 1.0.16
-      helm:
-        valueFiles:
-        - $values/charts/prod-ftvavoyagerarchive-values.yaml
-    - ref: values
-      repoURL: https://github.com/UCLALibrary/voyager-archive
-      targetRevision: main
-    destination:
-      name: prodrke01
-      namespace: voyager-archiveprod
-    syncPolicy:
-      managedNamespaceMetadata:
-        labels:
-          namespace_team: systems
-      automated:
-        prune: true
-        selfHeal: true
-      syncOptions:
-        - CreateNamespace=true
-        - PruneLast=true
-    revisionHistoryLimit: 20
-# Voyager Archive UCLA
-  - name: voyager-archive-ucla
-    namespace: argocd
-    finalizers:
-    - resources-finalizer.argocd.argoproj.io
-    additionalLabels:
-      team: systems
-    additionalAnnotations: {}
-    project: default
-    sources:
-    - chart: voyager-archive
-      repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 1.0.16
-      helm:
-        valueFiles:
-        - $values/charts/prod-uclavoyagerarchive-values.yaml
-    - ref: values
-      repoURL: https://github.com/UCLALibrary/voyager-archive
-      targetRevision: main
-    destination:
-      name: prodrke01
-      namespace: voyager-archiveprod
-    syncPolicy:
-      managedNamespaceMetadata:
-        labels:
-          namespace_team: systems
-      automated:
-        prune: true
-        selfHeal: true
-      syncOptions:
-        - CreateNamespace=true
-        - PruneLast=true
-    revisionHistoryLimit: 20
-# Terra
-  - name: terra
-    namespace: argocd
-    finalizers:
-    - resources-finalizer.argocd.argoproj.io
-    additionalLabels:
-      team: systems
-    additionalAnnotations: {}
-    project: default
-    sources:
-    - chart: terra
-      helm:
-        valueFiles:
-        - $values/charts/prod-terra-values.yaml
-      repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 0.3.2
-    - ref: values
-      repoURL: https://github.com/UCLALibrary/terra
-      targetRevision: main
-    destination:
-      name: prodrke01
-      namespace: terraprod
-    syncPolicy:
-      managedNamespaceMetadata:
-        labels:
-          namespace_team: systems
-      automated:
-        prune: true
-        selfHeal: true
-      syncOptions:
-        - CreateNamespace=true
-        - PruneLast=true
-    revisionHistoryLimit: 20
-# Oral History Staff UI
-  - name: oral-history-staff-ui
-    namespace: argocd
-    finalizers:
-    - resources-finalizer.argocd.argoproj.io
-    additionalLabels:
-      team: systems
-    additionalAnnotations: {}
-    project: default
-    sources:
-    - chart: oh-staff
-      repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 0.2.0
-      helm:
-        valueFiles:
-        - $values/charts/prod-ohstaff-values.yaml
-    - ref: values
-      repoURL: https://github.com/UCLALibrary/oral-history-staff-ui
-      targetRevision: main
-    destination:
-      name: prodrke01
-      namespace: oh-staffprod
-    syncPolicy:
-      managedNamespaceMetadata:
-        labels:
-          namespace_team: systems
+          namespace_team: apps
       automated:
         prune: true
         selfHeal: true
