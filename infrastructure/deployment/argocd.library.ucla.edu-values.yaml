@@ -2959,7 +2959,7 @@ notifications:
   name: notifications-controller
 
   # -- Argo CD dashboard url; used in place of {{.context.argocdUrl}} in templates
-  argocdUrl:
+  argocdUrl: https://argocd.library.ucla.edu
 
   ## Notifications controller Pod Disruption Budget
   ## Ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
