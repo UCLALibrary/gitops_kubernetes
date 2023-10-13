@@ -3185,19 +3185,21 @@ notifications:
 
   # -- Contains centrally managed global application subscriptions
   ## For more information: https://argocd-notifications.readthedocs.io/en/stable/subscriptions/
-  subscriptions: []
+  subscriptions:
     # # subscription for on-sync-status-unknown trigger notifications
     # - recipients:
     #   - slack:test2
     #   - email:test@gmail.com
     #   triggers:
     #   - on-sync-status-unknown
-    # # subscription restricted to applications with matching labels only
-    # - recipients:
-    #   - slack:test3
-    #   selector: test=true
-    #   triggers:
-    #   - on-sync-status-unknown
+    # subscription restricted to applications with matching labels only
+    - recipients:
+      - slack:softwaredev-services-firehose
+      selector: team=services
+      triggers:
+      - on-sync-status-unknown
+      - on-deployed
+      - on-health-degraded
 
   # -- The notification template is used to generate the notification content
   ## For more information: https://argocd-notifications.readthedocs.io/en/stable/templates/

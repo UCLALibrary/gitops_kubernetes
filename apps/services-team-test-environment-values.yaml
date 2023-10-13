@@ -7,9 +7,9 @@ applications:
     namespace: argocd
     finalizers:
     - resources-finalizer.argocd.argoproj.io
-    additionalLabels: {}
-    additionalAnnotations:
-      notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-services-firehose
+    additionalLabels:
+      team: services
+    additionalAnnotations: {}
     project: default
     sources:
       - chart: uclalib-helm-generic
