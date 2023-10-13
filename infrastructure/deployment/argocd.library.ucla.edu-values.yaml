@@ -3036,7 +3036,7 @@ notifications:
 
   secret:
     # -- Whether helm chart creates notifications controller secret
-    create: true
+    create: false
 
     # -- key:value pairs of annotations to be added to the secret
     annotations: {}
@@ -3094,9 +3094,9 @@ notifications:
   # -- Configures notification services such as slack, email or custom webhook
   # @default -- See [values.yaml]
   ## For more information: https://argocd-notifications.readthedocs.io/en/stable/services/overview/
-  notifiers: {}
-    # service.slack: |
-    #   token: $slack-token
+  notifiers:
+    service.slack: |
+      token: $slack-token
 
   # -- Annotations to be applied to the notifications controller Deployment
   deploymentAnnotations: {}
