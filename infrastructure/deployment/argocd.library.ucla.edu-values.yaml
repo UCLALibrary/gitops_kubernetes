@@ -3452,5 +3452,7 @@ notifications:
         when: app.status.operationState.phase in ['Succeeded']
    
     # For more information: https://argocd-notifications.readthedocs.io/en/stable/triggers/#default-triggers
-    # defaultTriggers: |
-    #   - on-sync-status-unknown
+    defaultTriggers: |
+      - on-sync-status-unknown
+      - on-deployed
+      - on-health-degraded
