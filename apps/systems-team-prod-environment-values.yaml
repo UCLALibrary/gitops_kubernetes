@@ -7,9 +7,9 @@ applications:
     namespace: argocd
     finalizers:
     - resources-finalizer.argocd.argoproj.io
-    additionalLabels: {}
-    additionalAnnotations:
-      notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-systems-firehose
+    additionalLabels:
+      team: systems
+    additionalAnnotations: {}
     project: default
     sources:
     - chart: cataloging-statistics
@@ -40,9 +40,9 @@ applications:
     namespace: argocd
     finalizers:
     - resources-finalizer.argocd.argoproj.io
-    additionalLabels: {}
-    additionalAnnotations:
-      notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-systems-firehose
+    additionalLabels:
+      team: systems
+    additionalAnnotations: {}
     project: default
     sources:
     - chart: lbs
@@ -73,9 +73,9 @@ applications:
     namespace: argocd
     finalizers:
     - resources-finalizer.argocd.argoproj.io
-    additionalLabels: {}
-    additionalAnnotations:
-      notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-systems-firehose
+    additionalLabels:
+      team: systems
+    additionalAnnotations: {}
     project: default
     sources:
     - chart: voyager-archive
@@ -106,9 +106,9 @@ applications:
     namespace: argocd
     finalizers:
     - resources-finalizer.argocd.argoproj.io
-    additionalLabels: {}
-    additionalAnnotations:
-      notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-systems-firehose
+    additionalLabels:
+      team: systems
+    additionalAnnotations: {}
     project: default
     sources:
     - chart: voyager-archive
@@ -139,9 +139,9 @@ applications:
     namespace: argocd
     finalizers:
     - resources-finalizer.argocd.argoproj.io
-    additionalLabels: {}
-    additionalAnnotations:
-      notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-systems-firehose
+    additionalLabels:
+      team: systems
+    additionalAnnotations: {}
     project: default
     sources:
     - chart: voyager-archive
@@ -172,9 +172,9 @@ applications:
     namespace: argocd
     finalizers:
     - resources-finalizer.argocd.argoproj.io
-    additionalLabels: {}
-    additionalAnnotations:
-      notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-systems-firehose
+    additionalLabels:
+      team: systems
+    additionalAnnotations: {}
     project: default
     sources:
     - chart: terra
@@ -205,9 +205,9 @@ applications:
     namespace: argocd
     finalizers:
     - resources-finalizer.argocd.argoproj.io
-    additionalLabels: {}
-    additionalAnnotations:
-      notifications.argoproj.io/subscribe.on-sync-succeeded.slack: softwaredev-systems-firehose
+    additionalLabels:
+      team: systems
+    additionalAnnotations: {}
     project: default
     sources:
     - chart: oh-staff
