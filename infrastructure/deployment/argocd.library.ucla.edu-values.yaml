@@ -3200,6 +3200,7 @@ notifications:
       - on-sync-status-unknown
       - on-deployed
       - on-health-degraded
+      - on-sync-failed
     - recipients:
       - slack:softwaredev-systems-firehose
       selector: team=systems
@@ -3207,6 +3208,7 @@ notifications:
       - on-sync-status-unknown
       - on-deployed
       - on-health-degraded
+      - on-sync-failed
 
   # -- The notification template is used to generate the notification content
   ## For more information: https://argocd-notifications.readthedocs.io/en/stable/templates/
@@ -3465,3 +3467,4 @@ notifications:
       - on-sync-status-unknown
       - on-deployed
       - on-health-degraded
+      - on-sync-failed
