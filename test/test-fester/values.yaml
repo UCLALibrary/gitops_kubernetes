@@ -14,7 +14,7 @@ fester:
     enabled: false
   image:
     repository: "uclalibrary/fester"
-    tag: "1.2.2"
+    tag: "1.2.4"
     imagePullSecrets:
       - name: services-dockerhub
   fester:
