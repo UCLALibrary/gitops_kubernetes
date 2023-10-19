@@ -27,7 +27,7 @@ applications:
     syncPolicy:
       managedNamespaceMetadata:
         labels:
-          namespace_team: apps
+          namespace_team: systems
       automated:
         prune: true
         selfHeal: true
