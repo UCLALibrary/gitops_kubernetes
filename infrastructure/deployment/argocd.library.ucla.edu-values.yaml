@@ -3223,7 +3223,6 @@ notifications:
       - slack:softwaredev-services-firehose
       selector: team=services
       triggers:
-      - on-sync-status-unknown
       - on-deployed
       - on-health-degraded
       - on-sync-failed
@@ -3232,7 +3231,6 @@ notifications:
       - slack:softwaredev-systems-firehose
       selector: team=systems
       triggers:
-      - on-sync-status-unknown
       - on-deployed
       - on-health-degraded
       - on-sync-failed
@@ -3492,7 +3490,6 @@ notifications:
    
     # For more information: https://argocd-notifications.readthedocs.io/en/stable/triggers/#default-triggers
     defaultTriggers: |
-      - on-sync-status-unknown
       - on-deployed
       - on-health-degraded
       - on-sync-failed
