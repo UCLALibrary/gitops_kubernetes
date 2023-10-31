@@ -17,7 +17,7 @@ applications:
       targetRevision: debug
       helm:
         valueFiles:
-        - charts/prod-oralhistory-values.yaml
+        - prod-oralhistory-values.yaml
     destination:
       name: prodrke01
       namespace: oralhistory
