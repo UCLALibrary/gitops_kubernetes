@@ -37,7 +37,7 @@ readinessProbe:
     path: /iiif/2
     port: http
 
-replicaCount: 2
+replicaCount: 1
 imagePullSecrets:
   - name: test-sinai-cantaloupe-dockerhub-secret
 image:
