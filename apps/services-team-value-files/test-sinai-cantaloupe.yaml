@@ -127,10 +127,25 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
+    - host: test.iiif.sinaimanuscripts-dev.library.ucla.edu
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: test.iiif.sinaimanuscripts-test.library.ucla.edu
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    - host: test.iiif.sinaimanuscripts-stage.library.ucla.edu
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
   tls:
     - secretName: test-sinai-iiif-tls
       hosts:
         - test.iiif.sinaimanuscripts.library.ucla.edu
+        - test.iiif.sinaimanuscripts-dev.library.ucla.edu
+        - test.iiif.sinaimanuscripts-test.library.ucla.edu
+        - test.iiif.sinaimanuscripts-stage.library.ucla.edu
 
 #---------------------------------------------
 
@@ -158,7 +173,7 @@ configmap:
     CANTALOUPE_DELEGATE_SCRIPT_ENABLED: "true"
     CANTALOUPE_DELEGATE_SCRIPT_PATHNAME: "/usr/local/cantaloupe/delegates.rb"
     CANTALOUPE_SOURCE_DELEGATE: "true"
-    DELEGATE_URL: "https://raw.githubusercontent.com/UCLALibrary/cantaloupe-delegate/master/lib/delegates.rb"
+    DELEGATE_URL: "https://raw.githubusercontent.com/UCLALibrary/cantaloupe-delegate/8bcb6145a3f60c0ce8673cff2a95cf97f823d2e6/lib/delegates.rb"
     CANTALOUPE_ENDPOINT_API_ENABLED: "true"
     HEAP_SIZE: "4g"
     CANTALOUPE_S3SOURCE_CHUNKING_ENABLED: "false"
