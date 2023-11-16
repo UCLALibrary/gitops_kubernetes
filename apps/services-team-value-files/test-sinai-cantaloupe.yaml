@@ -1,0 +1,226 @@
+#---------------------------------------------
+# Global Configuration
+#
+#
+nameOverride: "test-sinai-cantaloupe"
+fullnameOverride: "test-sinai-cantaloupe"
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+#---------------------------------------------
+
+#---------------------------------------------
+# Deployment Configuration
+#
+#
+deployment:
+  enabled: true
+
+ports:
+  - name: http
+    containerPort: 8182
+    protocol: TCP
+
+livenessProbe:
+  httpGet:
+    path: /iiif/2
+    port: http
+
+readinessProbe:
+  httpGet:
+    path: /iiif/2
+    port: http
+
+replicaCount: 2
+imagePullSecrets:
+  - name: test-sinai-cantaloupe-dockerhub-secret
+image:
+  repository: uclalibrary/cantaloupe-ucla
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "4.1.7-3"
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources:
+  limits:
+    memory: 4Gi
+  requests:
+    memory: 4Gi
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+#---------------------------------------------
+
+#---------------------------------------------
+# Service Configuration
+#
+#
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+#---------------------------------------------
+
+#---------------------------------------------
+# External Service Configuration
+#
+#
+externalservice:
+  enabled: false
+  extsvc: []
+#---------------------------------------------
+
+
+#---------------------------------------------
+# Ingress Configuration
+#
+#
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    cert-manager.io/cluster-issuer: "sectigo-acme-clusterissuer"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  hosts:
+    - host: test.iiif.sinaimanuscripts.library.ucla.edu
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - secretName: test-sinai-iiif-tls
+      hosts:
+        - test.iiif.sinaimanuscripts.library.ucla.edu
+
+#---------------------------------------------
+
+#---------------------------------------------
+# ConfigMap Configuration
+# Use this field to set any non-sensitive values to be supplied as Environment Variables to your deployment
+#
+configmap:
+  enabled: true
+  additionaLabels: {}
+  annotations: {}
+  data:
+    CANTALOUPE_ENDPOINT_ADMIN_ENABLED: "true"
+    CANTALOUPE_CACHE_SERVER_DERIVATIVE_ENABLED: "true"
+    CANTALOUPE_CACHE_SERVER_DERIVATIVE: "S3Cache"
+    CANTALOUPE_CACHE_SERVER_DERIVATIVE_TTL_SECONDS: "0"
+    CANTALOUPE_CACHE_SERVER_PURGE_MISSING: "true"
+    CANTALOUPE_CACHE_SERVER_RESOLVE_FIRST: "true"
+    CANTALOUPE_PROCESSOR_SELECTION_STRATEGY: "ManualSelectionStrategy"
+    CANTALOUPE_MANUAL_PROCESSOR_JP2: "KakaduNativeProcessor"
+    CANTALOUPE_S3CACHE_ENDPOINT: "s3.us-west-2.amazonaws.com"
+    CANTALOUPE_S3SOURCE_ENDPOINT: "s3.us-west-2.amazonaws.com"
+    CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_PATH_SUFFIX: ".jpx"
+    CANTALOUPE_SOURCE_STATIC: "S3Source"
+    CANTALOUPE_DELEGATE_SCRIPT_ENABLED: "true"
+    CANTALOUPE_DELEGATE_SCRIPT_PATHNAME: "/usr/local/cantaloupe/delegates.rb"
+    CANTALOUPE_SOURCE_DELEGATE: "true"
+    DELEGATE_URL: "https://raw.githubusercontent.com/UCLALibrary/cantaloupe-delegate/master/lib/delegates.rb"
+    CANTALOUPE_ENDPOINT_API_ENABLED: "true"
+    HEAP_SIZE: "4g"
+    CANTALOUPE_S3SOURCE_CHUNKING_ENABLED: "false"
+    CANTALOUPE_S3SOURCE_CHUNKING_CACHE_ENABLED: "false"
+#---------------------------------------------
+
+
+#---------------------------------------------
+# ExternalSecrets Configuration
+# Use this field to set any sensitive values to be supplied as Environment Variables to your deployment
+#
+externalsecrets:
+  enabled: true
+  # Reference to ClusterSecretStore name
+  ref: services-clustersecretstore
+  secrets:
+    application:
+      data:
+        - secretKey: CANTALOUPE_ENDPOINT_ADMIN_SECRET
+          remoteRef:
+            key: /services/prodeks/prod-sinai-cantaloupe/cantaloupe_endpoint_admin_secret
+        - secretKey: CANTALOUPE_S3CACHE_ACCESS_KEY_ID
+          remoteRef:
+            key: /services/prodeks/prod-sinai-cantaloupe/cantaloupe_s3cache_access_key_id
+        - secretKey: CANTALOUPE_S3CACHE_SECRET_KEY
+          remoteRef:
+            key: /services/prodeks/prod-sinai-cantaloupe/cantaloupe_s3cache_secret_key
+        - secretKey: CANTALOUPE_S3SOURCE_ACCESS_KEY_ID
+          remoteRef:
+            key: /services/prodeks/prod-sinai-cantaloupe/cantaloupe_s3source_access_key_id
+        - secretKey: CANTALOUPE_S3SOURCE_SECRET_KEY
+          remoteRef:
+            key: /services/prodeks/prod-sinai-cantaloupe/cantaloupe_s3source_secret_key
+        - secretKey: CANTALOUPE_S3CACHE_BUCKET_NAME
+          remoteRef:
+            key: /services/prodeks/prod-sinai-cantaloupe/cantaloupe_s3cache_bucket_name
+        - secretKey: CANTALOUPE_ENDPOINT_API_USERNAME
+          remoteRef:
+            key: /services/prodeks/prod-sinai-cantaloupe/cantaloupe_endpoint_api_username
+        - secretKey: CANTALOUPE_ENDPOINT_API_SECRET
+          remoteRef:
+            key: /services/prodeks/prod-sinai-cantaloupe/cantaloupe_endpoint_api_secret
+        - secretKey: CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_BUCKET_NAME
+          remoteRef:
+            key: /services/prodeks/prod-sinai-cantaloupe/cantaloupe_s3source_basiclookupstrategy_bucket_name
+        - secretKey: CIPHER_KEY
+          remoteRef:
+            key: /services/prodeks/prod-sinai-cantaloupe/cipher_key
+        - secretKey: CIPHER_TEXT
+          remoteRef:
+            key: /services/prodeks/prod-sinai-cantaloupe/cipher_text
+    dockerhub:
+      data:
+        - secretKey: creds
+          remoteRef:
+            key: /services/prodeks/services-dockerhub-creds
+
+#---------------------------------------------
+
+#---------------------------------------------
+# Extra Objects Configuration
+# Use this field to create any manifests and/or templates that are not embedded into the bundled Helm Chart
+#
+extraObjects: {}
+#---------------------------------------------
