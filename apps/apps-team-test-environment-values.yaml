@@ -2,7 +2,7 @@
 # @default -- `[]` (See [values.yaml])
 ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/
 applications:
-  - name: oral-history-public-web
+  - name: oral-history-public-web-test
     namespace: argocd
     finalizers:
     - resources-finalizer.argocd.argoproj.io
