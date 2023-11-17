@@ -14,7 +14,7 @@ applications:
     sources:
     - chart: oralhistory
       repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 0.0.8
+      targetRevision: 0.0.10
       helm:
         valueFiles:
         - $values/charts/prod-oralhistory-values.yaml
