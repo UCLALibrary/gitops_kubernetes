@@ -15,7 +15,7 @@ applications:
       targetRevision: fix-helm-chart
       helm:
         valueFiles:
-        - charts/debug-values.yaml
+        - debug-values.yaml
     destination:
       name: testrke01
       namespace: oralhistory
