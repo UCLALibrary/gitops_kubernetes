@@ -2,6 +2,7 @@
 # @default -- `[]` (See [values.yaml])
 ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/
 applications:
+# Test Oral History Public Web
   - name: test-oral-history-public-web
     namespace: argocd
     finalizers:
@@ -10,15 +11,18 @@ applications:
     additionalAnnotations: {}
     project: default
     sources:
-    - path: charts
-      repoURL: https://github.com/UCLALibrary/oral-history
-      targetRevision: fix-helm-chart
+    - chart: oralhistory
+      repoURL: https://chartmuseum.library.ucla.edu
+      targetRevision: 1.0.0
       helm:
         valueFiles:
-        - test-oralhistory-values.yaml
+        - $values/charts/test-oralhistory-values.yaml
+    - ref: values
+      repoURL: https://github.com/UCLALibrary/oral-history
+      targetRevision: main
     destination:
       name: testrke01
-      namespace: oralhistory
+      namespace: test-oralhistory
     syncPolicy:
       managedNamespaceMetadata:
         labels:
