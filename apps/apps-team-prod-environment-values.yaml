@@ -1,38 +1,9 @@
 # -- Deploy Argo CD Applications within this helm release
 # @default -- `[]` (See [values.yaml])
 ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/
-applications: []
-#  - name: oral-history-public-web
-#    namespace: argocd
-#    finalizers:
-#    - resources-finalizer.argocd.argoproj.io
-#    additionalLabels: {}
-#    additionalAnnotations: {}
-#    project: default
-#    sources:
-#    - path: charts
-#      repoURL: https://github.com/UCLALibrary/oral-history
-#      targetRevision: fix-helm-chart
-#      helm:
-#        valueFiles:
-#        - charts/debug-values.yaml
-#    destination:
-#      name: testrke01
-#      namespace: oralhistory
-#    syncPolicy:
-#      managedNamespaceMetadata:
-#        labels:
-#          namespace_team: systems
-#      automated:
-#        prune: true
-#        selfHeal: true
-#      syncOptions:
-#        - CreateNamespace=true
-#        - PruneLast=true
-#    revisionHistoryLimit: 20
-
-# Oral History Public Web # Temporary turned off by Avuong
-#  - name: oral-history-public-web
+applications:
+# Prod Oral History Public Web
+#  - name: prod-oral-history-public-web
 #    namespace: argocd
 #    finalizers:
 #    - resources-finalizer.argocd.argoproj.io
@@ -42,7 +13,7 @@ applications: []
 #    sources:
 #    - chart: oralhistory
 #      repoURL: https://chartmuseum.library.ucla.edu
-#      targetRevision: 0.0.11
+#      targetRevision: 1.0.0
 #      helm:
 #        valueFiles:
 #        - $values/charts/prod-oralhistory-values.yaml
@@ -51,11 +22,11 @@ applications: []
 #      targetRevision: main
 #    destination:
 #      name: prodrke01
-#      namespace: oralhistory
+#      namespace: prod-oralhistory
 #    syncPolicy:
 #      managedNamespaceMetadata:
 #        labels:
-#          namespace_team: systems
+#          namespace_team: apps
 #      automated:
 #        prune: true
 #        selfHeal: true
@@ -63,8 +34,39 @@ applications: []
 #        - CreateNamespace=true
 #        - PruneLast=true
 #    revisionHistoryLimit: 20
-#
 
+# Stage Oral History Public Web
+  - name: prod-oral-history-public-web
+    namespace: argocd
+    finalizers:
+    - resources-finalizer.argocd.argoproj.io
+    additionalLabels: {}
+    additionalAnnotations: {}
+    project: default
+    sources:
+    - chart: oralhistory
+      repoURL: https://chartmuseum.library.ucla.edu
+      targetRevision: 1.0.0
+      helm:
+        valueFiles:
+        - $values/charts/stage-oralhistory-values.yaml
+    - ref: values
+      repoURL: https://github.com/UCLALibrary/oral-history
+      targetRevision: main
+    destination:
+      name: prodrke01
+      namespace: stage-oralhistory
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          namespace_team: apps
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+        - CreateNamespace=true
+        - PruneLast=true
+    revisionHistoryLimit: 20
 
 # -- Deploy Argo CD Projects within this helm release
 # @default -- `[]` (See [values.yaml])
