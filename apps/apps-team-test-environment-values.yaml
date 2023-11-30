@@ -1,36 +1,35 @@
 # -- Deploy Argo CD Applications within this helm release
 # @default -- `[]` (See [values.yaml])
 ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/
-applications: []
-#  - name: oral-history-public-web-test
-#    namespace: argocd
-#    finalizers:
-#    - resources-finalizer.argocd.argoproj.io
-#    additionalLabels: {}
-#    additionalAnnotations: {}
-#    project: default
-#    sources:
-#    - path: charts
-#      repoURL: https://github.com/UCLALibrary/oral-history
-#      targetRevision: fix-helm-chart
-#      helm:
-#        valueFiles:
-#        - debug-prod-values.yaml
-#    destination:
-#      name: testrke01
-#      namespace: oralhistory
-#    syncPolicy:
-#      managedNamespaceMetadata:
-#        labels:
-#          namespace_team: systems
-#      automated:
-#        prune: true
-#        selfHeal: true
-#      syncOptions:
-#        - CreateNamespace=true
-#        - PruneLast=true
-#    revisionHistoryLimit: 20
-
+applications:
+  - name: test-oral-history-public-web
+    namespace: argocd
+    finalizers:
+    - resources-finalizer.argocd.argoproj.io
+    additionalLabels: {}
+    additionalAnnotations: {}
+    project: default
+    sources:
+    - path: charts
+      repoURL: https://github.com/UCLALibrary/oral-history
+      targetRevision: fix-helm-chart
+      helm:
+        valueFiles:
+        - test-oralhistory-values.yaml
+    destination:
+      name: testrke01
+      namespace: oralhistory
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          namespace_team: apps
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+        - CreateNamespace=true
+        - PruneLast=true
+    revisionHistoryLimit: 20
 
 #
 #
