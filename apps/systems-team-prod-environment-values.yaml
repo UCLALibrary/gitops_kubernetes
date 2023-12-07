@@ -233,7 +233,39 @@ applications:
         - CreateNamespace=true
         - PruneLast=true
     revisionHistoryLimit: 20
-
+# Link Shortener Application
+  - name: link-shortener
+    namespace: argocd
+    finalizers:
+    - resources-finalizer.argocd.argoproj.io
+    additionalLabels:
+      team: systems
+    additionalAnnotations: {}
+    project: default
+    sources:
+    - chart: link-shortener
+      repoURL: https://chartmuseum.library.ucla.edu
+      targetRevision: 1.0.0
+      helm:
+        valueFiles:
+        - $values/charts/prod-linkshortener-values.yaml
+    - ref: values
+      repoURL: https://github.com/UCLALibrary/link-shortener
+      targetRevision: main
+    destination:
+      name: prodrke01
+      namespace: link-shortenerprod
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          namespace_team: systems
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+        - CreateNamespace=true
+        - PruneLast=true
+    revisionHistoryLimit: 20
 #
 #
 # -- Deploy Argo CD Projects within this helm release
