@@ -245,7 +245,7 @@ applications:
     sources:
     - chart: link-shortener
       repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 1.0.1
+      targetRevision: 1.0.2
       helm:
         valueFiles:
         - $values/charts/prod-linkshortener-values.yaml
