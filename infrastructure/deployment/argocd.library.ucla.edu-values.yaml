@@ -425,13 +425,18 @@ configs:
       p, role:services-dev, applications, get, *, allow
       p, role:services-dev, logs, get, *, allow
       p, role:services-dev, projects, get, *, allow
+      p, role:systems-dev, applications, action/extensions/Deployment/restart, *, allow
+      p, role:systems-dev, applications, action/apps/Deployment/restart, *, allow
+      p, role:systems-dev, applications, get, *, allow
+      p, role:systems-dev, logs, get, *, allow
+      p, role:systems-dev, projects, get, *, allow
       g, avuong@library.ucla.edu, role:admin
       g, sgurnick@library.ucla.edu, role:admin
       g, jhriv@library.ucla.edu, role:admin
       g, ksclarke@library.ucla.edu, role:services-dev
       g, angelahu13@library.ucla.edu, role:services-dev
       g, drickard1967@library.ucla.edu, role:services-dev
-      g, akohler@library.ucla.edu, role:readonly
+      g, akohler@library.ucla.edu, role:systems-dev
  
     # Policy rules are in the form:
     #  p, subject, resource, action, object, effect
