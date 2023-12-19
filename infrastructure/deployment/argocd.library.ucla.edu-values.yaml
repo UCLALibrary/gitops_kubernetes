@@ -429,6 +429,8 @@ configs:
       g, sgurnick@library.ucla.edu, role:admin
       g, jhriv@library.ucla.edu, role:admin
       g, ksclarke@library.ucla.edu, role:services-dev
+      g, angelahu13@library.ucla.edu, role:services-dev
+      g, drickard1967@library.ucla.edu, role:services-dev
       g, akohler@library.ucla.edu, role:readonly
  
     # Policy rules are in the form:
