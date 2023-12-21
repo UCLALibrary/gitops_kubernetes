@@ -423,10 +423,12 @@ configs:
       p, role:services-dev, applications, action/extensions/Deployment/restart, *, allow
       p, role:services-dev, applications, action/apps/Deployment/restart, *, allow
       p, role:services-dev, applications, get, *, allow
+      p, role:services-dev, applications, sync, *, allow
       p, role:services-dev, logs, get, *, allow
       p, role:services-dev, projects, get, *, allow
       p, role:systems-dev, applications, action/extensions/Deployment/restart, *, allow
       p, role:systems-dev, applications, action/apps/Deployment/restart, *, allow
+      p, role:systems-dev, applications, sync, *, allow
       p, role:systems-dev, applications, get, *, allow
       p, role:systems-dev, logs, get, *, allow
       p, role:systems-dev, projects, get, *, allow
