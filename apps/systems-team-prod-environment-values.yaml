@@ -182,7 +182,7 @@ applications:
         valueFiles:
         - $values/charts/prod-terra-values.yaml
       repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 0.3.2
+      targetRevision: 0.4.0
     - ref: values
       repoURL: https://github.com/UCLALibrary/terra
       targetRevision: main
