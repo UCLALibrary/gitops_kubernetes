@@ -278,7 +278,7 @@ applications:
     sources:
     - chart: signage
       repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 1.0.0
+      targetRevision: 1.0.1
       helm:
         valueFiles:
         - $values/charts/prod-signage-values.yaml
