@@ -44,7 +44,7 @@ image:
   repository: uclalibrary/hauth
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "1.0.6"
+  tag: "1.0.7"
 
 podAnnotations: {}
 
@@ -141,7 +141,7 @@ configmap:
   additionaLabels: {}
   annotations: {}
   data:
-    HAUTH_VERSION: "1.0.6"
+    HAUTH_VERSION: "1.0.7"
     ACCESS_COOKIE_DOMAIN: "iiif.library.ucla.edu"
     ACCESS_COOKIE_WINDOW_CLOSE_DELAY: "0"
 #---------------------------------------------
