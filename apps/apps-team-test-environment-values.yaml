@@ -7,7 +7,8 @@ applications:
     namespace: argocd
     finalizers:
     - resources-finalizer.argocd.argoproj.io
-    additionalLabels: {}
+    additionalLabels:
+      team: ucla-scientist-oral-history
     additionalAnnotations: {}
     project: default
     sources:
