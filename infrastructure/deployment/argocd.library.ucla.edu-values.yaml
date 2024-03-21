@@ -327,12 +327,19 @@ configs:
             bindPW: $ldap.bindpw
             rootCAData: $ldap.cacrt
             userSearch:
-              baseDN: "dc=ad,dc=library,dc=ucla,dc=edu"
+              baseDN: "ou=LibrarySTAFF,ou=Users,ou=LibIT,dc=ad,dc=library,dc=ucla,dc=edu"
               filter: "(objectClass=person)"
               username: sAMAccountName
               idAttr: distinguishedName
               emailAttr: mail
-              nameAttr: displayName
+              nameAttr: cn
+            groupSearch:
+              baseDN: "ou=Groups,ou=LibIT,dc=ad,dc=library,dc=ucla,dc=edu"
+              filter: "(objectClass=group)"
+              userMatchers:
+              - userAttr: distinguishedName
+                groupAttr: member
+              nameAttr: cn
  
     # Dex configuration
     # dex.config: |
@@ -442,14 +449,16 @@ configs:
       p, role:systems-dev, applications, get, *, allow
       p, role:systems-dev, logs, get, *, allow
       p, role:systems-dev, projects, get, *, allow
-      g, avuong@library.ucla.edu, role:admin
-      g, sgurnick@library.ucla.edu, role:admin
-      g, jhriv@library.ucla.edu, role:admin
-      g, ksclarke@library.ucla.edu, role:services-dev
-      g, angelah13@library.ucla.edu, role:services-dev
-      g, angelahu@library.ucla.edu, role:services-dev
-      g, drickard1967@library.ucla.edu, role:services-dev
-      g, akohler@library.ucla.edu, role:systems-dev
+      p, role:apps-dev, applications, action/extensions/Deployment/restart, *, allow
+      p, role:apps-dev, applications, action/apps/Deployment/restart, *, allow
+      p, role:apps-dev, applications, sync, *, allow
+      p, role:apps-dev, applications, get, *, allow
+      p, role:apps-dev, logs, get, *, allow
+      p, role:apps-dev, projects, get, *, allow
+      g, g-devsupport-admin, role:admin
+      g, G-Devsupport-SDLS-Services-Staff, role:services-dev
+      g, G-Devsupport-SDLS-Systems-Staff, role:systems-dev
+      g, G-Devsupport-SDLS-Apps-Staff, role:apps-dev
  
     # Policy rules are in the form:
     #  p, subject, resource, action, object, effect
