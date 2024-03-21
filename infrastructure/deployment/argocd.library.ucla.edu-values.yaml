@@ -327,12 +327,19 @@ configs:
             bindPW: $ldap.bindpw
             rootCAData: $ldap.cacrt
             userSearch:
-              baseDN: "dc=ad,dc=library,dc=ucla,dc=edu"
+              baseDN: "ou=LibrarySTAFF,ou=Users,ou=LibIT,dc=ad,dc=library,dc=ucla,dc=edu"
               filter: "(objectClass=person)"
               username: sAMAccountName
               idAttr: distinguishedName
               emailAttr: mail
-              nameAttr: displayName
+              nameAttr: cn
+            groupSearch:
+              baseDN: "ou=Groups,ou=LibIT,dc=ad,dc=library,dc=ucla,dc=edu"
+              filter: "(objectClass=group)"
+              userMatchers:
+              - userAttr: distinguishedName
+                groupAttr: member
+              nameAttr: cn
  
     # Dex configuration
     # dex.config: |
