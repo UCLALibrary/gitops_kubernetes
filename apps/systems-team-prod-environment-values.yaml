@@ -311,7 +311,7 @@ applications:
     sources:
     - chart: dlexport
       repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 0.2.0
+      targetRevision: 0.3.0
       helm:
         valueFiles:
         - $values/charts/prod-dlexport-values.yaml
