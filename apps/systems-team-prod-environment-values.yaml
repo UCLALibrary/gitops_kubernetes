@@ -212,7 +212,7 @@ applications:
     sources:
     - chart: oh-staff
       repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 0.7.0
+      targetRevision: 0.8.0
       helm:
         valueFiles:
         - $values/charts/prod-ohstaff-values.yaml
