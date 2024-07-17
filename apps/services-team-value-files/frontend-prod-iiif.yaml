@@ -157,6 +157,7 @@ extraObjects:
         nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
         nginx.ingress.kubernetes.io/enable-cors: "true"
         nginx.ingress.kubernetes.io/use-regex: "true"
+        nginx.ingress.kubernetes.io/denylist-source-range: "117.128.0.0/10"
         kubernetes.io/tls-acme: "true"
         cert-manager.io/cluster-issuer: "sectigo-acme-clusterissuer"
         nginx.ingress.kubernetes.io/configuration-snippet: |
