@@ -80,7 +80,7 @@ applications:
     sources:
     - chart: voyager-archive
       repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 1.0.18
+      targetRevision: 1.1.0
       helm:
         valueFiles:
         - $values/charts/prod-ethnovoyagerarchive-values.yaml
@@ -113,7 +113,7 @@ applications:
     sources:
     - chart: voyager-archive
       repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 1.0.18
+      targetRevision: 1.1.0
       helm:
         valueFiles:
         - $values/charts/prod-ftvavoyagerarchive-values.yaml
@@ -146,7 +146,7 @@ applications:
     sources:
     - chart: voyager-archive
       repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 1.0.18
+      targetRevision: 1.1.0
       helm:
         valueFiles:
         - $values/charts/prod-uclavoyagerarchive-values.yaml
