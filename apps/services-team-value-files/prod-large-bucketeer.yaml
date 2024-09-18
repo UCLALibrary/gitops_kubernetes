@@ -1,0 +1,214 @@
+#---------------------------------------------
+# Global Configuration
+#
+#
+nameOverride: "prod-large-bucketeer"
+fullnameOverride: "prod-large-bucketeer"
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+#---------------------------------------------
+
+#---------------------------------------------
+# Deployment Configuration
+#
+#
+deployment:
+  enabled: true
+
+pv:
+  enabled: true
+  default:
+    enabled: true
+    mounts:
+      default:
+        annotations:
+          argocd.argoproj.io/sync-wave: "-2"
+        mode: ReadWriteOnce
+        capacity: 50Gi
+        persistentVolumeReclaimPolicy: Delete
+        mountPath: /tmp
+  nfs:
+    enabled: true
+    mounts:
+      masters:
+        server: masters.in.library.ucla.edu
+        path: /
+        mode: ReadOnlyMany
+        readOnly: true
+        capacity: 1Gi
+        persistentVolumeReclaimPolicy: Retain
+        nfsvers: 3
+        mountPath: /opt/data/Masters
+        annotations:
+          argocd.argoproj.io/sync-wave: "-2"
+ports:
+  - name: http
+    containerPort: 80
+    protocol: TCP
+
+livenessProbe:
+  httpGet:
+    path: /status
+    port: 8888
+
+readinessProbe:
+  httpGet:
+    path: /status
+    port: 8888
+
+replicaCount: 1
+imagePullSecrets: []
+image:
+  #repository: nginx
+  repository: uclalibrary/bucketeer
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  #tag: "latest"
+  tag: "0.5.8"
+
+podAnnotations: {}
+
+podSecurityContext:
+  runAsUser: 1000
+  fsGroup: 1000
+  #fsGroup: 101
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: 4000m
+    memory: 8Gi
+  requests:
+    cpu: 1000m
+    memory: 8Gi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+#---------------------------------------------
+
+#---------------------------------------------
+# Service Configuration
+#
+#
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+  targetPort: 8888
+#---------------------------------------------
+
+#---------------------------------------------
+# External Service Configuration
+#
+#
+externalservice:
+  enabled: false
+  extsvc: []
+#---------------------------------------------
+
+#---------------------------------------------
+#
+
+#---------------------------------------------
+# Ingress Configuration
+#
+#
+ingress:
+  enabled: false
+#---------------------------------------------
+
+#---------------------------------------------
+# ConfigMap Configuration
+# Use this field to set any non-sensitive values to be supplied as Environment Variables to your deployment
+#
+configmap:
+  enabled: true
+  additionaLabels: {}
+  annotations: {}
+  data:
+    LAMBDA_S3_BUCKET: "prod-bucketeer-tiff-lambda"
+    BUCKETEER_S3_BUCKET: "prod-cantaloupe-iiif-source"
+    BUCKETEER_S3_REGION: "us-west-2"
+    BUCKETEER_FS_IMAGE_MOUNT: "/opt/data"
+    BUCKETEER_FS_IMAGE_PREFIX: "UCLAFilePathPrefix"
+    BUCKETEER_SLACK_ERROR_CHANNEL_ID: "dev-null"
+    BUCKETEER_SLACK_CHANNEL_ID: "dev-null"
+    BUCKETEER_IIIF_URL: "https://test-iiif.library.ucla.edu/iiif/2/"
+    HEAP_SIZE: "8g"
+    SOURCE_MAX_FILE_SIZE: "2000000000"
+    HTTP_MAX_QUEUE_SIZE: "10"
+    S3_UPLOADER_THREADS: "20"
+    S3_MAX_REQUESTS: "20"
+    S3_MAX_RETRIES: "20"
+    SLACK_MAX_RETRIES: "30"
+    SLACK_RETRY_DELAY: "1"
+#---------------------------------------------
+
+
+#---------------------------------------------
+# ExternalSecrets Configuration
+# Use this field to set any sensitive values to be supplied as Environment Variables to your deployment
+#
+externalsecrets:
+  enabled: true
+  # Reference to ClusterSecretStore name
+  ref: services-clustersecretstore
+  secrets:
+    application:
+      data:
+        - secretKey: BUCKETEER_S3_ACCESS_KEY
+          remoteRef:
+            key: /services/prodrke01/prod-bucketeer/bucketeer_s3_access_key
+        - secretKey: BUCKETEER_S3_SECRET_KEY
+          remoteRef:
+            key: /services/prodrke01/prod-bucketeer/bucketeer_s3_secret_key
+        - secretKey: BUCKETEER_SLACK_OAUTH_TOKEN
+          remoteRef:
+            key: /services/prodrke01/prod-bucketeer/bucketeer_slack_oauth_token
+        - secretKey: BUCKETEER_IIIF_CACHE_USER
+          remoteRef:
+            key: /services/prodrke01/prod-bucketeer/bucketeer_iiif_cache_user
+        - secretKey: BUCKETEER_IIIF_CACHE_PASSWORD
+          remoteRef:
+            key: /services/prodrke01/prod-bucketeer/bucketeer_iiif_cache_password
+    dockerhub:
+      data:
+        - secretKey: creds
+          remoteRef:
+            key: /services/prodeks/services-dockerhub-creds
+#---------------------------------------------
+
+#---------------------------------------------
+# Extra Objects Configuration
+# Use this field to create any manifests and/or templates that are not embedded into the bundled Helm Chart
+#
+extraObjects: {}
+#---------------------------------------------
