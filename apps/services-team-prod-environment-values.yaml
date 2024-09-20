@@ -2,6 +2,72 @@
 # @default -- `[]` (See [values.yaml])
 ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/
 applications:
+# Sinai Bucketeer Large Application
+  - name: prod-sinai-large-bucketeer
+    namespace: argocd
+    finalizers:
+    - resources-finalizer.argocd.argoproj.io
+    additionalLabels:
+      team: services
+    additionalAnnotations: {}
+    project: default
+    sources:
+      - chart: uclalib-helm-generic
+        repoURL: https://chartmuseum.library.ucla.edu
+        targetRevision: 1.1.0
+        helm:
+          valueFiles:
+          - $values/apps/services-team-value-files/prod-sinai-large-bucketeer.yaml
+      - ref: values
+        repoURL: https://github.com/UCLALibrary/gitops_kubernetes
+        targetRevision: main
+    destination:
+      name: prodrke01
+      namespace: prod-sinai-large-bucketeer
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          namespace_team: services
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+        - CreateNamespace=true
+        - PruneLast=true
+    revisionHistoryLimit: 20
+# Sinai Bucketeer Application
+  - name: prod-sinai-bucketeer
+    namespace: argocd
+    finalizers:
+    - resources-finalizer.argocd.argoproj.io
+    additionalLabels:
+      team: services
+    additionalAnnotations: {}
+    project: default
+    sources:
+      - chart: uclalib-helm-generic
+        repoURL: https://chartmuseum.library.ucla.edu
+        targetRevision: 1.1.0
+        helm:
+          valueFiles:
+          - $values/apps/services-team-value-files/prod-sinai-bucketeer.yaml
+      - ref: values
+        repoURL: https://github.com/UCLALibrary/gitops_kubernetes
+        targetRevision: main
+    destination:
+      name: prodrke01
+      namespace: prod-sinai-bucketeer
+    syncPolicy:
+      managedNamespaceMetadata:
+        labels:
+          namespace_team: services
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+        - CreateNamespace=true
+        - PruneLast=true
+    revisionHistoryLimit: 20
 # Bucketeer Large Application
   - name: prod-large-bucketeer
     namespace: argocd
