@@ -187,19 +187,19 @@ externalsecrets:
       data:
         - secretKey: BUCKETEER_S3_ACCESS_KEY
           remoteRef:
-            key: /services/prodrke01/prod-sinai-large-bucketeer/bucketeer_s3_access_key
+            key: /services/prodrke01/prod-sinai-bucketeer/bucketeer_s3_access_key
         - secretKey: BUCKETEER_S3_SECRET_KEY
           remoteRef:
-            key: /services/prodrke01/prod-sinai-large-bucketeer/bucketeer_s3_secret_key
+            key: /services/prodrke01/prod-sinai-bucketeer/bucketeer_s3_secret_key
         - secretKey: BUCKETEER_SLACK_OAUTH_TOKEN
           remoteRef:
-            key: /services/prodrke01/prod-sinai-large-bucketeer/bucketeer_slack_oauth_token
+            key: /services/prodrke01/prod-sinai-bucketeer/bucketeer_slack_oauth_token
         - secretKey: BUCKETEER_IIIF_CACHE_USER
           remoteRef:
-            key: /services/prodrke01/prod-sinai-large-bucketeer/bucketeer_iiif_cache_user
+            key: /services/prodrke01/prod-sinai-bucketeer/bucketeer_iiif_cache_user
         - secretKey: BUCKETEER_IIIF_CACHE_PASSWORD
           remoteRef:
-            key: /services/prodrke01/prod-sinai-large-bucketeer/bucketeer_iiif_cache_password
+            key: /services/prodrke01/prod-sinai-bucketeer/bucketeer_iiif_cache_password
     dockerhub:
       data:
         - secretKey: creds
