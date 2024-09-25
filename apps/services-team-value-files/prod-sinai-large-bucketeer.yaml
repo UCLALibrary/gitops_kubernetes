@@ -163,7 +163,7 @@ configmap:
     BUCKETEER_SLACK_CHANNEL_ID: "sinai-bucketeer"
     BUCKETEER_IIIF_URL: "https://iiif.sinaimanuscripts.library.ucla.edu"
     BUCKETEER_IIIF_URL_PREFIX: "/iiif/2/"
-    HEAP_SIZE: "8g"
+    HEAP_SIZE: "6g"
     SOURCE_MAX_FILE_SIZE: "2000000000"
     HTTP_MAX_QUEUE_SIZE: "1"
     S3_UPLOADER_THREADS: "1"

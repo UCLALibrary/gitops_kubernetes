@@ -188,7 +188,7 @@ configmap:
     BUCKETEER_SLACK_CHANNEL_ID: "sinai-bucketeer"
     BUCKETEER_IIIF_URL: "https://iiif.sinaimanuscripts.library.ucla.edu"
     BUCKETEER_IIIF_URL_PREFIX: "/iiif/2/"
-    HEAP_SIZE: "8g"
+    HEAP_SIZE: "6g"
     LARGE_IMAGE_BUCKETEER: "http://prod-sinai-large-bucketeer.prod-sinai-large-bucketeer.svc.cluster.local"
     BATCH_CALLBACK_URL: "http://prod-sinai-bucketeer.prod-sinai-bucketeer.svc.cluster.local:80/batch/jobs/{}/{}/"
     FESTER_URL: "http://iiif.library.ucla.edu/fester"
