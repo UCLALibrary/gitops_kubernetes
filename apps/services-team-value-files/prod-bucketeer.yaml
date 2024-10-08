@@ -173,7 +173,7 @@ configmap:
   additionaLabels: {}
   annotations: {}
   data:
-    SOURCE_MAX_FILE_SIZE: "250000000"
+    SOURCE_MAX_FILE_SIZE: "300000000"
     HTTP_MAX_QUEUE_SIZE: "15"
     S3_UPLOADER_THREADS: "25"
     S3_MAX_REQUESTS: "25"
@@ -189,7 +189,7 @@ configmap:
     BUCKETEER_SLACK_CHANNEL_ID: "bucketeer-jobs"
     BUCKETEER_IIIF_URL: "https://iiif.library.ucla.edu"
     BUCKETEER_IIIF_URL_PREFIX: "/iiif/2/"
-    HEAP_SIZE: "6g"
+    HEAP_SIZE: "5g"
     #FEATURE_FLAGS: "https://raw.githubusercontent.com/UCLALibrary/ansible_uclalib_plays/master/bucketeer/files/bucketeer-features-on.conf"
     LARGE_IMAGE_BUCKETEER: "http://prod-large-bucketeer.prod-large-bucketeer.svc.cluster.local"
     BATCH_CALLBACK_URL: "http://prod-bucketeer.prod-bucketeer.svc.cluster.local:80/batch/jobs/{}/{}/"
