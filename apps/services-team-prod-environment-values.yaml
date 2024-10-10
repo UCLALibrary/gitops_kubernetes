@@ -14,7 +14,7 @@ applications:
     sources:
       - chart: uclalib-helm-generic
         repoURL: https://chartmuseum.library.ucla.edu
-        targetRevision: 1.1.0
+        targetRevision: 1.1.1
         helm:
           valueFiles:
           - $values/apps/services-team-value-files/prod-sinai-large-bucketeer.yaml
@@ -47,7 +47,7 @@ applications:
     sources:
       - chart: uclalib-helm-generic
         repoURL: https://chartmuseum.library.ucla.edu
-        targetRevision: 1.1.0
+        targetRevision: 1.1.1
         helm:
           valueFiles:
           - $values/apps/services-team-value-files/prod-sinai-bucketeer.yaml
@@ -80,7 +80,7 @@ applications:
     sources:
       - chart: uclalib-helm-generic
         repoURL: https://chartmuseum.library.ucla.edu
-        targetRevision: 1.1.0
+        targetRevision: 1.1.1
         helm:
           valueFiles:
           - $values/apps/services-team-value-files/prod-large-bucketeer.yaml
@@ -113,7 +113,7 @@ applications:
     sources:
       - chart: uclalib-helm-generic
         repoURL: https://chartmuseum.library.ucla.edu
-        targetRevision: 1.1.0
+        targetRevision: 1.1.1
         helm:
           valueFiles:
           - $values/apps/services-team-value-files/prod-bucketeer.yaml
