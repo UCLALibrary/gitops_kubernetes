@@ -185,6 +185,13 @@ extraObjects:
                 name: external-fester
                 port:
                   number: 80
+          - path: /thumbnails.*
+            pathType: Prefix
+            backend:
+              service:
+                name: external-fester
+                port:
+                  number: 80
           - path: /collections/*
             pathType: Prefix
             backend:
