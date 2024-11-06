@@ -192,7 +192,7 @@ configmap:
     BUCKETEER_IIIF_URL: "https://iiif.library.ucla.edu"
     BUCKETEER_IIIF_URL_PREFIX: "/iiif/2/"
     HEAP_SIZE: "6g"
-    #FEATURE_FLAGS: "https://raw.githubusercontent.com/UCLALibrary/ansible_uclalib_plays/master/bucketeer/files/bucketeer-features-on.conf"
+    FEATURE_FLAGS: "https://raw.githubusercontent.com/UCLALibrary/ansible_uclalib_plays/master/bucketeer/files/bucketeer-features-on.conf"
     LARGE_IMAGE_BUCKETEER: "http://prod-large-bucketeer.prod-large-bucketeer.svc.cluster.local"
     BATCH_CALLBACK_URL: "http://prod-bucketeer.prod-bucketeer.svc.cluster.local:80/batch/jobs/{}/{}/"
     FESTER_URL: "http://iiif.library.ucla.edu/fester"
