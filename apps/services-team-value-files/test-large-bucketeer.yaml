@@ -67,7 +67,7 @@ readinessProbe:
 
 replicaCount: 1
 imagePullSecrets:
-  - name: test-large-bucketeer-dockerhub-creds
+  - name: test-large-bucketeer-dockerhub-secret
 image:
   #repository: nginx
   repository: uclalibrary/bucketeer-ucla
