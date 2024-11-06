@@ -66,7 +66,8 @@ readinessProbe:
     port: 8888
 
 replicaCount: 1
-imagePullSecrets: []
+imagePullSecrets:
+  - name: services-dockerhub-creds
 image:
   #repository: nginx
   repository: uclalibrary/bucketeer
