@@ -67,14 +67,14 @@ readinessProbe:
 
 replicaCount: 1
 imagePullSecrets:
-  - name: services-dockerhub-creds
+  - name: test-bucketeer-dockerhub-secret
 image:
   #repository: nginx
-  repository: uclalibrary/bucketeer
+  repository: uclalibrary/bucketeer-ucla
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   #tag: "latest"
-  tag: "0.5.6"
+  tag: "0.5.8"
 
 podAnnotations: {}
 
@@ -189,7 +189,7 @@ configmap:
     S3_UPLOADER_THREADS: "10"
     S3_MAX_REQUESTS: "10"
     S3_MAX_RETRIES: "30"
-    #FEATURE_FLAGS: "https://raw.githubusercontent.com/UCLALibrary/ansible_uclalib_plays/master/bucketeer/files/bucketeer-features-on.conf"
+    FEATURE_FLAGS: "https://raw.githubusercontent.com/UCLALibrary/ansible_uclalib_plays/master/bucketeer/files/bucketeer-features-on.conf"
     LARGE_IMAGE_BUCKETEER: "http://test-large-bucketeer.test-large-bucketeer.svc.cluster.local"
     BATCH_CALLBACK_URL: "http://test-bucketeer.test-bucketeer.svc.cluster.local:80/batch/jobs/{}/{}/"
     FESTER_URL: "http://test-iiif.library.ucla.edu/fester"

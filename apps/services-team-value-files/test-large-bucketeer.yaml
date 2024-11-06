@@ -67,14 +67,14 @@ readinessProbe:
 
 replicaCount: 1
 imagePullSecrets:
-  - name: services-dockerhub-creds
+  - name: test-large-bucketeer-dockerhub-creds
 image:
   #repository: nginx
-  repository: uclalibrary/bucketeer
+  repository: uclalibrary/bucketeer-ucla
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   #tag: "latest"
-  tag: "0.5.6"
+  tag: "0.5.8"
 
 podAnnotations: {}
 
