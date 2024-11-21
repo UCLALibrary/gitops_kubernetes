@@ -171,12 +171,10 @@ extraObjects:
               set $restricted_path "true";
             }
             if ($request_method ~ "(PUT|DELETE|POST)") {
-              set $restricted_method "true";
+              set $restricted_path "${restricted_path} true";
             }
-            if ($restricted_method = "true") {
-              if ($restricted_path = "true") {
-                return 405;
-              }
+            if ($restricted_path = "true true") {
+              return 405;
             }
         nginx.ingress.kubernetes.io/upstream-vhost: $upstreamHost
     spec:
