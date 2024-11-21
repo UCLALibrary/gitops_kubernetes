@@ -164,15 +164,17 @@ extraObjects:
             if ($uri ~ "/.*viewers.*") {
               set $upstreamHost "test-dlp-viewers.s3-website-us-west-2.amazonaws.com";
             }
-            location ~* "^/fester/.*/manifest" {
-              if ($request_method != DELETE or PUT) {
-                  return 405;
-              }
+            if ($uri ~ "^/fester/.*/manifest" {
+              set $restricted_path "true";
             }
-            location ~* "^/fester/collections/.*" {
-              if ($request_method != DELETE) {
-                  return 405;
-              }
+            if ($uri "^/fester/collections/.*") {
+              set $restricted_path "true";
+            }
+            if ($request_method == PUT or $request_method == POST or $request_method == DELETE) {
+              set $restricted_method "true";
+            }
+            if ($restricted_method == "true" and $restricted_path == "true") {
+              return 405;
             }
         nginx.ingress.kubernetes.io/upstream-vhost: $upstreamHost
     spec:
