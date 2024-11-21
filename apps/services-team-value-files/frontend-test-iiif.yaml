@@ -170,7 +170,7 @@ extraObjects:
             if ($uri ~ "/fester/collections/.*") {
               set $restricted_path "true";
             }
-            if ($request_method == PUT or $request_method == POST or $request_method == DELETE) {
+            if ($request_method = "PUT" or $request_method = "POST" or $request_method = "DELETE") {
               set $restricted_method "true";
             }
             if ($restricted_method == "true" and $restricted_path == "true") {
