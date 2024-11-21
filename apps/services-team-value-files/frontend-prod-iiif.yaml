@@ -165,6 +165,24 @@ extraObjects:
             if ($uri ~ "/.*viewers.*") {
               set $upstreamHost "dlp-viewers.s3-website-us-west-2.amazonaws.com";
             }
+            if ($uri ~ "/fester/.*/manifest") {
+              set $restricted_path "true";
+            }
+            if ($uri ~ "/fester/collections/.*") {
+              set $restricted_path "true";
+            }
+            if ($uri ~ "/fester/thumbnails/.*") {
+              set $restricted_path "true";
+            }
+            if ($request_method ~ "(PUT|DELETE|POST)") {
+              set $restricted_path "${restricted_path} true";
+            }
+            if ($restricted_path = "true true") {
+              return 405;
+            }
+            if ($uri ~ "/fester/upload/csv.*") {
+              return 301 https://ingest.iiif.library.ucla.edu/${uri};
+            }
         nginx.ingress.kubernetes.io/upstream-vhost: $upstreamHost
     spec:
       rules:
