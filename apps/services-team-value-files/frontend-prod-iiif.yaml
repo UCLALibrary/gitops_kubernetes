@@ -181,7 +181,7 @@ extraObjects:
               return 405;
             }
             if ($uri ~ "/fester/upload/csv.*") {
-              return 301 https://ingest.iiif.library.ucla.edu/${uri};
+              return 301 https://ingest.iiif.library.ucla.edu${uri};
             }
         nginx.ingress.kubernetes.io/upstream-vhost: $upstreamHost
     spec:
