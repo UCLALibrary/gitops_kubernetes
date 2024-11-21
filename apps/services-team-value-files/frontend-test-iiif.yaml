@@ -164,7 +164,7 @@ extraObjects:
             if ($uri ~ "/.*viewers.*") {
               set $upstreamHost "test-dlp-viewers.s3-website-us-west-2.amazonaws.com";
             }
-            if ($uri ~ "/fester/.*/manifest" {
+            if ($uri ~ "/fester/.*/manifest") {
               set $restricted_path "true";
             }
             if ($uri "/fester/collections/.*") {
