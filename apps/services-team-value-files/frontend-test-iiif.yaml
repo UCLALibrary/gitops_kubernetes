@@ -167,7 +167,7 @@ extraObjects:
             if ($uri ~ "/fester/.*/manifest") {
               set $restricted_path "true";
             }
-            if ($uri "/fester/collections/.*") {
+            if ($uri ~ "/fester/collections/.*") {
               set $restricted_path "true";
             }
             if ($request_method == PUT or $request_method == POST or $request_method == DELETE) {
