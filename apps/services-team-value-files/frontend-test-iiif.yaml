@@ -164,6 +164,16 @@ extraObjects:
             if ($uri ~ "/.*viewers.*") {
               set $upstreamHost "test-dlp-viewers.s3-website-us-west-2.amazonaws.com";
             }
+            location ~* "^/fester/.*/manifest" {
+              if ($request_method != DELETE or PUT) {
+                  return 405;
+              }
+            }
+            location ~* "^/fester/collections/.*" {
+              if ($request_method != DELETE) {
+                  return 405;
+              }
+            }
         nginx.ingress.kubernetes.io/upstream-vhost: $upstreamHost
     spec:
       rules:
