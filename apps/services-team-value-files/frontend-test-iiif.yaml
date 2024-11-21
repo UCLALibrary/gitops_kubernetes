@@ -179,6 +179,9 @@ extraObjects:
             if ($restricted_path = "true true") {
               return 405;
             }
+            if ($uri ~ "/fester/upload/csv.*") {
+              return 301 https://test.ingest.iiif.library.ucla.edu/$uri
+            }
         nginx.ingress.kubernetes.io/upstream-vhost: $upstreamHost
     spec:
       rules:
