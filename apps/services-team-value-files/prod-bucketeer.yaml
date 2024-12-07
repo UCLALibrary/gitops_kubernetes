@@ -176,9 +176,9 @@ configmap:
   additionaLabels: {}
   annotations: {}
   data:
-    SOURCE_MAX_FILE_SIZE: "300000000"
-    HTTP_MAX_QUEUE_SIZE: "15"
-    S3_UPLOADER_THREADS: "25"
+    SOURCE_MAX_FILE_SIZE: "175000000"
+    HTTP_MAX_QUEUE_SIZE: "10"
+    S3_UPLOADER_THREADS: "15"
     S3_MAX_REQUESTS: "25"
     S3_MAX_RETRIES: "45"
     SLACK_MAX_RETRIES: "30"
