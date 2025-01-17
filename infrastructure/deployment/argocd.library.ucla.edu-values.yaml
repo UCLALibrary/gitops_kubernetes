@@ -7,7 +7,7 @@ argocd_applications:
         allowEmpty: false
       syncOptions:
         - CreateNamespace=true
-        - PruneLast=true
+        - PruneLast=false
   entries:
     - name: argocd
       deployment_namespace: argocd
