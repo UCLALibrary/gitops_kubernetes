@@ -15,8 +15,8 @@ argocd_applications:
       destination: in-cluster
       sources:
         - repourl: https://argoproj.github.io/argo-helm
-          # 2.7.3
-          revision: 5.34.6
+          # 2.12.6
+          revision: 7.6.12
           chart: argo-cd
           valueFiles:
             - $values/infrastructure/deployment/argocd.library.ucla.edu-values.yaml
