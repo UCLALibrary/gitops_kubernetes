@@ -2095,7 +2095,7 @@ server:
     # -- The name of the Secret that will be automatically created and managed by this Certificate resource
     secretName: argocd-server-tls
     # -- Certificate primary domain (commonName)
-    domain: argocd.example.com
+    domain: argocd.library.ucla.edu
     # -- Certificate Subject Alternate Names (SANs)
     additionalHosts: []
     # -- The requested 'duration' (i.e. lifetime) of the certificate.
