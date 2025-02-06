@@ -44,7 +44,7 @@ image:
   repository: uclalibrary/cantaloupe-ucla
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "5.0.6-4"
+  tag: "5.0.6-5"
 
 podAnnotations: {}
 
