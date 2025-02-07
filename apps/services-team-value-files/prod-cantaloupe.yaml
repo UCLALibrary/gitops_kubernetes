@@ -162,7 +162,7 @@ configmap:
     HEAP_PERCENTAGE: "75"
     CANTALOUPE_DELEGATE_SCRIPT_ENABLED: "true"
     CANTALOUPE_DELEGATE_SCRIPT_PATHNAME: "/usr/local/cantaloupe/delegate.jar"
-    DELEGATE_URL: "http://build-artifacts.library.ucla.edu/cantaloupe-delegate/cantaloupe-auth-delegate-0.0.4.jar"
+    DELEGATE_URL: "http://build-artifacts.library.ucla.edu/cantaloupe-delegate/cantaloupe-auth-delegate-0.1.0.jar"
     AUTH_ACCESS_SERVICE: "https://auth.iiif.library.ucla.edu/access"
     AUTH_COOKIE_SERVICE: "https://auth.iiif.library.ucla.edu/cookie"
     AUTH_TOKEN_SERVICE: "https://auth.iiif.library.ucla.edu/token"
