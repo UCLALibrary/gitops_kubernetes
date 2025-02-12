@@ -4,6 +4,7 @@
 ##
 
 # Used for extraObjects
+argocd_namespace: "argocd"
 traefik_config:
   middleware:
     ipranges:
@@ -699,6 +700,7 @@ extraObjects:
     kind: ExternalSecret
     metadata:
       name: sectigo-acme-issueraccount-rsa-pem
+      namespace: cert-manager
     spec:
       refreshInterval: {{ $.Values.external_secrets.refresh_interval }}
       secretStoreRef:
@@ -737,6 +739,7 @@ extraObjects:
     kind: ExternalSecret
     metadata:
       name: argocd-notifications-secret
+      namespace: {{ .Values.argocd_namespace }}
     spec:
       refreshInterval: {{ .Values.external_secrets.refresh_interval }}
       secretStoreRef:
@@ -756,7 +759,6 @@ extraObjects:
     kind: IngressRoute
     metadata:
       name: argocd-server
-      namespace: argocd
     spec:
       entryPoints:
         - websecure
@@ -805,6 +807,7 @@ extraObjects:
     kind: ExternalSecret
     metadata:
       name: argocd-secret
+      namespace: {{ .Values.argocd_namespace }}
     spec:
       refreshInterval: {{ .Values.external_secrets.refresh_interval }}
       secretStoreRef:
