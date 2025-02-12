@@ -759,6 +759,7 @@ extraObjects:
     kind: IngressRoute
     metadata:
       name: argocd-server
+      namespace: {{ .Values.argocd_namespace }}
     spec:
       entryPoints:
         - websecure
@@ -786,6 +787,7 @@ extraObjects:
     kind: Middleware
     metadata:
       name: argocd-whitelist-ipranges
+      namespace: {{ .Values.argocd_namespace }}
     spec:
       ipWhiteList:
         sourceRange: {{ .Values.traefik_config.middleware.ipranges }}
