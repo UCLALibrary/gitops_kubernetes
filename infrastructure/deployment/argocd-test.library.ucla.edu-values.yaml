@@ -20,7 +20,7 @@ traefik_config:
       - 164.67.62.96/28
       - 172.27.0.0/16
   ingressroutes:
-    domain: argocd.library.ucla.edu
+    domain: argocd-test.library.ucla.edu
 
 selfsigned_issuer:
   enabled: false
