@@ -1,0 +1,31 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  annotations: {}
+spec:
+  syncPolicy:
+    automated:
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
+  project: default
+  destination:
+    name: {{ .Values.spec.destination.server }}
+    namespace: argocd
+  sources:
+    - repoURL: https://argoproj.github.io/argo-helm
+      targetRevision: 7.6.12
+      chart: argo-cd
+      helm:
+        valueFiles:
+          - $values/infrastructure/deployment/argocd.library.ucla.edu-values.yaml
+    - repoURL: "https://github.com/UCLALibrary/gitops_kubernetes.git"
+      targetRevision: main
+      ref: values
