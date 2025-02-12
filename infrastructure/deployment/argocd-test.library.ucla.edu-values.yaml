@@ -3,6 +3,45 @@
 ## Ref: https://github.com/argoproj/argo-cd
 ##
 
+# Used for extraObjects
+traefik_config:
+  middleware:
+    ipranges:
+      - 164.67.40.0/24
+      - 164.67.48.0/24
+      # UCLA VPN
+      - 128.97.244.0/23
+      - 131.179.156.0/22
+      - 131.179.220.0/22
+      - 149.142.26.0/24
+      - 149.142.224.0/23
+      - 164.67.62.0/27
+      - 164.67.62.80/28
+      - 164.67.62.96/28
+      - 172.27.0.0/16
+  ingressroutes:
+    domain: argocd.library.ucla.edu
+
+selfsigned_issuer:
+  enabled: false
+
+external_secrets:
+  refresh_interval: 10m
+  enabled: true
+  secretstoreref_name: argocd-clustersecretstore
+  secretstoreref_type: ClusterSecretStore
+  server:
+    secretkey: /devsupport/argocd/server/server_secretkey
+  clusters: []
+  ldap:
+    enabled: true
+    bind_dn_key: /devsupport/argocd/ldap/uclalibrary_bind_dn
+    bind_dn_pw: /devsupport/argocd/ldap/uclalibrary_bind_pw
+    ca_crt: /devsupport/argocd/ldap/uclalibrary_ad_ca_crt
+  slack:
+    enabled: true
+    token: /devsupport/argocd/slack/token
+
 # -- Provide a name in place of `argocd`
 nameOverride: argocd
 # -- String to fully override `"argo-cd.fullname"`
@@ -653,7 +692,143 @@ configs:
 
 # -- Array of extra K8s manifests to deploy
 ## Note: Supports use of custom Helm templates
-extraObjects: []
+extraObjects:
+  - |
+    ---
+    apiVersion: external-secrets.io/v1beta1
+    kind: ExternalSecret
+    metadata:
+      name: sectigo-acme-issueraccount-rsa-pem
+    spec:
+      refreshInterval: {{ $.Values.external_secrets.refresh_interval }}
+      secretStoreRef:
+        name: {{ $.Values.external_secrets.secretstoreref_name }}
+        kind: {{ $.Values.external_secrets.secretstoreref_type }}
+      target:
+        name: sectigo-acme-issueraccount-rsa-pem
+      data:
+      - secretKey: tls.key
+        remoteRef:
+          key: /devsupport/argocd/sectigo/tls/cert
+  # Create Sectigo Cluster Issuer
+  - |
+    ---
+    apiVersion: cert-manager.io/v1
+    kind: ClusterIssuer
+    metadata:
+      name: sectigo-acme-clusterissuer
+      namespace: cert-manager
+    spec:
+      acme:
+        disableAccountKeyGeneration: true
+        email: devsupport@library.ucla.edu
+        preferredChain: ""
+        privateKeySecretRef:
+          name: sectigo-acme-issueraccount-rsa-pem
+        server: https://acme.sectigo.com/v2/InCommonRSAOV
+        solvers:
+        - http01:
+            ingress:
+              class: traefik
+  # Used for adding ArgoCD Slack token external secrets
+  - |
+    {{- if .Values.external_secrets.slack.enabled }}
+    apiVersion: external-secrets.io/v1beta1
+    kind: ExternalSecret
+    metadata:
+      name: argocd-notifications-secret
+    spec:
+      refreshInterval: {{ .Values.external_secrets.refresh_interval }}
+      secretStoreRef:
+        name: {{ .Values.external_secrets.secretstoreref_name }}
+        kind: {{ .Values.external_secrets.secretstoreref_type }}
+      target:
+        name: argocd-notifications-secret
+      data:
+      - secretKey: slack-token
+        remoteRef:
+          key: {{ .Values.external_secrets.slack.token }}
+    {{- end }}
+  # Used for adding Traefik Ingress Rules for argocd.library.ucla.edu
+  - |
+    {{- if .Values.traefik_config.ingressroutes }}
+    apiVersion: traefik.containo.us/v1alpha1
+    kind: IngressRoute
+    metadata:
+      name: argocd-server
+      namespace: argocd
+    spec:
+      entryPoints:
+        - websecure
+      routes:
+        - kind: Rule
+          match: Host(`{{ .Values.traefik_config.ingressroutes.domain }}`)
+          priority: 10
+          services:
+            - name: argocd-server
+              port: 80
+        - kind: Rule
+          match: Host(`{{ .Values.traefik_config.ingressroutes.domain }}`) && Headers(`Content-Type`, `application/grpc`)
+          priority: 11
+          services:
+            - name: argocd-server
+              port: 80
+              scheme: h2c
+      tls:
+        certResolver: default
+    {{- end }}
+  # Used for adding Traefik Whitelist CRD to only allow certain networks to access argocd.library.ucla.edu
+  - |
+    {{- if .Values.traefik_config.middleware }}
+    apiVersion: traefik.containo.us/v1alpha1
+    kind: Middleware
+    metadata:
+      name: argocd-whitelist-ipranges
+    spec:
+      ipWhiteList:
+        sourceRange: {{ .Values.traefik_config.middleware.ipranges }}
+    {{- end }}
+  # Used for create a self signed certificate issuer via cert-manager
+  - |
+    {{- if .Values.selfsigned_issuer }}
+    apiVersion: cert-manager.io/v1
+    kind: ClusterIssuer
+    metadata:
+      name: selfsigned-cluster-issuer
+    spec:
+      selfSigned: {}
+    {{- end }}
+  # Used for setting up argocd-secret object through ExternalSecrets
+  - |
+    {{- if .Values.external_secrets.enabled }}
+    apiVersion: external-secrets.io/v1beta1
+    kind: ExternalSecret
+    metadata:
+      name: argocd-secret
+    spec:
+      refreshInterval: {{ .Values.external_secrets.refresh_interval }}
+      secretStoreRef:
+        name: {{ .Values.external_secrets.secretstoreref_name }}
+        kind: {{ .Values.external_secrets.secretstoreref_type }}
+      target:
+        name: argocd-secret
+      data:
+    {{- if .Values.external_secrets.ldap.enabled }}
+      - secretKey: ldap.binddn
+        remoteRef:
+          key: {{ .Values.external_secrets.ldap.bind_dn_key }}
+      - secretKey: ldap.bindpw
+        remoteRef:
+          key: {{ .Values.external_secrets.ldap.bind_dn_pw }}
+      - secretKey: ldap.cacrt
+        remoteRef:
+          key: {{ .Values.external_secrets.ldap.ca_crt }}
+    {{- end }}
+      - secretKey: server.secretkey
+        remoteRef:
+          key: {{ .Values.external_secrets.server.secretkey }}
+    {{- end }}
+ 
   # - apiVersion: secrets-store.csi.x-k8s.io/v1
   #   kind: SecretProviderClass
   #   metadata:
