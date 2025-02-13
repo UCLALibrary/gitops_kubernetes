@@ -1,0 +1,34 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cataloging-statistics
+  namespace: argocd
+#  finalizers:
+#    - resources-finalizer.argocd.argoproj.io
+  annotations: {}
+spec:
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        namespace_team: systems
+    automated:
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
+  project: default
+  destination:
+    name: {{ .Values.spec.destination.server }}
+    namespace: cataloging-statisticsprod
+  sources:
+    - repoURL: https://chartmuseum.library.ucla.edu
+      targetRevision: 0.0.5
+      chart: cataloging-statistics
+      helm:
+        valueFiles:
+          - $values/charts/prod-catalogingstatistics-values.yaml
+    - repoURL: "https://github.com/UCLALibrary/cataloging-statistics"
+      targetRevision: main
+      ref: values
