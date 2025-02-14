@@ -5,6 +5,8 @@ kind: Application
 metadata:
   name: test-cantaloupe
   namespace: argocd
+  labels:
+    team: services
 #  finalizers:
 #    - resources-finalizer.argocd.argoproj.io
   annotations: {}
@@ -41,6 +43,8 @@ kind: Application
 metadata:
   name: test-sinai-cantaloupe
   namespace: argocd
+  labels:
+    team: services
 #  finalizers:
 #    - resources-finalizer.argocd.argoproj.io
   annotations: {}
