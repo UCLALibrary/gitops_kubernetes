@@ -27,7 +27,7 @@ spec:
     namespace: test-cantaloupe
   sources:
     - repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 1.0.1
+      targetRevision: 1.1.1
       chart: uclalib-helm-generic
       helm:
         valueFiles:
