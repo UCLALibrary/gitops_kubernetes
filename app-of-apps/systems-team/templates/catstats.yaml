@@ -4,6 +4,8 @@ kind: Application
 metadata:
   name: cataloging-statistics
   namespace: argocd
+  labels:
+    team: systems
 #  finalizers:
 #    - resources-finalizer.argocd.argoproj.io
   annotations: {}
