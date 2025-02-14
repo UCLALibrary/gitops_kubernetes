@@ -1,0 +1,9 @@
+spec:
+  destination:
+    aws:
+      server: prod-eks-services-team
+    rke:
+      test:
+        server: testrke01
+      prod:
+        server: prodrke01
