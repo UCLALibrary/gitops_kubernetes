@@ -1,3 +1,4 @@
+# Test Cantaloupe
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -29,6 +30,42 @@ spec:
       helm:
         valueFiles:
           - $values/apps/services-team-value-files/test-cantaloupe.yaml
+    - repoURL: "https://github.com/UCLALibrary/gitops_kubernetes"
+      targetRevision: main
+      ref: values
+
+# Test Sinai Cantaloupe
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-sinai-cantaloupe
+  namespace: argocd
+#  finalizers:
+#    - resources-finalizer.argocd.argoproj.io
+  annotations: {}
+spec:
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        namespace_team: services
+    automated:
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
+  project: default
+  destination:
+    name: {{ .Values.spec.destination.aws.server }}
+    namespace: test-sinai-cantaloupe
+  sources:
+    - repoURL: https://chartmuseum.library.ucla.edu
+      targetRevision: 1.0.1
+      chart: uclalib-helm-generic
+      helm:
+        valueFiles:
+          - $values/apps/services-team-value-files/test-sinai-cantaloupe.yaml
     - repoURL: "https://github.com/UCLALibrary/gitops_kubernetes"
       targetRevision: main
       ref: values
