@@ -168,7 +168,6 @@ configmap:
     SINAI_AUTH_COOKIE_SERVICE_LABEL: "Sinai Palimpsests at UCLA Library"
     SINAI_AUTH_TOKEN_SERVICE: "https://test.auth.iiif.library.ucla.edu/token/sinai"
     CANTALOUPE_LOG_APPLICATION_LEVEL: "DEBUG"
-    AVUONGTEST: triggerrestartplz
 #---------------------------------------------
 
 
