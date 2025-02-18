@@ -1,0 +1,36 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: link-shortener
+  namespace: argocd
+  labels:
+    team: systems
+#  finalizers:
+#    - resources-finalizer.argocd.argoproj.io
+  annotations: {}
+spec:
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        namespace_team: systems
+    automated:
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
+  project: default
+  destination:
+    name: {{ .Values.spec.destination.server }}
+    namespace: link-shortenerprod
+  sources:
+    - repoURL: https://chartmuseum.library.ucla.edu
+      targetRevision: 1.0.2
+      chart: link-shortener
+      helm:
+        valueFiles:
+          - $values/charts/prod-linkshortener-values.yaml
+    - repoURL: "https://github.com/UCLALibrary/link-shortener"
+      targetRevision: main
+      ref: values
