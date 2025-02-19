@@ -1,0 +1,75 @@
+# Test Bucketeer
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-bucketeer
+  namespace: argocd
+  labels:
+    team: services
+#  finalizers:
+#    - resources-finalizer.argocd.argoproj.io
+  annotations: {}
+spec:
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        namespace_team: services
+    automated:
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
+  project: default
+  destination:
+    name: {{ .Values.spec.destination.rke.test.server }}
+    namespace: test-bucketeer
+  sources:
+    - repoURL: https://chartmuseum.library.ucla.edu
+      targetRevision: 1.1.1
+      chart: uclalib-helm-generic
+      helm:
+        valueFiles:
+          - $values/apps/services-team-value-files/test-bucketeer.yaml
+    - repoURL: "https://github.com/UCLALibrary/gitops_kubernetes"
+      targetRevision: main
+      ref: values
+
+# Test Large Bucketeer
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-large-bucketeer
+  namespace: argocd
+  labels:
+    team: services
+#  finalizers:
+#    - resources-finalizer.argocd.argoproj.io
+  annotations: {}
+spec:
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        namespace_team: services
+    automated:
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
+  project: default
+  destination:
+    name: {{ .Values.spec.destination.rke.test.server }}
+    namespace: test-large-bucketeer
+  sources:
+    - repoURL: https://chartmuseum.library.ucla.edu
+      targetRevision: 1.1.1
+      chart: uclalib-helm-generic
+      helm:
+        valueFiles:
+          - $values/apps/services-team-value-files/test-large-bucketeer.yaml
+    - repoURL: "https://github.com/UCLALibrary/gitops_kubernetes"
+      targetRevision: main
+      ref: values
