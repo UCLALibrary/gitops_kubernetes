@@ -1,0 +1,75 @@
+# Prod Fester
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prod-fester
+  namespace: argocd
+  labels:
+    team: services
+#  finalizers:
+#    - resources-finalizer.argocd.argoproj.io
+  annotations: {}
+spec:
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        namespace_team: services
+    automated:
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
+  project: default
+  destination:
+    name: {{ .Values.spec.destination.aws.server }}
+    namespace: prod-fester
+  sources:
+    - repoURL: https://chartmuseum.library.ucla.edu
+      targetRevision: 1.1.1
+      chart: uclalib-helm-generic
+      helm:
+        valueFiles:
+          - $values/apps/services-team-value-files/prod-fester.yaml
+    - repoURL: "https://github.com/UCLALibrary/gitops_kubernetes"
+      targetRevision: main
+      ref: values
+
+# Prod Ingest Fester
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prod-ingest-fester
+  namespace: argocd
+  labels:
+    team: services
+#  finalizers:
+#    - resources-finalizer.argocd.argoproj.io
+  annotations: {}
+spec:
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        namespace_team: services
+    automated:
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
+  project: default
+  destination:
+    name: {{ .Values.spec.destination.rke.prod.server }}
+    namespace: prod-ingest-fester
+  sources:
+    - repoURL: https://chartmuseum.library.ucla.edu
+      targetRevision: 1.1.1
+      chart: uclalib-helm-generic
+      helm:
+        valueFiles:
+          - $values/apps/services-team-value-files/prod-ingest-fester.yaml
+    - repoURL: "https://github.com/UCLALibrary/gitops_kubernetes"
+      targetRevision: main
+      ref: values
