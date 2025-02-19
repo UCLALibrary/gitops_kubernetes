@@ -1,0 +1,75 @@
+# Test PRL Harvester
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-prl-harvester
+  namespace: argocd
+  labels:
+    team: services
+#  finalizers:
+#    - resources-finalizer.argocd.argoproj.io
+  annotations: {}
+spec:
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        namespace_team: services
+    automated:
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
+  project: default
+  destination:
+    name: {{ .Values.spec.destination.rke.test.server }}
+    namespace: test-prl-harvester
+  sources:
+    - repoURL: https://chartmuseum.library.ucla.edu
+      targetRevision: 1.1.1
+      chart: uclalib-helm-generic
+      helm:
+        valueFiles:
+          - $values/apps/services-team-value-files/test-prl-harvester.yaml
+    - repoURL: "https://github.com/UCLALibrary/gitops_kubernetes"
+      targetRevision: main
+      ref: values
+
+# Prod PRL Harvester
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prod-prl-harvester
+  namespace: argocd
+  labels:
+    team: services
+#  finalizers:
+#    - resources-finalizer.argocd.argoproj.io
+  annotations: {}
+spec:
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        namespace_team: services
+    automated:
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
+  project: default
+  destination:
+    name: {{ .Values.spec.destination.rke.prod.server }}
+    namespace: prod-prl-harvester
+  sources:
+    - repoURL: https://chartmuseum.library.ucla.edu
+      targetRevision: 1.1.1
+      chart: uclalib-helm-generic
+      helm:
+        valueFiles:
+          - $values/apps/services-team-value-files/prod-prl-harvester.yaml
+    - repoURL: "https://github.com/UCLALibrary/gitops_kubernetes"
+      targetRevision: main
+      ref: values
