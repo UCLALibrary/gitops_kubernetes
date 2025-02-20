@@ -1,3 +1,4 @@
+# Test Oral History
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -31,6 +32,45 @@ spec:
       helm:
         valueFiles:
           - $values/charts/test-oralhistory-values.yaml
+    - repoURL: "https://github.com/UCLALibrary/oral-history"
+      targetRevision: main
+      ref: values
+
+
+# Stage Oral History
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: stage-oral-history-public-web
+  namespace: argocd
+  labels:
+    team: ucla-notch8-oral-history
+#  finalizers:
+#    - resources-finalizer.argocd.argoproj.io
+  annotations: {}
+spec:
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        namespace_team: apps
+    automated:
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
+  project: default
+  destination:
+    name: {{ .Values.spec.destination.rke.prod.server }}
+    namespace: stage-oralhistory
+  sources:
+    - repoURL: https://chartmuseum.library.ucla.edu
+      targetRevision: 1.0.7
+      chart: oralhistory
+      helm:
+        valueFiles:
+          - $values/charts/stage-oralhistory-values.yaml
     - repoURL: "https://github.com/UCLALibrary/oral-history"
       targetRevision: main
       ref: values
