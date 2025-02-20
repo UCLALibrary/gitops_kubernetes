@@ -3,5 +3,5 @@ spec:
     rke:
       test:
         server: testrke01
-      test:
+      prod:
         server: prodrke01
