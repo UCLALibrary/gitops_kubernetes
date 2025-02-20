@@ -3706,8 +3706,8 @@ notifications:
       - on-sync-failed
       - on-sync-succeeded
     - recipients:
-      - slack:ucla-scientist-oral-history
-      selector: team=ucla-scientist-oral-history
+      - slack:ucla-notch8-oral-history
+      selector: team=ucla-notch8-oral-history
       triggers:
       - on-deployed
       - on-health-degraded
