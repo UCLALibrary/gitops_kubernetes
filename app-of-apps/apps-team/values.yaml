@@ -1,0 +1,7 @@
+spec:
+  destination:
+    rke:
+      test:
+        server: testrke01
+      test:
+        server: prodrke01
