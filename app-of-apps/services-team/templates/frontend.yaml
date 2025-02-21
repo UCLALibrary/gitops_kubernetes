@@ -61,7 +61,7 @@ spec:
       - PruneLast=true
   project: default
   destination:
-    name: {{ .Values.spec.destination.rke.prod.server }}
+    name: {{ .Values.spec.destination.aws.server }}
     namespace: frontend-prod-iiif
   sources:
     - repoURL: https://chartmuseum.library.ucla.edu
