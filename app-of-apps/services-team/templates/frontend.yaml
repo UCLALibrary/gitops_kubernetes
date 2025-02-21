@@ -1,0 +1,75 @@
+# test.iiif.library.ucla.edu
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: frontend-test-iiif
+  namespace: argocd
+  labels:
+    team: services
+#  finalizers:
+#    - resources-finalizer.argocd.argoproj.io
+  annotations: {}
+spec:
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        namespace_team: services
+    automated:
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
+  project: default
+  destination:
+    name: {{ .Values.spec.destination.aws.server }}
+    namespace: frontend-test-iiif
+  sources:
+    - repoURL: https://chartmuseum.library.ucla.edu
+      targetRevision: 1.1.1
+      chart: uclalib-helm-generic
+      helm:
+        valueFiles:
+          - $values/apps/services-team-value-files/frontend-test-iiif.yaml
+    - repoURL: "https://github.com/UCLALibrary/gitops_kubernetes"
+      targetRevision: main
+      ref: values
+
+# iiif.library.ucla.edu
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: frontend-prod-iiif
+  namespace: argocd
+  labels:
+    team: services
+#  finalizers:
+#    - resources-finalizer.argocd.argoproj.io
+  annotations: {}
+spec:
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        namespace_team: services
+    automated:
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
+  project: default
+  destination:
+    name: {{ .Values.spec.destination.rke.prod.server }}
+    namespace: frontend-prod-iiif
+  sources:
+    - repoURL: https://chartmuseum.library.ucla.edu
+      targetRevision: 1.1.1
+      chart: uclalib-helm-generic
+      helm:
+        valueFiles:
+          - $values/apps/services-team-value-files/frontend-prod-iiif.yaml
+    - repoURL: "https://github.com/UCLALibrary/gitops_kubernetes"
+      targetRevision: main
+      ref: values
