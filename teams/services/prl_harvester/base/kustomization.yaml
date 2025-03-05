@@ -1,7 +1,0 @@
-commonLabels:
-  app: prlbackend
-commonAnnotations: {}
-resources:
-- deployment.yaml
-- service.yaml
-- ingress.yaml

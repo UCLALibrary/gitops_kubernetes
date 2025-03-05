@@ -1,6 +1,0 @@
-dependencies:
-- name: libcalproxy
-  repository: https://chartmuseum.library.ucla.edu
-  version: 0.1.1
-digest: sha256:c7bead88cb05ea0cf7abfc93f5f6aa9c951bb685753a1d585f4eaa0f7b282adf
-generated: "2022-06-22T10:20:14.668087308-07:00"
