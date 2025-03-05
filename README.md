@@ -3,8 +3,8 @@
 This gitops repo is used to house the following configuration
 
 ## Usage Guide 
-Directory Structure
-====================
+
+### Directory Structure
 * ArgoCD configuration is stored under `infrastructure/deployment`
 * ArgoCD deployed applications are managed via app-of-apps style. Manifests are stored through umbrella charts in directory `app-of-apps`
 * `apps` directory is optional, can be used to store values file or helm charts as a subdirectory to be referenced by ArgoCD
@@ -18,7 +18,7 @@ The following workflows/operations are desired, but have not been implemented:
 * Removing an existing application via ArgoCD through a git commit
 
 
-## To add a new ArgoCD application to be deployed
+### To add a new ArgoCD application to be deployed
 1. Navigate to directory `app-of-apps`
 1. Navigate to directory that best associates the subdirectory of what you're trying to deploy to. This is most likely subteam based. I.e. `app-of-apps/services-team`
   * `cd app-of-apps/services-team`
