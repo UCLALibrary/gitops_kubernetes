@@ -1,9 +1,0 @@
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: external-ingest-fester
-  namespace: frontend-prod-ingest-iiif
-spec:
-  type: ExternalName
-  externalName: prod-ingest-fester.prod-ingest-fester.svc.cluster.local

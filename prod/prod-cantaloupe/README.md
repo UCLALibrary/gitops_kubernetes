@@ -1,1 +1,0 @@
-# Cantaloupe Test Environment
