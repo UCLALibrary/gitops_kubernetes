@@ -1,6 +1,5 @@
 # gitops_kubernetes
-
-This gitops repo is used to house the following configuration
+This gitops repo is used to managed deployments via ArgoCD under the UCLA Library's Kubernetes infrastructure
 
 ## Usage Guide 
 
@@ -18,7 +17,7 @@ The following workflows/operations are desired, but have not been implemented:
 * Removing an existing application via ArgoCD through a git commit
 
 
-### To add a new ArgoCD application to be deployed
+### To deploy a new application via ArgoCD using app-of-apps setup
 1. Navigate to directory `app-of-apps`
 1. Navigate to directory that best associates the subdirectory of what you're trying to deploy to. This is most likely subteam based. I.e. `app-of-apps/services-team`
   * `cd app-of-apps/services-team`
@@ -27,7 +26,7 @@ The following workflows/operations are desired, but have not been implemented:
 1. Open the file, remove lines until you have one entry to work with
 1. Edit the following lines
   * `.metadata.name` - Application name:  `[environment]-[applicationname]`
-  * `.spec.destination.name` - Cluster you want to deploy to. See relative umbrella chart values file
+  * `.spec.destination.name` - Cluster you want to deploy to. See relative umbrella chart values file: [services-team-destinations](https://github.com/UCLALibrary/gitops_kubernetes/blob/main/app-of-apps/services-team/values.yaml)
   * `.spec.destination.namespace` - Namespace to deploy this application: `[environment]-[applicationname]`
   * `.spec.destination.sources[0].repoURL` - Helm repo url where your chart is hosted: `https://chartmuseum.library.ucla.edu`
   * `.spec.destination.sources[0].targetRevision` - Version of helm chart to use: `1.1.1`
