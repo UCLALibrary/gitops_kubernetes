@@ -1,0 +1,241 @@
+#---------------------------------------------
+# Global Configuration
+#
+#
+nameOverride: "prod-bucketeer"
+fullnameOverride: "prod-bucketeer"
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+#---------------------------------------------
+
+#---------------------------------------------
+# Deployment Configuration
+#
+#
+deployment:
+  enabled: true
+  strategy:
+    type: Recreate
+
+pv:
+  enabled: true
+  default:
+    enabled: true
+    mounts:
+      default:
+        annotations:
+          argocd.argoproj.io/sync-wave: "-2"
+        mode: ReadWriteOnce
+        capacity: 50Gi
+        persistentVolumeReclaimPolicy: Delete
+        mountPath: /tmp
+  nfs:
+    enabled: true
+    mounts:
+      masters:
+        server: masters.in.library.ucla.edu
+        path: /
+        mode: ReadOnlyMany
+        readOnly: true
+        capacity: 1Gi
+        persistentVolumeReclaimPolicy: Retain
+        nfsvers: 3
+        mountPath: /opt/data/Masters
+        annotations:
+          argocd.argoproj.io/sync-wave: "-2"
+ports:
+  - name: http
+    containerPort: 80
+    protocol: TCP
+
+livenessProbe:
+  httpGet:
+    path: /status
+    port: 8888
+
+readinessProbe:
+  httpGet:
+    path: /status
+    port: 8888
+
+replicaCount: 1
+imagePullSecrets:
+  - name: prod-bucketeer-dockerhub-secret
+image:
+  #repository: nginx
+  repository: uclalibrary/bucketeer-ucla
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  #tag: "latest"
+  tag: "0.5.8"
+
+podAnnotations: {}
+
+podSecurityContext:
+  runAsUser: 1000
+  fsGroup: 1000
+  #fsGroup: 101
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: 4000m
+    memory: 12Gi
+  requests:
+    cpu: 2000m
+    memory: 12Gi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+#---------------------------------------------
+
+#---------------------------------------------
+# Service Configuration
+#
+#
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+  targetPort: 8888
+#---------------------------------------------
+
+#---------------------------------------------
+# External Service Configuration
+#
+#
+externalservice:
+  enabled: false
+  extsvc: []
+#---------------------------------------------
+
+#---------------------------------------------
+#
+
+#---------------------------------------------
+# Ingress Configuration
+#
+#
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    cert-manager.io/cluster-issuer: "sectigo-acme-clusterissuer"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/whitelist-source-range: |
+      52.32.59.248,54.201.202.237,128.97.0.0/16,128.97.8.72/29,128.97.67.0/26,128.97.128.0/26,128.97.238.0/24,149.142.0.0/16,149.142.39.128/25,149.142.49.192/26,149.142.209.0/24,149.142.235.0/24,149.142.252.0/24,164.67.0.0/16,164.67.62.192/27,164.67.128.0/24,164.67.200.0/23,169.232.0.0/16,169.232.0.0/19,169.232.34.0/24,169.232.35.0/24,169.232.44.64/30,169.232.46.0/23,169.232.48.0/24,169.232.53.0/24,169.232.54.0/23,169.232.58.136/29,169.232.58.144/28,169.232.58.160/29,169.232.61.0/24,169.232.62.0/23,169.232.192.0/24,169.232.193.0/26,169.232.193.64/26,169.232.193.128/29,169.232.193.136/29,169.232.193.144/29,169.232.193.152/29,169.232.193.160/27,169.232.206.0/28,169.232.206.16/28,169.232.206.88/29,169.232.206.96/28,169.232.206.120/29,169.232.206.128/28,169.232.206.144/28,169.232.206.160/27,169.232.206.192/28,169.232.206.208/28,169.232.206.224/28,169.232.206.240/28,169.232.208.224/28,169.232.224.0/23,172.16.0.0/12,172.17.90.0/25,172.17.90.128/25,172.17.94.0/24,172.17.108.0/25,172.17.108.128/25,172.20.0.0/17,172.20.128.0/17,192.35.210.0/24,192.35.225.0/24,192.154.2.0/24,192.175.48.1/32,192.175.48.6/32,192.175.48.42/32
+    nginx.ingress.kubernetes.io/proxy-body-size: "12m"
+  hosts:
+    - host: bucketeer.library.ucla.edu
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+   - secretName: prod-bucketeer-tls
+     hosts:
+       - bucketeer.library.ucla.edu
+
+#---------------------------------------------
+
+#---------------------------------------------
+# ConfigMap Configuration
+# Use this field to set any non-sensitive values to be supplied as Environment Variables to your deployment
+#
+configmap:
+  enabled: true
+  additionaLabels: {}
+  annotations: {}
+  data:
+    SOURCE_MAX_FILE_SIZE: "175000000"
+    HTTP_MAX_QUEUE_SIZE: "10"
+    S3_UPLOADER_THREADS: "15"
+    S3_MAX_REQUESTS: "25"
+    S3_MAX_RETRIES: "45"
+    SLACK_MAX_RETRIES: "30"
+    SLACK_RETRY_DELAY: "1"
+    LAMBDA_S3_BUCKET: "prod-bucketeer-tiff-lambda"
+    BUCKETEER_S3_BUCKET: "prod-cantaloupe-iiif-source"
+    BUCKETEER_S3_REGION: "us-west-2"
+    BUCKETEER_FS_IMAGE_MOUNT: "/opt/data"
+    BUCKETEER_FS_IMAGE_PREFIX: "UCLAFilePathPrefix"
+    BUCKETEER_SLACK_ERROR_CHANNEL_ID: "softwaredev-services-firehose"
+    BUCKETEER_SLACK_CHANNEL_ID: "bucketeer-jobs"
+    BUCKETEER_IIIF_URL: "https://iiif.library.ucla.edu"
+    BUCKETEER_IIIF_URL_PREFIX: "/iiif/2/"
+    HEAP_SIZE: "6g"
+    FEATURE_FLAGS: "https://raw.githubusercontent.com/UCLALibrary/ansible_uclalib_plays/master/bucketeer/files/bucketeer-features-on.conf"
+    LARGE_IMAGE_BUCKETEER: "http://prod-large-bucketeer.prod-large-bucketeer.svc.cluster.local"
+    BATCH_CALLBACK_URL: "http://prod-bucketeer.prod-bucketeer.svc.cluster.local:80/batch/jobs/{}/{}/"
+    FESTER_URL: "http://iiif.library.ucla.edu/fester"
+#---------------------------------------------
+
+
+#---------------------------------------------
+# ExternalSecrets Configuration
+# Use this field to set any sensitive values to be supplied as Environment Variables to your deployment
+#
+externalsecrets:
+  enabled: true
+  # Reference to ClusterSecretStore name
+  ref: services-clustersecretstore
+  secrets:
+    application:
+      data:
+        - secretKey: BUCKETEER_S3_ACCESS_KEY
+          remoteRef:
+            key: /services/prodrke01/prod-bucketeer/bucketeer_s3_access_key
+        - secretKey: BUCKETEER_S3_SECRET_KEY
+          remoteRef:
+            key: /services/prodrke01/prod-bucketeer/bucketeer_s3_secret_key
+        - secretKey: BUCKETEER_SLACK_OAUTH_TOKEN
+          remoteRef:
+            key: /services/prodrke01/prod-bucketeer/bucketeer_slack_oauth_token
+        - secretKey: BUCKETEER_IIIF_CACHE_USER
+          remoteRef:
+            key: /services/prodrke01/prod-bucketeer/bucketeer_iiif_cache_user
+        - secretKey: BUCKETEER_IIIF_CACHE_PASSWORD
+          remoteRef:
+            key: /services/prodrke01/prod-bucketeer/bucketeer_iiif_cache_password
+    dockerhub:
+      data:
+        - secretKey: creds
+          remoteRef:
+            key: /services/prodeks/services-dockerhub-creds
+#---------------------------------------------
+
+#---------------------------------------------
+# Extra Objects Configuration
+# Use this field to create any manifests and/or templates that are not embedded into the bundled Helm Chart
+#
+extraObjects: {}
+#---------------------------------------------
