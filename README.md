@@ -34,4 +34,5 @@ The following workflows/operations are desired, but have not been implemented:
   * `.spec.destination.sources[0].helm.valueFiles[0]` - Location of the values file to pair with this helm chart: `$values/apps/services-team-value-files/test-prl-harvester.yaml`
   * `.spec.destination.sources[1].repoURL` - GitHub Repo URL where desired values file is located
   * `.spec.destination.sources[1].targetRevision` - Reference branch in which the desired values file is stored
-1. Once you've finalize and pushed your changes to the main branch, login to https://argocd.library.ucla.edu to verify the application has been deployed. It may take a few minutes for it to show up
+
+Once you've finalize and pushed your changes to the main branch, login to https://argocd.library.ucla.edu to verify the application has been deployed. It may take a few minutes for it to show up
