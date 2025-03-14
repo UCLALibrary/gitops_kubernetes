@@ -25,7 +25,7 @@ spec:
     namespace: test-validator
   sources:
     - repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 1.1.2
+      targetRevision: 1.1.3
       chart: uclalib-helm-generic
       helm:
         valueFiles:
@@ -61,7 +61,7 @@ spec:
     namespace: prod-validator
   sources:
     - repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 1.1.2
+      targetRevision: 1.1.3
       chart: uclalib-helm-generic
       helm:
         valueFiles:
