@@ -190,42 +190,42 @@ extraObjects:
         http:
           paths:
           - path: /.*/manifest
-            pathType: Prefix
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: external-fester
                 port:
                   number: 80
           - path: /fester.*
-            pathType: Prefix
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: external-fester
                 port:
                   number: 80
           - path: /thumbnails.*
-            pathType: Prefix
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: external-fester
                 port:
                   number: 80
           - path: /collections/*
-            pathType: Prefix
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: external-fester
                 port:
                   number: 80
           - path: /.*viewers/mirador.*
-            pathType: Prefix
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: external-mirador
                 port:
                   number: 80
           - path: /
-            pathType: Prefix
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: external-cantaloupe
