@@ -184,11 +184,7 @@ extraObjects:
               return 301 https://ingest.iiif.library.ucla.edu${uri};
             }
         nginx.ingress.kubernetes.io/upstream-vhost: $upstreamHost
-        nginx.ingress.kubernetes.io/server-snippet: |
-          location / {
-            # block one workstation
-            deny 183.192.0.0/10;
-          }
+        nginx.ingress.kubernetes.io/denylist-source-range: 183.192.0.0/10
     spec:
       rules:
       - host: iiif.library.ucla.edu
