@@ -44,7 +44,7 @@ image:
   repository: uclalibrary/fester
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "1.4.3"
+  tag: "1.4.6"
 
 podAnnotations: {}
 
