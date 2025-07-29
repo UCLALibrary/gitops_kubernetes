@@ -44,7 +44,7 @@ image:
   repository: uclalibrary/fester
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "1.4.6"
+  tag: "1.5.0"
 
 podAnnotations: {}
 
@@ -126,6 +126,9 @@ ingress:
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-body-size: "16m"
     nginx.ingress.kubernetes.io/app-root: /fester
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: prod-ingest-fester
+    nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - Restricted'
   hosts:
     - host: ingest.iiif.library.ucla.edu
       paths:
@@ -150,7 +153,7 @@ configmap:
     FESTER_URL: "https://iiif.library.ucla.edu"
     FESTER_S3_BUCKET: "prod-iiif-fester-source"
     FESTER_S3_REGION: "us-west-2"
-    FESTERIZE_VERSION: "0.4.2"
+    FESTERIZE_VERSION: "0.5.0"
     IIIF_BASE_URL: "https://iiif.library.ucla.edu/iiif/2"
     AV_DEFAULT_AUDIO_THUMBNAIL_URL: "https://static.library.ucla.edu/audio_icon.svg"
     AV_DEFAULT_VIDEO_THUMBNAIL_URL: "https://static.library.ucla.edu/video_icon.svg"
@@ -174,6 +177,9 @@ externalsecrets:
         - secretKey: FESTER_S3_SECRET_KEY
           remoteRef:
             key: /services/prodeks/prod-fester/fester_s3_secret_key
+        - secretKey: auth
+          remoteRef:
+            key: /services/fester/basicauth
     dockerhub:
       data:
         - secretKey: creds
