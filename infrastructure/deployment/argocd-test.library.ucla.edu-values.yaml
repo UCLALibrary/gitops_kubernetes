@@ -246,6 +246,7 @@ configs:
           name: UCLA Library AD
           id: ad
           config:
+            insecureSkipVerify: true
             host: lit01.ad.library.ucla.edu:636
             bindDN: $ldap.binddn
             bindPW: $ldap.bindpw
