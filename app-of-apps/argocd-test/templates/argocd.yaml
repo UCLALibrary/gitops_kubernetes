@@ -21,7 +21,7 @@ spec:
     namespace: argocd
   sources:
     - repoURL: https://argoproj.github.io/argo-helm
-      targetRevision: 7.6.12
+      targetRevision: 8.3.0 #3.1.0
       chart: argo-cd
       helm:
         valueFiles:
