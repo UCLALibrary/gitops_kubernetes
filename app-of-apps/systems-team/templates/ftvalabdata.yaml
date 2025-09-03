@@ -10,16 +10,16 @@ metadata:
 #    - resources-finalizer.argocd.argoproj.io
   annotations: {}
 spec:
-  syncPolicy:
-    managedNamespaceMetadata:
-      labels:
-        namespace_team: systems
-    automated:
-      selfHeal: true
-      allowEmpty: false
-    syncOptions:
-      - CreateNamespace=true
-      - PruneLast=true
+  syncPolicy: {}
+  #  managedNamespaceMetadata:
+  #    labels:
+  #      namespace_team: systems
+  #  automated:
+  #    selfHeal: true
+  #    allowEmpty: false
+  #  syncOptions:
+  #    - CreateNamespace=true
+  #    - PruneLast=true
   project: default
   destination:
     name: {{ .Values.spec.destination.server }}
