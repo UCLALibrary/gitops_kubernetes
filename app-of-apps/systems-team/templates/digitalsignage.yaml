@@ -26,7 +26,7 @@ spec:
     namespace: signageprod
   sources:
     - repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 1.0.1
+      targetRevision: 1.0.2
       chart: signage
       helm:
         valueFiles:
