@@ -74,7 +74,7 @@ image:
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   #tag: "latest"
-  tag: "0.5.8"
+  tag: "0.5.13"
 
 podAnnotations: {}
 
