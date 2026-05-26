@@ -182,7 +182,8 @@ configmap:
     BUCKETEER_FS_IMAGE_PREFIX: "UCLAFilePathPrefix"
     BUCKETEER_SLACK_ERROR_CHANNEL_ID: "dev-null"
     BUCKETEER_SLACK_CHANNEL_ID: "dev-null"
-    BUCKETEER_IIIF_URL: "https://test-iiif.library.ucla.edu/iiif/2/"
+    BUCKETEER_IIIF_URL: "https://iiif.library.ucla.edu"
+    BUCKETEER_IIIF_URL_PREFIX: "/iiif/2/"
     HEAP_SIZE: "2g"
     SOURCE_MAX_FILE_SIZE: "350000000"
     HTTP_MAX_QUEUE_SIZE: "5"
@@ -216,6 +217,12 @@ externalsecrets:
         - secretKey: BUCKETEER_SLACK_OAUTH_TOKEN
           remoteRef:
             key: /services/testrke01/test-bucketeer/bucketeer_slack_oauth_token
+        - secretKey: BUCKETEER_IIIF_CACHE_USER
+          remoteRef:
+            key: /services/prodrke01/test-bucketeer/bucketeer_iiif_cache_user
+        - secretKey: BUCKETEER_IIIF_CACHE_PASSWORD
+          remoteRef:
+            key: /services/prodrke01/test-bucketeer/bucketeer_iiif_cache_password
     dockerhub:
       data:
         - secretKey: creds
