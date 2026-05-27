@@ -182,7 +182,7 @@ configmap:
     BUCKETEER_FS_IMAGE_PREFIX: "UCLAFilePathPrefix"
     BUCKETEER_SLACK_ERROR_CHANNEL_ID: "dev-null"
     BUCKETEER_SLACK_CHANNEL_ID: "dev-null"
-    BUCKETEER_IIIF_URL: "https://iiif.library.ucla.edu"
+    BUCKETEER_IIIF_URL: "https://test-iiif.library.ucla.edu"
     BUCKETEER_IIIF_URL_PREFIX: "/iiif/2/"
     HEAP_SIZE: "2g"
     SOURCE_MAX_FILE_SIZE: "350000000"
