@@ -219,10 +219,10 @@ externalsecrets:
             key: /services/testrke01/test-bucketeer/bucketeer_slack_oauth_token
         - secretKey: BUCKETEER_IIIF_CACHE_USER
           remoteRef:
-            key: /services/prodeks/test-cantaloupe/cantaloupe_endpoint_api_username
+            key: /services/testrke01/test-bucketeer/bucketeer_iiif_cache_user
         - secretKey: BUCKETEER_IIIF_CACHE_PASSWORD
           remoteRef:
-            key: /services/prodeks/test-cantaloupe/cantaloupe_endpoint_api_secret
+            key: /services/testrke01/test-bucketeer/bucketeer_iiif_cache_password
     dockerhub:
       data:
         - secretKey: creds
