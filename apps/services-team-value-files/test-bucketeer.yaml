@@ -193,7 +193,7 @@ configmap:
     FEATURE_FLAGS: "https://raw.githubusercontent.com/UCLALibrary/ansible_uclalib_plays/master/bucketeer/files/bucketeer-features-on.conf"
     LARGE_IMAGE_BUCKETEER: "http://test-large-bucketeer.test-large-bucketeer.svc.cluster.local"
     BATCH_CALLBACK_URL: "http://test-bucketeer.test-bucketeer.svc.cluster.local:80/batch/jobs/{}/{}/"
-    FESTER_URL: "http://test-iiif.library.ucla.edu/fester"
+    FESTER_URL: "http://test.ingest.iiif.library.ucla.edu"
 #---------------------------------------------
 
 
