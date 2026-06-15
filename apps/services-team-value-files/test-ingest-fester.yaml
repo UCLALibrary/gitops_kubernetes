@@ -131,15 +131,12 @@ ingress:
     nginx.ingress.kubernetes.io/auth-type: basic
     nginx.ingress.kubernetes.io/auth-secret: test-ingest-fester
     nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - Restricted'
-    nginx.ingress.kubernetes.io/configuration-snippet: |
+    nginx.ingress.kubernetes.io/auth-snippet: |
         satisfy any;
         allow all;
-        set $bypass_auth "";
-        if ($request_method = GET) {
-          set $bypass_auth "1";
-        }
-        if ($bypass_auth = "1") {
-          auth_basic off;
+        if ($request_method != GET) {
+          # This forces non-GET requests back into standard authentication handling
+          set $global_auth_basic "Authentication Required - Restricted";
         }
   hosts:
     - host: test.ingest.iiif.library.ucla.edu
