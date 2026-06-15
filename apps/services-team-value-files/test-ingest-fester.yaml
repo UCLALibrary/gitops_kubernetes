@@ -132,11 +132,16 @@ ingress:
     nginx.ingress.kubernetes.io/auth-secret: test-ingest-fester
     nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - Restricted'
     nginx.ingress.kubernetes.io/configuration-snippet: |
-        set $realm "Authentication Required - Restricted";
+        satisfy any;
+        allow 127.0.0.1; # A dummy rule to keep satisfy happy
+        set $is_get "";
         if ($request_method = GET) {
-          set $realm "off";
+          set $is_get "Y";
         }
-        auth_basic $realm;
+        if ($is_get = "Y") {
+          # This satisfies the "satisfy any" requirement without using duplicate auth directives
+          allow all;
+        }
   hosts:
     - host: test.ingest.iiif.library.ucla.edu
       paths:
