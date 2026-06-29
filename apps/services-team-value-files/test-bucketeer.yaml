@@ -69,11 +69,8 @@ replicaCount: 1
 imagePullSecrets:
   - name: test-bucketeer-dockerhub-secret
 image:
-  #repository: nginx
   repository: uclalibrary/bucketeer-ucla
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  #tag: "latest"
+  pullPolicy: Always
   tag: "0.6.2"
 
 podAnnotations: {}
