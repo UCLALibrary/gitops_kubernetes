@@ -70,7 +70,7 @@ imagePullSecrets:
   - name: test-bucketeer-dockerhub-secret
 image:
   repository: uclalibrary/bucketeer-ucla
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: "0.6.2"
 
 podAnnotations: {}
