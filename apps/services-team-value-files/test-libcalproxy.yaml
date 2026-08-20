@@ -120,7 +120,7 @@ ingress:
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
     nginx.ingress.kubernetes.io/enable-cors: "true"
-    cert-manager.io/cluster-issuer: "sectigo-acme-clusterissuer"
+    cert-manager.io/cluster-issuer: "certinext"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
   hosts:
     - host: test.proxy.calendar.library.ucla.edu

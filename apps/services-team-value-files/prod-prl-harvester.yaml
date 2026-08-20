@@ -119,7 +119,7 @@ ingress:
   annotations:
     kubernetes.io/tls-acme: "true"
     nginx.ingress.kubernetes.io/enable-cors: "true"
-    cert-manager.io/cluster-issuer: "sectigo-acme-clusterissuer"
+    cert-manager.io/cluster-issuer: "certinext"
     nginx.ingress.kubernetes.io/auth-type: basic
     nginx.ingress.kubernetes.io/auth-secret: prod-prl-harvester
     nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - Restricted'

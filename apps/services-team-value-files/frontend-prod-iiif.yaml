@@ -159,7 +159,7 @@ extraObjects:
         nginx.ingress.kubernetes.io/use-regex: "true"
         nginx.ingress.kubernetes.io/denylist-source-range: "117.128.0.0/10"
         kubernetes.io/tls-acme: "true"
-        cert-manager.io/cluster-issuer: "sectigo-acme-clusterissuer"
+        cert-manager.io/cluster-issuer: "certinext"
         nginx.ingress.kubernetes.io/configuration-snippet: |
             set $upstreamHost $host;
             if ($uri ~ "/.*viewers.*") {

@@ -120,7 +120,7 @@ ingress:
     kubernetes.io/tls-acme: "true"
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/app-root: /fester
-    cert-manager.io/cluster-issuer: "sectigo-acme-clusterissuer"
+    cert-manager.io/cluster-issuer: "certinext"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"

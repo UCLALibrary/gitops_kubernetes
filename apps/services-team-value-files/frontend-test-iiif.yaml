@@ -158,7 +158,7 @@ extraObjects:
         nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
         nginx.ingress.kubernetes.io/use-regex: "true"
         kubernetes.io/tls-acme: "true"
-        cert-manager.io/cluster-issuer: "sectigo-acme-clusterissuer"
+        cert-manager.io/cluster-issuer: "certinext"
         nginx.ingress.kubernetes.io/configuration-snippet: |
             set $upstreamHost $host;
             if ($uri ~ "/.*viewers.*") {
