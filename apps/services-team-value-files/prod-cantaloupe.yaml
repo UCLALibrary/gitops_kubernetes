@@ -29,12 +29,12 @@ ports:
 
 livenessProbe:
   httpGet:
-    path: /iiif/2
+    path: /iiif/2/ark%3A%2F21198%2Fzz002866b5/full/!200,200/0/default.jpg
     port: http
 
 readinessProbe:
   httpGet:
-    path: /iiif/2
+    path: /iiif/2/ark%3A%2F21198%2Fzz002866b5/full/!200,200/0/default.jpg
     port: http
 
 replicaCount: 2
