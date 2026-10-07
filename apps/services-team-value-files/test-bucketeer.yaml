@@ -71,7 +71,7 @@ imagePullSecrets:
 image:
   repository: uclalibrary/bucketeer-ucla
   pullPolicy: Always
-  tag: "0.6.2"
+  tag: "0.6.7"
 
 podAnnotations: {}
 
