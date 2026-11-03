@@ -27,15 +27,15 @@ ports:
     containerPort: 8182
     protocol: TCP
 
-livenessProbe:
-  httpGet:
-    path: /iiif/2
-    port: http
+#livenessProbe:
+#  httpGet:
+#    path: /iiif/2
+#    port: http
 
-readinessProbe:
-  httpGet:
-    path: /iiif/2
-    port: http
+#readinessProbe:
+#  httpGet:
+#    path: /iiif/2
+#    port: http
 
 replicaCount: 1
 imagePullSecrets:
