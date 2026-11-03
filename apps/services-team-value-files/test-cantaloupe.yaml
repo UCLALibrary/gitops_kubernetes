@@ -204,6 +204,18 @@ externalsecrets:
         - secretKey: CANTALOUPE_S3SOURCE_BASICLOOKUPSTRATEGY_BUCKET_NAME
           remoteRef:
             key: /services/prodeks/prod-cantaloupe/cantaloupe_s3source_basiclookupstrategy_bucket_name
+        - secretKey: AUTHDB_HOST
+          remoteRef:
+            key: /services/prodeks/test-hauth/db_host
+        - secretKey: AUTHDB_NAME
+          remoteRef:
+            key: /services/prodeks/test-hauth/db_name
+        - secretKey: AUTHDB_PASSWORD
+          remoteRef:
+            key: /services/prodeks/test-hauth/db_password
+        - secretKey: AUTHDB_USERNAME
+          remoteRef:
+            key: /services/prodeks/test-hauth/db_user
     dockerhub:
       data:
         - secretKey: creds
