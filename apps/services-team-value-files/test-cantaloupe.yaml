@@ -162,7 +162,7 @@ configmap:
     CANTALOUPE_DELEGATE_SCRIPT_PATHNAME: "/usr/local/cantaloupe/delegate.jar"
     DELEGATE_URL: "http://build-artifacts.library.ucla.edu/cantaloupe-delegate/cantaloupe-auth-delegate-0.3.0.jar"
     TIERED_ACCESS_SCALE_CONSTRAINT: "1:8"
-    CANTALOUPE_LOG_APPLICATION_LEVEL: "DEBUG"
+    CANTALOUPE_LOG_APPLICATION_LEVEL: "INFO"
 #---------------------------------------------
 
 
