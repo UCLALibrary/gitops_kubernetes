@@ -128,7 +128,7 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
   tls:
-    - secretName: prod-ingest-iiif-tls
+    - secretName: test-libcalproxy-tls
       hosts:
         - test.proxy.calendar.library.ucla.edu
 #---------------------------------------------
