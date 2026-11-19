@@ -143,7 +143,7 @@ externalservice:
 #
 ingress:
   enabled: true
-  className: "nginx"
+  className: "traefik"
   annotations:
     kubernetes.io/tls-acme: "true"
     nginx.ingress.kubernetes.io/enable-cors: "true"
