@@ -27,7 +27,7 @@ spec:
     namespace: test-oralhistory
   sources:
     - repoURL: https://chartmuseum.library.ucla.edu
-      targetRevision: 1.0.4
+      targetRevision: 1.0.9
       chart: oralhistory
       helm:
         valueFiles:
