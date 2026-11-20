@@ -147,6 +147,8 @@ configmap:
     LIBCAL_AUTH_EXPIRES_IN_PADDING: "300"
     LIBCAL_BASE_URL: "https://calendar.library.ucla.edu"
     LIBCAL_TOKEN_ENDPOINT: "https://calendar.library.ucla.edu/1.1/oauth/token"
+    JDK_JAVA_OPTIONS: "-XX:+UnlockDiagnosticVMOptions -XX:-UseBASE64Intrinsics"
+    
 #---------------------------------------------
 
 
