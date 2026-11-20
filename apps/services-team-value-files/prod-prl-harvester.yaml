@@ -149,6 +149,7 @@ configmap:
     OAIPMH_CLIENT_HTTP_TIMEOUT: "300000"
     PGHOSTADDR: "p-d-postgres.library.ucla.edu"
     SOLR_CORE_URL: "https://p-u-prlsolr01.library.ucla.edu/solr/prl"
+    JDK_JAVA_OPTIONS: "-XX:+UnlockDiagnosticVMOptions -XX:-UseBASE64Intrinsics"
 #---------------------------------------------
 
 
