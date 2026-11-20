@@ -157,7 +157,7 @@ configmap:
     CANTALOUPE_MAX_PIXELS: "350000000"
     CANTALOUPE_S3SOURCE_CHUNKING_ENABLED: "false"
     CANTALOUPE_S3SOURCE_CHUNKING_CACHE_ENABLED: "false"
-    JAVA_OPTS: "-XX:ActiveProcessorCount=2"
+    #JAVA_OPTS: "-XX:ActiveProcessorCount=2"
     CANTALOUPE_DELEGATE_SCRIPT_ENABLED: "true"
     CANTALOUPE_DELEGATE_SCRIPT_PATHNAME: "/usr/local/cantaloupe/delegate.jar"
     DELEGATE_URL: "http://build-artifacts.library.ucla.edu/cantaloupe-delegate/cantaloupe-auth-delegate-0.3.0.jar"
