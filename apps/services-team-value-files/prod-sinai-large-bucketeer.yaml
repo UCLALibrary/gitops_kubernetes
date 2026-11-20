@@ -175,6 +175,7 @@ configmap:
     SLACK_MAX_RETRIES: "30"
     SLACK_RETRY_DELAY: "1"
     FESTER_URL: "http://iiif.library.ucla.edu/fester"
+    JDK_JAVA_OPTIONS: "-XX:+UnlockDiagnosticVMOptions -XX:-UseBASE64Intrinsics"
 #---------------------------------------------
 
 
