@@ -164,6 +164,7 @@ configmap:
     HEAP_SIZE: "8g"
     CANTALOUPE_S3SOURCE_CHUNKING_ENABLED: "false"
     CANTALOUPE_S3SOURCE_CHUNKING_CACHE_ENABLED: "false"
+    JDK_JAVA_OPTIONS: "-XX:+UnlockDiagnosticVMOptions -XX:-UseBASE64Intrinsics"
 #---------------------------------------------
 
 
